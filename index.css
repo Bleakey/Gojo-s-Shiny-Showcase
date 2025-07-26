@@ -254,27 +254,30 @@ img {
 .noborder {
     border: none;
 }
-
 .image-wrapper {
     position: relative;
     overflow: hidden;
     display: inline-block;
     border-radius: 10px;
-    transition: transform 0.3s ease;
 }
 
+/* On agrandit légèrement les images par défaut */
 .image-wrapper img.main-img {
-    transition: transform 0.3s ease;
+    transition: transform 0.4s ease-in-out;
     display: block;
-    width: 100%;
+    width: 200%; /* <-- Plus grand que 100% */
     height: auto;
     border-radius: 10px;
+    z-index: 1;
+    position: relative;
 }
 
+/* Zoom au hover */
 .image-wrapper:hover img.main-img {
     transform: scale(1.1);
 }
 
+/* Sparkle effect */
 .image-wrapper .shiny-effect {
     position: absolute;
     top: 0;
@@ -283,27 +286,10 @@ img {
     height: 100%;
     pointer-events: none;
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.4s ease-in-out;
     z-index: 2;
 }
 
 .image-wrapper:hover .shiny-effect {
     opacity: 1;
-}
-
-@keyframes fadeInZoom {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-.image-wrapper.animate-on-load {
-  animation: fadeInZoom 0.6s ease forwards;
-  opacity: 0;
-  transform: scale(0.9);
 }
