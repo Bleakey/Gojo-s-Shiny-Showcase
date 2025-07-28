@@ -5,7 +5,6 @@
         transform: translateX(-100%);
         opacity: 0;
     }
-
     100% {
         transform: translateX(0);
         opacity: 1;
@@ -26,11 +25,14 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow-y: auto;
 }
 
 input::placeholder {
     color: #000 !important;
-    /* Gray color for placeholder text */
 }
 
 .HeaderButton {
@@ -80,7 +82,7 @@ input:focus {
 }
 
 .hover-image img:hover {
-    content: url('images/Preview\ Hover.png');
+    content: url('images/Preview Hover.png');
 }
 
 hr {
@@ -157,7 +159,6 @@ strong {
         transform: translateX(-100%);
         opacity: 0;
     }
-
     100% {
         transform: translateX(0);
         opacity: 1;
@@ -168,7 +169,6 @@ strong {
     0% {
         opacity: 0;
     }
-
     100% {
         opacity: 1;
     }
@@ -179,7 +179,6 @@ strong {
         transform: scale(0.8);
         opacity: 0.5;
     }
-
     100% {
         transform: scale(1);
         opacity: 1;
@@ -187,19 +186,12 @@ strong {
 }
 
 @keyframes bounce {
-
-    0%,
-    20%,
-    50%,
-    80%,
-    100% {
+    0%, 20%, 50%, 80%, 100% {
         transform: translateY(0);
     }
-
     40% {
         transform: translateY(-10px);
     }
-
     60% {
         transform: translateY(-5px);
     }
@@ -236,7 +228,6 @@ strong {
     background-position: center;
     opacity: 0;
     transition: opacity 1s ease;
-    /* Smooth fade transition */
 }
 
 .bg-image.active {
@@ -254,29 +245,28 @@ img {
     border: none;
 }
 
+/* ==== Modification importante ici ==== */
 .image-wrapper {
     position: relative;
-    overflow: hidden;
+    overflow: visible; /* Permet aux drop-shadow de s'afficher pleinement */
     display: inline-flex;
+    border-radius: 10px;
 }
 
-/* On agrandit légèrement les images par défaut */
 .image-wrapper img.main-img {
+    border-radius: 10px;
     transition: transform 0.4s ease-in-out;
     display: block;
     width: 100%;
     height: auto;
-    border-radius: 10px;
-    z-index: 1;
     position: relative;
+    z-index: 1;
 }
 
-/* Zoom au hover */
 .image-wrapper:hover img.main-img {
     transform: scale(1.2);
 }
 
-/* Sparkle effect */
 .image-wrapper .shiny-effect {
     position: absolute;
     top: 0;
@@ -287,6 +277,7 @@ img {
     opacity: 0;
     transition: opacity 0.4s ease-in-out;
     z-index: 2;
+    border-radius: 10px;
 }
 
 .image-wrapper:hover .shiny-effect {
@@ -304,104 +295,12 @@ img {
     z-index: 10;
 }
 
-body,
-html {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    overflow: hidden;
-}
-
-html,
-body {
-    height: 100%;
-    overflow-y: auto;
-    /* ou scroll */
-    margin: 0;
-    padding: 0;
-}
-
-#background-blur {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: url('Images/background.gif');
-    background-size: cover;
-    background-repeat: no-repeat;
-    filter: blur(8px);
-    z-index: -1;
-    pointer-events: none;
-    /* très important */
-}
-
-#container {
-    position: relative;
-    /* nécessaire pour que backgroundPosition fonctionne */
-    min-height: 100vh;
-    /* pour pouvoir scroller */
-    z-index: 1;
-}
-
-#background-blur {
-    pointer-events: none;
-    /* Laisse passer les clics et le scroll */
-}
-
-/* État normal, pas flou */
-#background-blur {
-    filter: blur(0px);
-    transition: filter 0.5s ease;
-}
-
-/* État flouté */
-#background-blur.blur-active {
-    filter: blur(8px);
-}
-
-.shiny-text {
-    position: relative;
-    display: inline-block;
-    font-size: 3rem;
-    font-weight: bold;
-    color: #fff;
-    background: linear-gradient(90deg, #fff, #ffd700, #fff);
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
-    overflow: hidden;
-}
-
-.shiny-text::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -75%;
-    width: 50%;
-    height: 100%;
-    background: linear-gradient(120deg,
-            rgba(255, 255, 255, 0) 0%,
-            rgba(255, 255, 255, 0.8) 50%,
-            rgba(255, 255, 255, 0) 100%);
-    transform: skewX(-20deg);
-    animation: shine 2s infinite;
-}
-
-@keyframes shine {
-    0% {
-        left: -75%;
-    }
-
-    100% {
-        left: 125%;
-    }
-}
-
 .pokemon-card {
     position: relative;
     display: inline-block;
     margin: 20px;
+    padding: 50px; /* Espace pour aura */
+    vertical-align: top; /* Alignement propre en ligne */
 }
 
 .stats-panel {
@@ -452,8 +351,6 @@ body {
     transform: skewX(-25deg);
     z-index: 1;
     pointer-events: none;
-    /* linear-gradient supprimé */
-    /* tu peux enlever complètement ce ::before si inutile */
 }
 
 .pokemon-card .stats-panel::after {
@@ -474,17 +371,53 @@ body {
     mix-blend-mode: screen;
 }
 
-
-
-/* Slight tilt animation without translate to avoid shift */
 @keyframes panelTilt {
-  0% {
-    transform: skewY(5deg);
-  }
-  50% {
-    transform: skewY(-5deg);
-  }
-  100% {
-    transform: skewY(5deg);
-  }
+    0% {
+        transform: skewY(5deg);
+    }
+    50% {
+        transform: skewY(-5deg);
+    }
+    100% {
+        transform: skewY(5deg);
+    }
+}
+
+/* Auras sur les images (appliquer sur img.main-img) */
+.aura-gold {
+    filter:
+      drop-shadow(0 0 5px rgba(255, 215, 0, 0.6))
+      drop-shadow(0 0 15px rgba(255, 215, 0, 0.4));
+    transition: filter 0.3s ease;
+}
+.aura-purple {
+    filter:
+      drop-shadow(0 0 5px rgba(170, 0, 255, 0.6))
+      drop-shadow(0 0 15px rgba(170, 0, 255, 0.4));
+    transition: filter 0.3s ease;
+}
+.aura-blue {
+    filter:
+      drop-shadow(0 0 5px rgba(0, 200, 255, 0.6))
+      drop-shadow(0 0 15px rgba(0, 200, 255, 0.4));
+    transition: filter 0.3s ease;
+}
+
+#background-blur {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('Images/background.gif');
+    background-size: cover;
+    background-repeat: no-repeat;
+    filter: blur(0px);
+    z-index: -1;
+    pointer-events: none;
+    transition: filter 0.5s ease;
+}
+
+#background-blur.blur-active {
+    filter: blur(8px);
 }

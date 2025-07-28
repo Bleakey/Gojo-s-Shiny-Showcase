@@ -194,33 +194,69 @@ currentHunts.forEach(pkm => {
 addImageHoverListeners(); // appliquer aussi le blur à ces images
 
 function addImageHoverListeners() {
-  const images = document.querySelectorAll('.image-wrapper');
+  const wrappers = document.querySelectorAll('.image-wrapper');
   const otherImages = document.querySelectorAll('.image-blur');
   const backgroundBlur = document.getElementById('background-blur');
+  const hoverSound = document.getElementById("hover-sound");
 
-  images.forEach(img => {
-    img.addEventListener('mouseenter', () => {
-      images.forEach(otherImg => {
-        if (otherImg !== img) {
-          otherImg.classList.add('blur-all-but-focus');
+  if (hoverSound) {
+    hoverSound.volume = 0.1;
+  }
+
+  wrappers.forEach(wrapper => {
+    const mainImg = wrapper.querySelector('img.main-img');
+    if (!mainImg) return;
+
+    wrapper.addEventListener('mouseenter', () => {
+      // Floute les autres wrappers sauf celui survolé
+      wrappers.forEach(otherWrapper => {
+        if (otherWrapper !== wrapper) {
+          otherWrapper.classList.add('blur-all-but-focus');
         }
       });
       otherImages.forEach(blurImg => {
         blurImg.classList.add('blur-all-but-focus');
       });
-      img.classList.add('focused');
+
+      wrapper.classList.add('focused');
       backgroundBlur.style.filter = 'blur(8px)';
+
+      // Son hover
+      if (hoverSound) {
+        hoverSound.currentTime = 0;
+        hoverSound.play().catch(() => {});
+      }
+
+      // Retirer aura précédente sur l'image
+      if (mainImg.dataset.aura) {
+        mainImg.classList.remove(mainImg.dataset.aura);
+        delete mainImg.dataset.aura;
+      }
+
+      // Choisir aura aléatoire
+      const auraOptions = ['aura-gold', 'aura-purple', 'aura-blue'];
+      const auraClass = auraOptions[Math.floor(Math.random() * auraOptions.length)];
+      mainImg.classList.add(auraClass);
+      mainImg.dataset.aura = auraClass;
+
+      console.log('Aura ajoutée:', auraClass);
     });
 
-    img.addEventListener('mouseleave', () => {
-      images.forEach(otherImg => {
-        otherImg.classList.remove('blur-all-but-focus');
+    wrapper.addEventListener('mouseleave', () => {
+      wrappers.forEach(otherWrapper => {
+        otherWrapper.classList.remove('blur-all-but-focus');
       });
       otherImages.forEach(blurImg => {
         blurImg.classList.remove('blur-all-but-focus');
       });
-      img.classList.remove('focused');
+      wrapper.classList.remove('focused');
       backgroundBlur.style.filter = 'blur(0px)';
+
+      if (mainImg.dataset.aura) {
+        console.log('Aura retirée:', mainImg.dataset.aura);
+        mainImg.classList.remove(mainImg.dataset.aura);
+        delete mainImg.dataset.aura;
+      }
     });
   });
 }
