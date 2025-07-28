@@ -84,10 +84,10 @@ input:focus {
 }
 
 hr {
-  border: none;
-  height: 4px;
-  background: linear-gradient(to right, transparent, #ccc, transparent);
-  margin: 20px 0;
+    border: none;
+    height: 4px;
+    background: linear-gradient(to right, transparent, #ccc, transparent);
+    margin: 20px 0;
 }
 
 ul {
@@ -253,6 +253,7 @@ img {
 .noborder {
     border: none;
 }
+
 .image-wrapper {
     position: relative;
     overflow: hidden;
@@ -264,7 +265,8 @@ img {
 .image-wrapper img.main-img {
     transition: transform 0.4s ease-in-out;
     display: block;
-    width: 200%; /* <-- Plus grand que 100% */
+    width: 200%;
+    /* <-- Plus grand que 100% */
     height: auto;
     border-radius: 10px;
     z-index: 1;
@@ -294,56 +296,155 @@ img {
 }
 
 .blur-all-but-focus {
-  filter: blur(5px);
-  transition: filter 0.3s ease;
+    filter: blur(5px);
+    transition: filter 0.3s ease;
 }
 
 .image-wrapper.focused {
-  filter: none !important;
-  position: relative;
-  z-index: 10;
+    filter: none !important;
+    position: relative;
+    z-index: 10;
 }
 
-body, html {
-  margin: 0; padding: 0; height: 100%;
-  overflow: hidden;
+body,
+html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
 }
 
-html, body {
-  height: 100%;
-  overflow-y: auto;  /* ou scroll */
-  margin: 0;
-  padding: 0;
+html,
+body {
+    height: 100%;
+    overflow-y: auto;
+    /* ou scroll */
+    margin: 0;
+    padding: 0;
 }
 
 #background-blur {
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background-image: url('Images/background.gif');
-  background-size: cover;
-  background-repeat: no-repeat;
-  filter: blur(8px);
-  z-index: -1;
-  pointer-events: none;  /* très important */
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('Images/background.gif');
+    background-size: cover;
+    background-repeat: no-repeat;
+    filter: blur(8px);
+    z-index: -1;
+    pointer-events: none;
+    /* très important */
 }
 
 #container {
-  position: relative;  /* nécessaire pour que backgroundPosition fonctionne */
-  min-height: 100vh; /* pour pouvoir scroller */
-  z-index: 1;
+    position: relative;
+    /* nécessaire pour que backgroundPosition fonctionne */
+    min-height: 100vh;
+    /* pour pouvoir scroller */
+    z-index: 1;
 }
 
 #background-blur {
-  pointer-events: none;  /* Laisse passer les clics et le scroll */
+    pointer-events: none;
+    /* Laisse passer les clics et le scroll */
 }
 
 /* État normal, pas flou */
 #background-blur {
-  filter: blur(0px);
-  transition: filter 0.5s ease;
+    filter: blur(0px);
+    transition: filter 0.5s ease;
 }
 
 /* État flouté */
 #background-blur.blur-active {
-  filter: blur(8px);
+    filter: blur(8px);
+}
+
+.shiny-text {
+    position: relative;
+    display: inline-block;
+    font-size: 3rem;
+    font-weight: bold;
+    color: #fff;
+    background: linear-gradient(90deg, #fff, #ffd700, #fff);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    overflow: hidden;
+}
+
+.shiny-text::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -75%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(120deg,
+            rgba(255, 255, 255, 0) 0%,
+            rgba(255, 255, 255, 0.8) 50%,
+            rgba(255, 255, 255, 0) 100%);
+    transform: skewX(-20deg);
+    animation: shine 2s infinite;
+}
+
+@keyframes shine {
+    0% {
+        left: -75%;
+    }
+
+    100% {
+        left: 125%;
+    }
+}
+
+.pokemon-card {
+    position: relative;
+    display: inline-block;
+    margin: 20px;
+}
+
+.stats-panel {
+    position: absolute;
+    top: 0;
+    left: 105%;
+    width: 220px;
+    padding: 10px;
+    background: rgba(10, 10, 10, 0.95);
+    border: 2px solid #ffffff;
+    box-shadow: 0 0 5px #fff2, 0 0 10px #000a;
+    color: #f0f0f0;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 15px;
+    line-height: 1.8;
+    display: none;
+    z-index: 10;
+    border-radius: 10px;
+    image-rendering: pixelated;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+    background-image: url('Images/summaryBG.webp');
+    background-size: cover;
+}
+
+.pokemon-card:hover .stats-panel {
+    display: block;
+    animation: fadeInStats 0.3s ease-out forwards;
+}
+
+@keyframes fadeInStats {
+    from {
+        opacity: 0;
+        transform: translateX(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.greyed {
+  filter: grayscale(100%);
 }
