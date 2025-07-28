@@ -421,3 +421,39 @@ img {
 #background-blur.blur-active {
     filter: blur(8px);
 }
+
+.btn-activate-sound {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 12px;
+  color: #fcc11c;
+  background-color: #2a78a5;
+  border: 2px solid #fcc11c;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 
+    background-color 0.3s ease,
+    color 0.3s ease,
+    box-shadow 0.3s ease;
+  box-shadow: 0 0 10px #2a78a5;
+  user-select: none;
+  display: inline-block;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+.btn-activate-sound:hover:not(:disabled) {
+  background-color: #fcc11c;
+  color: #2a78a5;
+  box-shadow: 0 0 20px #fcc11c;
+}
+
+.btn-activate-sound:disabled {
+  background-color: #444;
+  color: #999;
+  border-color: #666;
+  box-shadow: none;
+  cursor: default;
+  opacity: 0.7;
+}

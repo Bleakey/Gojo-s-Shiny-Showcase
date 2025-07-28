@@ -65,6 +65,18 @@ images.forEach(img => {
 
     img.classList.remove('focused');
   });
+
+  wrapper.addEventListener('mouseenter', () => {
+  // ... ton code existant de flou etc.
+
+  // Son hover
+  if (isSoundUnlocked && hoverSound) {
+    hoverSound.currentTime = 0;
+    hoverSound.play().catch(() => {});
+  }
+
+  // ... suite du code
+});
 });
 
 // Flou du fond pendant le survol d’une image
@@ -158,7 +170,9 @@ const pokemonList = [
   { name: "Duskull", img: "Meowth.gif", dex: "052", method: "5x hordes", sold: "✘" },
   { name: "Magikarp", img: "Magikarp.gif", dex: "129", method: "5x hordes", sold: "✔" },
   { name: "Gothitelle", img: "Gothitelle.png", dex: "576", method: "5x hordes", sold: "✘" },
-  ...Array(10).fill({ name: "Bibarel", img: "Bibarel.png", dex: "400", method: "3x hordes", sold: "✔" }),
+  ...Array(9).fill({ name: "Bibarel", img: "Bibarel.png", dex: "400", method: "3x hordes", sold: "✔" }),
+  { name: "Bibarel", img: "Bibarel.png", dex: "400", method: "3x hordes", sold: "✘" },
+  { name: "Bibarel", img: "Bibarel.png", dex: "400", method: "3x hordes", sold: "✘" },
   { name: "Bibarel", img: "Bibarel.png", dex: "400", method: "3x hordes", sold: "✘" },
   { name: "Gardevoir", img: "Gardevoir.gif", dex: "282", method: "3x hordes", sold: "✘" },
   { name: "Gallade", img: "Sgallade.gif", dex: "475", method: "3x hordes", sold: "✘" },
@@ -260,3 +274,22 @@ function addImageHoverListeners() {
     });
   });
 }
+
+let isSoundUnlocked = false;
+const hoverSound = document.getElementById("hover-sound");
+const activateSoundBtn = document.getElementById("activate-sound-btn");
+
+activateSoundBtn.addEventListener('click', () => {
+  if (!isSoundUnlocked) {
+    hoverSound.play().then(() => {
+      hoverSound.pause();
+      hoverSound.currentTime = 0;
+      isSoundUnlocked = true;
+      activateSoundBtn.textContent = "Sons activés ✔";
+      activateSoundBtn.disabled = true;
+      console.log("Son débloqué par clic utilisateur");
+    }).catch(() => {
+      console.log("Impossible de débloquer le son");
+    });
+  }
+});
