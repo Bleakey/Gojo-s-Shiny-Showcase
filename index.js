@@ -90,3 +90,137 @@ function toggleBlur(active) {
     bg.classList.remove('blur-active'); // Désactive le flou
   }
 }
+
+class PokemonCard {
+  constructor({ name, img, dex, method, sold, encounters }) {
+    this.name = name;
+    this.img = img;
+    this.dex = dex;
+    this.method = method;
+    this.sold = sold;
+    this.encounters = encounters ?? "?";
+  }
+
+  render() {
+    return `
+      <div class="pokemon-card col-6 col-md-3 col-lg-2 mb-4">
+        <div class="image-wrapper">
+          <img src="Images/Shinys/${this.img}" alt="${this.name}" class="img-fluid main-img image-wrapper animate-on-load">
+          <img src="Images/shiny-effect.gif" alt="" class="shiny-effect">
+        </div>
+        <div class="stats-panel">
+          <ul>
+            <li><strong>Ecounters :</strong> ${this.encounters}</li>
+            <li><strong>Ecounter type : </strong> ${this.method}</li>
+            <li><strong>Pokédex :</strong> ${this.dex}</li>
+            <li><strong>Name :</strong> ${this.name}</li>
+            <li><strong>Sold :</strong> ${this.sold}</li>
+          </ul>
+        </div>
+      </div>
+    `;
+  }
+}
+
+class CurrentHuntCard {
+  constructor({ name, img, encounters, method }) {
+    this.name = name;
+    this.img = img;
+    this.encounters = encounters ?? "?";
+    this.method = method ?? "5x hordes";
+  }
+
+  render() {
+    return `
+      <div class="pokemon-card col-6 col-md-3 col-lg-2 mb-4">
+        <div class="image-wrapper">
+          <img src="Images/Shinys/${this.img}" alt="${this.name}" class="img-fluid main-img image-wrapper animate-on-load">
+          <img src="Images/shiny-effect.gif" alt="" class="shiny-effect">
+        </div>
+        <div class="stats-panel">
+          <ul>
+            <li><strong>Ecounter type :</strong> ${this.method}</li>
+            <li><strong>Ecounters :</strong> ${this.encounters}</li>
+          </ul>
+        </div>
+      </div>
+    `;
+  }
+}
+
+const pokemonList = [
+  { name: "Poliwag", img: "ptitard.png", dex: "060", method: "5x hordes", sold: "✔" },
+  { name: "Druddigon", img: "druddigon.gif", dex: "621", method: "5x hordes", sold: "✔" },
+  { name: "Lopunny", img: "lopunny.gif", dex: "428", method: "3x hordes", sold: "✘" },
+  { name: "Duskull", img: "duskull.gif", dex: "355", method: "5x hordes", sold: "✘" },
+  { name: "Sableye", img: "sableye.gif", dex: "302", method: "5x hordes", sold: "✔" },
+  { name: "Roserade", img: "roserade.gif", dex: "407", method: "3x hordes", sold: "✘" },
+  { name: "Duskull", img: "Meowth.gif", dex: "052", method: "5x hordes", sold: "✘" },
+  { name: "Magikarp", img: "Magikarp.gif", dex: "129", method: "5x hordes", sold: "✔" },
+  { name: "Gothitelle", img: "Gothitelle.png", dex: "576", method: "5x hordes", sold: "✘" },
+  ...Array(10).fill({ name: "Bibarel", img: "Bibarel.png", dex: "400", method: "3x hordes", sold: "✔" }),
+  { name: "Bibarel", img: "Bibarel.png", dex: "400", method: "3x hordes", sold: "✘" },
+  { name: "Gardevoir", img: "Gardevoir.gif", dex: "282", method: "3x hordes", sold: "✘" },
+  { name: "Gallade", img: "Sgallade.gif", dex: "475", method: "3x hordes", sold: "✘" },
+  { name: "Smeargle", img: "Smeargle.gif", dex: "235", method: "5x hordes", sold: "✘" },
+  { name: "Cofagrigus", img: "Cofagrigus.gif", dex: "563", method: "5x hordes", sold: "✘" },
+  { name: "Golem", img: "Graveler.png", dex: "076", method: "5x hordes", sold: "✘", encounters: 3214 },
+  { name: "Graveler", img: "gravalanche.png", dex: "075", method: "5x hordes", sold: "✘", encounters: 38064 },
+  { name: "Graveler", img: "gravalanche.png", dex: "075", method: "5x hordes", sold: "✘", encounters: 5652 },
+  { name: "Graveler", img: "gravalanche.png", dex: "075", method: "5x hordes", sold: "✘", encounters: 35420 },
+  { name: "Walrein", img: "Walrein.gif", dex: "365", method: "5x hordes", sold: "✘", encounters: 31139 },
+  { name: "Sealeo", img: "Sealeo.png", dex: "364", method: "5x hordes", sold: "✘", encounters: 42202 },
+];
+
+const currentHunts = [
+  { name: "Snorunt", img: "Snorunt.png", encounters: 27920, method: "5x hordes" },
+  { name: "Wooper", img: "Wooper.png", encounters: 17740, method: "5x hordes" },
+  { name: "Deino", img: "Deino.png", encounters: 3578, method: "5x hordes" },
+  { name: "Lairon", img: "Lairon.png", encounters: 15230, method: "5x hordes" },
+];
+
+const showcaseContainer = document.getElementById("shiny-showcase");
+pokemonList.forEach(pkm => {
+  const card = new PokemonCard(pkm);
+  showcaseContainer.innerHTML += card.render();
+  addImageHoverListeners();
+});
+
+const currentHuntContainer = document.getElementById("current-hunts");
+currentHunts.forEach(pkm => {
+  const hunt = new CurrentHuntCard(pkm);
+  currentHuntContainer.innerHTML += hunt.render();
+});
+addImageHoverListeners(); // appliquer aussi le blur à ces images
+
+function addImageHoverListeners() {
+  const images = document.querySelectorAll('.image-wrapper');
+  const otherImages = document.querySelectorAll('.image-blur');
+  const backgroundBlur = document.getElementById('background-blur');
+
+  images.forEach(img => {
+    img.addEventListener('mouseenter', () => {
+      images.forEach(otherImg => {
+        if (otherImg !== img) {
+          otherImg.classList.add('blur-all-but-focus');
+        }
+      });
+      otherImages.forEach(blurImg => {
+        blurImg.classList.add('blur-all-but-focus');
+      });
+      img.classList.add('focused');
+      backgroundBlur.style.filter = 'blur(8px)';
+    });
+
+    img.addEventListener('mouseleave', () => {
+      images.forEach(otherImg => {
+        otherImg.classList.remove('blur-all-but-focus');
+      });
+      otherImages.forEach(blurImg => {
+        blurImg.classList.remove('blur-all-but-focus');
+      });
+      img.classList.remove('focused');
+      backgroundBlur.style.filter = 'blur(0px)';
+    });
+  });
+}
