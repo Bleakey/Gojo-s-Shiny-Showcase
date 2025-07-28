@@ -257,16 +257,14 @@ img {
 .image-wrapper {
     position: relative;
     overflow: hidden;
-    display: inline-block;
-    border-radius: 10px;
+    display: inline-flex;
 }
 
 /* On agrandit légèrement les images par défaut */
 .image-wrapper img.main-img {
     transition: transform 0.4s ease-in-out;
     display: block;
-    width: 200%;
-    /* <-- Plus grand que 100% */
+    width: 100%;
     height: auto;
     border-radius: 10px;
     z-index: 1;
@@ -275,7 +273,7 @@ img {
 
 /* Zoom au hover */
 .image-wrapper:hover img.main-img {
-    transform: scale(1.1);
+    transform: scale(1.2);
 }
 
 /* Sparkle effect */
@@ -424,13 +422,13 @@ body {
     border-radius: 10px;
     image-rendering: pixelated;
     transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
-    background-image: url('Images/summaryBG.webp');
+    background-image: url('Images/landscape.gif');
     background-size: cover;
 }
 
 .pokemon-card:hover .stats-panel {
     display: block;
-    animation: fadeInStats 0.3s ease-out forwards;
+    animation: fadeInStats 0.3s ease-out forwards, panelTilt 2s ease-in-out infinite;
 }
 
 @keyframes fadeInStats {
@@ -438,9 +436,55 @@ body {
         opacity: 0;
         transform: translateX(-10px);
     }
-
     to {
         opacity: 1;
         transform: translateX(0);
     }
+}
+
+.pokemon-card .stats-panel::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    transform: skewX(-25deg);
+    z-index: 1;
+    pointer-events: none;
+    /* linear-gradient supprimé */
+    /* tu peux enlever complètement ce ::before si inutile */
+}
+
+.pokemon-card .stats-panel::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    border-radius: 10px;
+    background: transparent;
+    box-shadow:
+        10% 20% 0 1px white,
+        30% 50% 0 1.5px white,
+        60% 30% 0 1px white,
+        80% 70% 0 1.2px white,
+        50% 80% 0 1px white,
+        20% 60% 0 1.3px white;
+    mix-blend-mode: screen;
+}
+
+
+
+/* Slight tilt animation without translate to avoid shift */
+@keyframes panelTilt {
+  0% {
+    transform: skewY(5deg);
+  }
+  50% {
+    transform: skewY(-5deg);
+  }
+  100% {
+    transform: skewY(5deg);
+  }
 }
