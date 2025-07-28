@@ -92,8 +92,7 @@ function toggleBlur(active) {
 }
 
 // SFX Quand on passe sur une image
-const shinyHoverSound = new Audio('sounds
-/hover.mp3');
+const shinyHoverSound = new Audio('sounds/hover.mp3');
 shinyHoverSound.volume = 0.1;
 
 const shinyCards = document.querySelectorAll('.image-wrapper');
