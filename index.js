@@ -92,7 +92,7 @@ function toggleBlur(active) {
 }
 
 // SFX Quand on passe sur une image
-const shinyHoverSound = new Audio('Gojo-s-Shiny-Showcase/sounds
+const shinyHoverSound = new Audio('sounds
 /hover.mp3');
 shinyHoverSound.volume = 0.1;
 
