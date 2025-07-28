@@ -285,7 +285,7 @@ activateSoundBtn.addEventListener('click', () => {
       hoverSound.pause();
       hoverSound.currentTime = 0;
       isSoundUnlocked = true;
-      activateSoundBtn.textContent = "Sons activés ✔";
+      activateSoundBtn.textContent = "Sounds activated ✔";
       activateSoundBtn.disabled = true;
       console.log("Son débloqué par clic utilisateur");
     }).catch(() => {
