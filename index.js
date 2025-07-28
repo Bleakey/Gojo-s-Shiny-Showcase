@@ -90,16 +90,3 @@ function toggleBlur(active) {
     bg.classList.remove('blur-active'); // Désactive le flou
   }
 }
-
-// SFX Quand on passe sur une image
-const shinyHoverSound = new Audio('sounds/hover.mp3');
-shinyHoverSound.volume = 0.1;
-
-const shinyCards = document.querySelectorAll('.image-wrapper');
-
-shinyCards.forEach(card => {
-  card.addEventListener('mouseenter', () => {
-    shinyHoverSound.currentTime = 0; 
-    shinyHoverSound.play();       
-  });
-});
