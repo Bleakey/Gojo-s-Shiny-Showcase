@@ -184,13 +184,13 @@ const pokemonList = [
   { name: "Graveler", img: "gravalanche.png", dex: "075", method: "5x hordes", sold: "✘", encounters: 35420 },
   { name: "Walrein", img: "Walrein.gif", dex: "365", method: "5x hordes", sold: "✘", encounters: 31139 },
   { name: "Sealeo", img: "Sealeo.png", dex: "364", method: "5x hordes", sold: "✘", encounters: 42202 },
+  { name: "Lairon", img: "Lairon.png", dex: "305", method: "5x hordes", sold: "✘", encounters: 46914 },
 ];
 
 const currentHunts = [
   { name: "Snorunt", img: "Snorunt.png", encounters: 27920, method: "5x hordes" },
   { name: "Wooper", img: "Wooper.png", encounters: 17740, method: "5x hordes" },
   { name: "Deino", img: "Deino.png", encounters: 3578, method: "5x hordes" },
-  { name: "Lairon", img: "Lairon.png", encounters: 15230, method: "5x hordes" },
 ];
 
 const showcaseContainer = document.getElementById("shiny-showcase");
