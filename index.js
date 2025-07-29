@@ -193,12 +193,18 @@ const currentHunts = [
   { name: "Deino", img: "Deino.png", encounters: 3578, method: "5x hordes" },
 ];
 
+const shinyCount = document.getElementById("shiny-count");
+shinyCount.innerHTML = "<li> <strong> Shiny count : </strong>" + pokemonList.length + "</li>";
+
 const showcaseContainer = document.getElementById("shiny-showcase");
 pokemonList.forEach(pkm => {
   const card = new PokemonCard(pkm);
   showcaseContainer.innerHTML += card.render();
   addImageHoverListeners();
 });
+
+
+
 
 const currentHuntContainer = document.getElementById("current-hunts");
 currentHunts.forEach(pkm => {
