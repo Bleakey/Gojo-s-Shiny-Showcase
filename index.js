@@ -1,165 +1,218 @@
-// Fonction IIFE (Immediately Invoked Function Expression) pour isoler le scope
+// IIFE : fonction auto-exécutée pour isoler le scope et éviter les conflits globaux
 (function () {
-  const elem = document.querySelector("#background-blur"); // Récupère l'élément avec l'ID "background-blur"
+  // Récupère l'élément HTML avec l'ID "background-blur"
+  const elem = document.querySelector("#background-blur");
 
-  // Écouteur de mouvement de la souris sur tout le document
+  // Ajoute un écouteur d'événement pour suivre les mouvements de la souris
   document.addEventListener("mousemove", parallax);
 
-  // Fonction qui applique un effet de parallaxe au fond
+  // Fonction qui crée un effet de parallaxe en décalant le background selon la position de la souris
   function parallax(e) {
-    let _w = window.innerWidth / 2;  // Centre de l'écran en largeur
-    let _h = window.innerHeight / 2; // Centre de l'écran en hauteur
-    let _mouseX = e.clientX;         // Position X de la souris
-    let _mouseY = e.clientY;         // Position Y de la souris
+    // Centre horizontal et vertical de la fenêtre
+    let _w = window.innerWidth / 2;
+    let _h = window.innerHeight / 2;
 
-    // Calcul de différents niveaux de profondeur pour l'effet de parallaxe
+    // Position X et Y de la souris dans la fenêtre
+    let _mouseX = e.clientX;
+    let _mouseY = e.clientY;
+
+    // Calcul des différentes positions de background pour simuler la profondeur (parallax)
+    // Le pourcentage est calculé pour déplacer le background légèrement en fonction du décalage souris/centre
     let _depth1 = `${50 - (_mouseX - _w) * 0.01}% ${50 - (_mouseY - _h) * 0.01}%`;
     let _depth2 = `${50 - (_mouseX - _w) * 0.02}% ${50 - (_mouseY - _h) * 0.02}%`;
     let _depth3 = `${50 - (_mouseX - _w) * 0.06}% ${50 - (_mouseY - _h) * 0.06}%`;
 
-    // Combine les positions pour créer un effet de couches
+    // Combine ces trois positions pour un effet de plusieurs couches
     let x = `${_depth3}, ${_depth2}, ${_depth1}`;
-    elem.style.backgroundPosition = x; // Applique les positions comme background-position
+
+    // Applique la nouvelle position du background à l’élément
+    elem.style.backgroundPosition = x;
   }
 })();
 
-// ANIMATION D'EN-TÊTE AU CHARGEMENT DE LA PAGE
+// Animation de l’image d’en-tête lors du chargement de la page
 window.onload = function () {
-  const headerImage = document.querySelector('.header-img'); // Cible l’image d’en-tête
-  const animations = ['bounce']; // Liste d’animations possibles (une seule ici, extensible)
-  const randomAnimation = animations[Math.floor(Math.random() * animations.length)]; // Choisit une animation au hasard
-  headerImage.classList.add(randomAnimation); // Applique l’animation
+  // Sélectionne l’image ayant la classe 'header-img'
+  const headerImage = document.querySelector('.header-img');
+
+  // Liste d’animations possibles (ici une seule pour l’instant)
+  const animations = ['bounce'];
+
+  // Sélectionne une animation au hasard (utile si plusieurs animations sont ajoutées)
+  const randomAnimation = animations[Math.floor(Math.random() * animations.length)];
+
+  // Si l’image existe, ajoute la classe d’animation
+  if (headerImage) {
+    headerImage.classList.add(randomAnimation);
+  }
 };
 
-// Gestion du flou lors du survol d’une image
-const images = document.querySelectorAll('.image-wrapper'); // Toutes les images principales
-const otherImages = document.querySelectorAll('.image-blur'); // Autres éléments pouvant être floutés
+// Fonction pour gérer les effets au passage de la souris sur les images Pokémon
+function addImageHoverListeners() {
+  // Récupère toutes les zones contenant une image et ses infos (wrapper)
+  const wrappers = document.querySelectorAll('.image-wrapper');
 
-images.forEach(img => {
-  img.addEventListener('mouseenter', () => {
-    // Floute toutes les autres .image-wrapper sauf celle survolée
-    images.forEach(otherImg => {
-      if (otherImg !== img) {
-        otherImg.classList.add('blur-all-but-focus');
+  // Récupère toutes les images avec la classe 'image-blur' (celles à flouter)
+  const otherImages = document.querySelectorAll('.image-blur');
+
+  // Récupère l’élément de fond flouté
+  const backgroundBlur = document.getElementById('background-blur');
+
+  // Récupère l’élément audio qui joue un son au hover
+  const hoverSound = document.getElementById("hover-sound");
+
+  // Définit le volume du son si l’élément audio existe
+  if (hoverSound) {
+    hoverSound.volume = 0.1;
+  }
+
+  // Pour chaque wrapper (image + stats), ajoute des écouteurs d’événements souris
+  wrappers.forEach(wrapper => {
+    // Quand la souris entre dans la zone
+    wrapper.addEventListener('mouseenter', () => {
+      // Floute tous les autres wrappers sauf celui survolé
+      wrappers.forEach(otherWrapper => {
+        if (otherWrapper !== wrapper) {
+          otherWrapper.classList.add('blur-all-but-focus');
+        }
+      });
+
+      // Floute toutes les autres images
+      otherImages.forEach(blurImg => {
+        blurImg.classList.add('blur-all-but-focus');
+      });
+
+      // Ajoute une classe pour marquer le wrapper focusé
+      wrapper.classList.add('focused');
+
+      // Applique un flou de 8px au background si présent
+      if (backgroundBlur) backgroundBlur.style.filter = 'blur(8px)';
+
+      // Joue le son de hover depuis le début, en ignorant les erreurs éventuelles (ex: pas d’autoplay)
+      if (hoverSound) {
+        hoverSound.currentTime = 0;
+        hoverSound.play().catch(() => { });
       }
+
+      // Ajoute une aura aléatoire sur l’image principale de la wrapper
+      const mainImg = wrapper.querySelector('img.main-img');
+      if (mainImg) {
+        // Si une aura existait déjà, la retire
+        if (mainImg.dataset.aura) {
+          mainImg.classList.remove(mainImg.dataset.aura);
+          delete mainImg.dataset.aura;
+        }
+
+        // Liste des classes d’aura possibles
+        const auraOptions = [
+          'aura-gold', 'aura-purple', 'aura-blue', 'aura-red', 'aura-green',
+          'aura-pink', 'aura-cyan', 'aura-white', 'aura-orange',
+          'aura-turquoise', 'aura-rainbow'
+        ];
+
+        // Choisit une aura au hasard
+        const auraClass = auraOptions[Math.floor(Math.random() * auraOptions.length)];
+
+        // Ajoute la classe d’aura et la stocke dans dataset pour pouvoir la retirer après
+        mainImg.classList.add(auraClass);
+        mainImg.dataset.aura = auraClass;
+      }
+
+      // Ajoute une bordure animée dorée sur le wrapper
+      wrapper.classList.add('gold-border-animated');
     });
 
-    // Floute également les éléments .image-blur
-    otherImages.forEach(blurImg => {
-      blurImg.classList.add('blur-all-but-focus');
+    // Quand la souris sort de la zone
+    wrapper.addEventListener('mouseleave', () => {
+      // Enlève le flou sur tous les wrappers et images
+      wrappers.forEach(otherWrapper => {
+        otherWrapper.classList.remove('blur-all-but-focus');
+      });
+      otherImages.forEach(blurImg => {
+        blurImg.classList.remove('blur-all-but-focus');
+      });
+
+      // Retire la classe focus du wrapper
+      wrapper.classList.remove('focused');
+
+      // Enlève le filtre blur sur le background
+      if (backgroundBlur) backgroundBlur.style.filter = 'blur(0px)';
+
+      // Retire l’aura sur l’image principale si présente
+      const mainImg = wrapper.querySelector('img.main-img');
+      if (mainImg && mainImg.dataset.aura) {
+        mainImg.classList.remove(mainImg.dataset.aura);
+        delete mainImg.dataset.aura;
+      }
+
+      // Retire la bordure animée dorée
+      wrapper.classList.remove('gold-border-animated');
     });
-
-    // Garde nette l’image survolée
-    img.classList.add('focused');
   });
-
-  img.addEventListener('mouseleave', () => {
-    // Supprime tous les flous quand la souris quitte l’image
-    images.forEach(otherImg => {
-      otherImg.classList.remove('blur-all-but-focus');
-    });
-
-    otherImages.forEach(blurImg => {
-      blurImg.classList.remove('blur-all-but-focus');
-    });
-
-    img.classList.remove('focused');
-  });
-
-  wrapper.addEventListener('mouseenter', () => {
-  // ... ton code existant de flou etc.
-
-  // Son hover
-  if (isSoundUnlocked && hoverSound) {
-    hoverSound.currentTime = 0;
-    hoverSound.play().catch(() => {});
-  }
-
-  // ... suite du code
-});
-});
-
-// Flou du fond pendant le survol d’une image
-const backgroundBlur = document.getElementById('background-blur');
-
-images.forEach(img => {
-  img.addEventListener('mouseenter', () => {
-    backgroundBlur.style.filter = 'blur(8px)'; // Applique un flou sur l’arrière-plan
-  });
-
-  img.addEventListener('mouseleave', () => {
-    backgroundBlur.style.filter = 'blur(0px)'; // Supprime le flou
-  });
-});
-
-// Fonction permettant d’activer ou désactiver le flou avec une classe CSS
-const bg = document.getElementById('background-blur');
-
-function toggleBlur(active) {
-  if (active) {
-    bg.classList.add('blur-active'); // Active le flou via une classe CSS
-  } else {
-    bg.classList.remove('blur-active'); // Désactive le flou
-  }
 }
 
+// Classe représentant une carte Pokémon shiny
 class PokemonCard {
-  constructor({ name, img, dex, method, sold, encounters }) {
-    this.name = name;
-    this.img = img;
-    this.dex = dex;
-    this.method = method;
-    this.sold = sold;
-    this.encounters = encounters ?? "?";
+  constructor({ name, img, dex, method, sold, encounters, aura = '' }) {
+    this.name = name;           // Nom du Pokémon
+    this.img = img;             // Nom du fichier image
+    this.dex = dex;             // Numéro Pokédex
+    this.method = method;       // Méthode d’obtention
+    this.sold = sold;           // Indique si vendu ou non
+    this.encounters = encounters ?? "?"; // Nombre de rencontres, ou "?" si non renseigné
   }
 
+  // Méthode qui génère le HTML de la carte
   render() {
     return `
-      <div class="pokemon-card col-6 col-md-3 col-lg-2 mb-4">
-        <div class="image-wrapper">
-          <img src="Images/Shinys/${this.img}" alt="${this.name}" class="img-fluid main-img image-wrapper animate-on-load">
-          <img src="Images/shiny-effect.gif" alt="" class="shiny-effect">
-        </div>
-        <div class="stats-panel">
-          <ul>
-            <li><strong>Ecounters :</strong> ${this.encounters}</li>
-            <li><strong>Ecounter type : </strong> ${this.method}</li>
-            <li><strong>Pokédex :</strong> ${this.dex}</li>
-            <li><strong>Name :</strong> ${this.name}</li>
-            <li><strong>Sold :</strong> ${this.sold}</li>
-          </ul>
-        </div>
+    <div class="pokemon-card col-6 col-md-4 col-lg-2 mb-4">
+      <div class="image-wrapper">
+        <img src="Images/Shinys/${this.img}" alt="${this.name}" class="img-fluid main-img ${this.aura} animate-on-load">
+        <img src="Images/shiny-effect.gif" alt="" class="shiny-effect">
       </div>
-    `;
+      <div class="stats-panel">
+        <ul>
+          <li><strong>Encounters :</strong> ${this.encounters}</li>
+          <li><strong>Encounter type :</strong> ${this.method}</li>
+          <li><strong>Pokédex :</strong> ${this.dex}</li>
+          <li><strong>Name :</strong> ${this.name}</li>
+          <li><strong>Sold :</strong> ${this.sold}</li>
+        </ul>
+      </div>
+    </div>
+  `;
   }
 }
 
+// Classe représentant une carte Current Hunt
 class CurrentHuntCard {
   constructor({ name, img, encounters, method }) {
-    this.name = name;
-    this.img = img;
-    this.encounters = encounters ?? "?";
-    this.method = method ?? "5x hordes";
+    this.name = name;               // Nom du Pokémon
+    this.img = img;                 // Image
+    this.encounters = encounters ?? "?"; // Rencontres ou "?"
+    this.method = method ?? "5x hordes"; // Méthode d’obtention par défaut
   }
 
+  // Génère le HTML de la carte current hunt
   render() {
     return `
-      <div class="pokemon-card col-6 col-md-3 col-lg-2 mb-4">
-        <div class="image-wrapper">
-          <img src="Images/Shinys/${this.img}" alt="${this.name}" class="img-fluid main-img image-wrapper animate-on-load">
-          <img src="Images/shiny-effect.gif" alt="" class="shiny-effect">
-        </div>
-        <div class="stats-panel">
-          <ul>
-            <li><strong>Ecounter type :</strong> ${this.method}</li>
-            <li><strong>Ecounters :</strong> ${this.encounters}</li>
-          </ul>
-        </div>
+    <div class="pokemon-card col-6 col-md-4 col-lg-2 mb-4">
+      <div class="image-wrapper">
+        <img src="Images/Shinys/${this.img}" alt="${this.name}" class="img-fluid main-img animate-on-load">
+        <img src="Images/shiny-effect.gif" alt="" class="shiny-effect">
       </div>
-    `;
+      <div class="stats-panel">
+        <ul>
+          <li><strong>Encounter type :</strong> ${this.method}</li>
+          <li><strong>Encounters :</strong> ${this.encounters}</li>
+        </ul>
+      </div>
+    </div>
+  `;
   }
 }
 
+// Données Pokémon
 const pokemonList = [
   { name: "Poliwag", img: "ptitard.png", dex: "060", method: "5x hordes", sold: "✔" },
   { name: "Druddigon", img: "druddigon.gif", dex: "621", method: "5x hordes", sold: "✔" },
@@ -186,116 +239,43 @@ const pokemonList = [
   { name: "Sealeo", img: "Sealeo.png", dex: "364", method: "5x hordes", sold: "✘", encounters: 42202 },
   { name: "Lairon", img: "Lairon.png", dex: "305", method: "5x hordes", sold: "✘", encounters: 46914 },
   { name: "Wooper", img: "Wooper.png", dex: "194", method: "5x hordes", sold: "✘", encounters: 25228 },
+  { name: "Krookodile", img: "Krokorok.png", dex: "552", method: "5x hordes", sold: "✘", encounters: 5461 },
 ];
 
 const currentHunts = [
   { name: "Snorunt", img: "Snorunt.png", encounters: 27920, method: "5x hordes" },
   { name: "Deino", img: "Deino.png", encounters: 3578, method: "5x hordes" },
+  { name: "Ledian", img: "Ledian.png", encounters: 0, method: "Singles" },
+  { name: "Pinsir", img: "Pinsir.png", encounters: 0, method: "Singles" },
+  { name: "Heracross", img: "Heracross.png", encounters: 0, method: "Singles" },
+  { name: "Beedrill", img: "Beedrill.png", encounters: 0, method: "Singles" },
 ];
 
+// Mise à jour du compteur shiny dans l'interface
 const shinyCount = document.getElementById("shiny-count");
-shinyCount.innerHTML = "<li> <strong> Shiny count : </strong>" + pokemonList.length + "</li>";
-
-const showcaseContainer = document.getElementById("shiny-showcase");
-pokemonList.forEach(pkm => {
-  const card = new PokemonCard(pkm);
-  showcaseContainer.innerHTML += card.render();
-  addImageHoverListeners();
-});
-
-
-
-
-const currentHuntContainer = document.getElementById("current-hunts");
-currentHunts.forEach(pkm => {
-  const hunt = new CurrentHuntCard(pkm);
-  currentHuntContainer.innerHTML += hunt.render();
-});
-addImageHoverListeners(); // appliquer aussi le blur à ces images
-
-function addImageHoverListeners() {
-  const wrappers = document.querySelectorAll('.image-wrapper');
-  const otherImages = document.querySelectorAll('.image-blur');
-  const backgroundBlur = document.getElementById('background-blur');
-  const hoverSound = document.getElementById("hover-sound");
-
-  if (hoverSound) {
-    hoverSound.volume = 0.1;
-  }
-
-  wrappers.forEach(wrapper => {
-    const mainImg = wrapper.querySelector('img.main-img');
-    if (!mainImg) return;
-
-    wrapper.addEventListener('mouseenter', () => {
-      // Floute les autres wrappers sauf celui survolé
-      wrappers.forEach(otherWrapper => {
-        if (otherWrapper !== wrapper) {
-          otherWrapper.classList.add('blur-all-but-focus');
-        }
-      });
-      otherImages.forEach(blurImg => {
-        blurImg.classList.add('blur-all-but-focus');
-      });
-
-      wrapper.classList.add('focused');
-      backgroundBlur.style.filter = 'blur(8px)';
-
-      // Son hover
-      if (hoverSound) {
-        hoverSound.currentTime = 0;
-        hoverSound.play().catch(() => {});
-      }
-
-      // Retirer aura précédente sur l'image
-      if (mainImg.dataset.aura) {
-        mainImg.classList.remove(mainImg.dataset.aura);
-        delete mainImg.dataset.aura;
-      }
-
-      // Choisir aura aléatoire
-      const auraOptions = ['aura-gold', 'aura-purple', 'aura-blue'];
-      const auraClass = auraOptions[Math.floor(Math.random() * auraOptions.length)];
-      mainImg.classList.add(auraClass);
-      mainImg.dataset.aura = auraClass;
-
-      console.log('Aura ajoutée:', auraClass);
-    });
-
-    wrapper.addEventListener('mouseleave', () => {
-      wrappers.forEach(otherWrapper => {
-        otherWrapper.classList.remove('blur-all-but-focus');
-      });
-      otherImages.forEach(blurImg => {
-        blurImg.classList.remove('blur-all-but-focus');
-      });
-      wrapper.classList.remove('focused');
-      backgroundBlur.style.filter = 'blur(0px)';
-
-      if (mainImg.dataset.aura) {
-        console.log('Aura retirée:', mainImg.dataset.aura);
-        mainImg.classList.remove(mainImg.dataset.aura);
-        delete mainImg.dataset.aura;
-      }
-    });
-  });
+if (shinyCount) {
+  shinyCount.innerHTML = `<li><strong>Shiny count :</strong> ${pokemonList.length}</li>`;
 }
 
-let isSoundUnlocked = false;
-const hoverSound = document.getElementById("hover-sound");
-const activateSoundBtn = document.getElementById("activate-sound-btn");
+// Affiche toutes les cartes shiny dans le conteneur "shiny-showcase"
+const showcaseContainer = document.getElementById("shiny-showcase");
+if (showcaseContainer) {
+  pokemonList.forEach(pkm => {
+    const card = new PokemonCard(pkm);
+    // Ajoute le HTML de la carte au conteneur
+    showcaseContainer.innerHTML += card.render();
+  });
+  // Ajoute les effets de hover sur toutes les cartes affichées
+  addImageHoverListeners();
+}
 
-activateSoundBtn.addEventListener('click', () => {
-  if (!isSoundUnlocked) {
-    hoverSound.play().then(() => {
-      hoverSound.pause();
-      hoverSound.currentTime = 0;
-      isSoundUnlocked = true;
-      activateSoundBtn.textContent = "Sounds activated ✔";
-      activateSoundBtn.disabled = true;
-      console.log("Son débloqué par clic utilisateur");
-    }).catch(() => {
-      console.log("Impossible de débloquer le son");
-    });
-  }
-});
+// Affiche toutes les cartes current hunt dans le conteneur "current-hunts"
+const currentHuntContainer = document.getElementById("current-hunts");
+if (currentHuntContainer) {
+  currentHunts.forEach(hunt => {
+    const card = new CurrentHuntCard(hunt);
+    currentHuntContainer.innerHTML += card.render();
+  });
+  // Ajoute aussi les effets hover pour ces cartes
+  addImageHoverListeners();
+}

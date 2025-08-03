@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gojo's Shiny Showcase</title>
+    <meta name="description" content="Gojo's Shiny Showcase">
+    <meta name="author" content="Chily">
+    <meta name="keywords" content="HTML, CSS, JavaScript, Web, Exemple">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="index.css">
+    <link rel="icon" href="Images/pokeball.png">
+
+    <audio id="hover-sound" src="sounds/hover.mp3"></audio>
+
+    <style>
+        .wip-container {
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .wavy-text span {
+            display: inline-block;
+            font-size: 4rem;
+            color: white;
+            text-shadow: 0 0 10px rgb(255, 255, 255);
+            animation: wave 1.5s infinite ease-in-out;
+        }
+
+        /* Each span gets a delay to make the wave effect */
+        .wavy-text span:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .wavy-text span:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .wavy-text span:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+
+        .wavy-text span:nth-child(4) {
+            animation-delay: 0.3s;
+        }
+
+        .wavy-text span:nth-child(5) {
+            animation-delay: 0.4s;
+        }
+
+        .wavy-text span:nth-child(6) {
+            animation-delay: 0.5s;
+        }
+
+        .wavy-text span:nth-child(7) {
+            animation-delay: 0.6s;
+        }
+
+        @keyframes wave {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+
+        body {
+            background-color: #000;
+        }
+    </style>
+</head>
+
+<body id="container">
+    <!-- Fond flouté si utilisé -->
+    <div id="background-blur"></div>
+
+    <!-- HEADER -->
+    <header class="shadow d-flex justify-content-between align-items-center px-4 py-2">
+        <div class="d-flex align-items-center gap-3">
+            <img src="Images/logo.png" alt="Logo" class="img-fluid rounded image-blur" style="max-width: 100px;">
+            <a href="index.html" class="btn btn-primary">Shiny Showcase</a>
+            <a href="grerun.html" class="btn btn-primary">Gym Rerun</a>
+        </div>
+        <button id="activate-sound-btn" class="btn btn-outline-secondary">Turn on sounds</button>
+    </header>
+
+    <!-- CONTENU CENTRAL -->
+    <div class="wip-container">
+        <h1 class="wavy-text">
+            <span>W</span><span>I</span><span>P</span><span>&nbsp;</span><span>🚧</span>
+        </h1>
+    </div>
+
+    <!-- JS Bootstrap si nécessaire -->
+    <scr

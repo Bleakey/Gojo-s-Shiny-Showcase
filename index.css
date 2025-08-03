@@ -5,6 +5,7 @@
         transform: translateX(-100%);
         opacity: 0;
     }
+
     100% {
         transform: translateX(0);
         opacity: 1;
@@ -159,6 +160,7 @@ strong {
         transform: translateX(-100%);
         opacity: 0;
     }
+
     100% {
         transform: translateX(0);
         opacity: 1;
@@ -169,6 +171,7 @@ strong {
     0% {
         opacity: 0;
     }
+
     100% {
         opacity: 1;
     }
@@ -179,6 +182,7 @@ strong {
         transform: scale(0.8);
         opacity: 0.5;
     }
+
     100% {
         transform: scale(1);
         opacity: 1;
@@ -186,12 +190,19 @@ strong {
 }
 
 @keyframes bounce {
-    0%, 20%, 50%, 80%, 100% {
+
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
         transform: translateY(0);
     }
+
     40% {
         transform: translateY(-10px);
     }
+
     60% {
         transform: translateY(-5px);
     }
@@ -248,7 +259,8 @@ img {
 /* ==== Modification importante ici ==== */
 .image-wrapper {
     position: relative;
-    overflow: visible; /* Permet aux drop-shadow de s'afficher pleinement */
+    overflow: visible;
+    /* Permet aux drop-shadow de s'afficher pleinement */
     display: inline-flex;
     border-radius: 10px;
 }
@@ -289,25 +301,20 @@ img {
     transition: filter 0.3s ease;
 }
 
+/* Annulation du flou sur l'élément focus */
 .image-wrapper.focused {
     filter: none !important;
     position: relative;
     z-index: 10;
 }
 
-.pokemon-card {
-    position: relative;
-    display: inline-block;
-    margin: 20px;
-    padding: 50px; /* Espace pour aura */
-    vertical-align: top; /* Alignement propre en ligne */
-}
-
 .stats-panel {
-    position: absolute;
-    top: 0;
-    left: 105%;
-    width: 220px;
+    position: relative;
+    /* changer absolute en relative */
+    top: auto;
+    left: auto;
+    width: 100%;
+    /* pour prendre la largeur complète sous l’image */
     padding: 10px;
     background: rgba(10, 10, 10, 0.95);
     border: 2px solid #ffffff;
@@ -316,17 +323,29 @@ img {
     font-family: 'Press Start 2P', cursive;
     font-size: 15px;
     line-height: 1.8;
-    display: none;
-    z-index: 10;
+    opacity: 0;
+    pointer-events: none;
     border-radius: 10px;
     image-rendering: pixelated;
     transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
     background-image: url('Images/landscape.gif');
     background-size: cover;
+    margin-top: 10px;
+    /* espace au-dessus */
+    z-index: auto;
 }
 
-.pokemon-card:hover .stats-panel {
-    display: block;
+/* Limite la largeur du panneau stats et centre */
+.stats-panel {
+    max-width: 220px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Affiche le panel quand image-wrapper a la classe focused */
+.image-wrapper.focused+.stats-panel {
+    opacity: 1;
+    pointer-events: auto;
     animation: fadeInStats 0.3s ease-out forwards, panelTilt 2s ease-in-out infinite;
 }
 
@@ -335,6 +354,7 @@ img {
         opacity: 0;
         transform: translateX(-10px);
     }
+
     to {
         opacity: 1;
         transform: translateX(0);
@@ -356,8 +376,10 @@ img {
 .pokemon-card .stats-panel::after {
     content: '';
     position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     pointer-events: none;
     border-radius: 10px;
     background: transparent;
@@ -375,32 +397,14 @@ img {
     0% {
         transform: skewY(5deg);
     }
+
     50% {
         transform: skewY(-5deg);
     }
+
     100% {
         transform: skewY(5deg);
     }
-}
-
-/* Auras sur les images (appliquer sur img.main-img) */
-.aura-gold {
-    filter:
-      drop-shadow(0 0 5px rgba(255, 215, 0, 0.6))
-      drop-shadow(0 0 15px rgba(255, 215, 0, 0.4));
-    transition: filter 0.3s ease;
-}
-.aura-purple {
-    filter:
-      drop-shadow(0 0 5px rgba(170, 0, 255, 0.6))
-      drop-shadow(0 0 15px rgba(170, 0, 255, 0.4));
-    transition: filter 0.3s ease;
-}
-.aura-blue {
-    filter:
-      drop-shadow(0 0 5px rgba(0, 200, 255, 0.6))
-      drop-shadow(0 0 15px rgba(0, 200, 255, 0.4));
-    transition: filter 0.3s ease;
 }
 
 #background-blur {
@@ -422,38 +426,191 @@ img {
     filter: blur(8px);
 }
 
-.btn-activate-sound {
-  font-family: 'Press Start 2P', cursive;
-  font-size: 12px;
-  color: #fcc11c;
-  background-color: #2a78a5;
-  border: 2px solid #fcc11c;
-  padding: 10px 18px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: 
-    background-color 0.3s ease,
-    color 0.3s ease,
-    box-shadow 0.3s ease;
-  box-shadow: 0 0 10px #2a78a5;
-  user-select: none;
-  display: inline-block;
-  text-align: center;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
+.btn {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 12px;
+    color: #fcc11c;
+    background-color: #2a78a5;
+    border: 2px solid #fcc11c;
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition:
+        background-color 0.3s ease,
+        color 0.3s ease,
+        box-shadow 0.3s ease;
+    box-shadow: 0 0 10px #2a78a5;
+    user-select: none;
+    display: inline-block;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
 }
 
-.btn-activate-sound:hover:not(:disabled) {
-  background-color: #fcc11c;
-  color: #2a78a5;
-  box-shadow: 0 0 20px #fcc11c;
+.btn:hover:not(:disabled) {
+    background-color: #fcc11c;
+    color: #2a78a5;
+    box-shadow: 0 0 20px #fcc11c;
 }
 
-.btn-activate-sound:disabled {
-  background-color: #444;
-  color: #999;
-  border-color: #666;
-  box-shadow: none;
-  cursor: default;
-  opacity: 0.7;
+.btn:disabled {
+    background-color: #444;
+    color: #999;
+    border-color: #666;
+    box-shadow: none;
+    cursor: default;
+    opacity: 0.7;
+}
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.image-blur {
+    filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.2));
+}
+
+/* Ex: sur le body quand blur-active est actif */
+body.blur-active #background-blur {
+    filter: blur(8px);
+    transition: filter 0.3s ease;
+}
+
+body.blur-active .stats-panel {
+    opacity: 1;
+    pointer-events: auto;
+    transition: opacity 0.3s ease;
+}
+
+/* Stats panel caché par défaut */
+.stats-panel {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.pokemon-card.focused .stats-panel {
+    opacity: 1;
+    pointer-events: auto;
+    animation: fadeInStats 0.3s ease-out forwards, panelTilt 2s ease-in-out infinite;
+}
+
+.pokemon-card {
+    position: relative;
+    display: inline-block;
+    margin: 30px;
+    /* augmenté pour plus d'espace */
+    vertical-align: top;
+}
+
+/* Aura or (déjà existante) */
+.main-img.aura-gold {
+    filter:
+        drop-shadow(0 0 5px rgba(255, 215, 0, 0.7)) drop-shadow(0 0 15px rgba(255, 215, 0, 0.5));
+}
+
+/* Aura bleue */
+.main-img.aura-blue {
+    filter:
+        drop-shadow(0 0 5px rgba(0, 191, 255, 0.7)) drop-shadow(0 0 15px rgba(0, 191, 255, 0.5));
+}
+
+/* Aura violette */
+.main-img.aura-purple {
+    filter:
+        drop-shadow(0 0 5px rgba(138, 43, 226, 0.7)) drop-shadow(0 0 15px rgba(138, 43, 226, 0.5));
+}
+
+/* Aura rouge */
+.main-img.aura-red {
+    filter:
+        drop-shadow(0 0 5px rgba(255, 50, 50, 0.7)) drop-shadow(0 0 15px rgba(255, 50, 50, 0.5));
+}
+
+/* Aura verte */
+.main-img.aura-green {
+    filter:
+        drop-shadow(0 0 5px rgba(50, 255, 50, 0.7)) drop-shadow(0 0 15px rgba(50, 255, 50, 0.5));
+}
+
+/* Aura rose */
+.main-img.aura-pink {
+    filter:
+        drop-shadow(0 0 5px rgba(255, 105, 180, 0.7)) drop-shadow(0 0 15px rgba(255, 105, 180, 0.5));
+}
+
+/* Aura cyan */
+.main-img.aura-cyan {
+    filter:
+        drop-shadow(0 0 5px rgba(0, 255, 255, 0.7)) drop-shadow(0 0 15px rgba(0, 255, 255, 0.5));
+}
+
+/* Aura blanche */
+.main-img.aura-white {
+    filter:
+        drop-shadow(0 0 5px rgba(255, 255, 255, 0.7)) drop-shadow(0 0 15px rgba(255, 255, 255, 0.5));
+}
+
+/* Aura noire */
+.main-img.aura-black {
+    filter:
+        drop-shadow(0 0 5px rgba(0, 0, 0, 0.8)) drop-shadow(0 0 15px rgba(0, 0, 0, 0.6));
+}
+
+/* Aura orange */
+.main-img.aura-orange {
+    filter:
+        drop-shadow(0 0 5px rgba(255, 165, 0, 0.7)) drop-shadow(0 0 15px rgba(255, 165, 0, 0.5));
+}
+
+/* Aura turquoise */
+.main-img.aura-turquoise {
+    filter:
+        drop-shadow(0 0 5px rgba(64, 224, 208, 0.7)) drop-shadow(0 0 15px rgba(64, 224, 208, 0.5));
+}
+
+/* Aura arc-en-ciel (simulation avec multishadow) */
+.main-img.aura-rainbow {
+    filter:
+        drop-shadow(0 0 3px red) drop-shadow(0 0 6px orange) drop-shadow(0 0 9px yellow) drop-shadow(0 0 12px green) drop-shadow(0 0 15px blue) drop-shadow(0 0 18px indigo) drop-shadow(0 0 21px violet);
+}
+
+/* Aura glitch (effet un peu perturbé) */
+.main-img.aura-glitch {
+    filter:
+        drop-shadow(2px 0 rgba(255, 0, 0, 0.7)) drop-shadow(-2px 0 rgba(0, 0, 255, 0.7)) drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+    background: #fcc11c;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #2a78a5;
+    border-radius: 4px;
+}
+
+@keyframes pulse-gold {
+    0% {
+        box-shadow: 0 0 0px gold;
+    }
+
+    50% {
+        box-shadow: 0 0 15px gold;
+    }
+
+    100% {
+        box-shadow: 0 0 0px gold;
+    }
+}
+
+.gold-border-animated {
+    box-shadow: 0 0 10px gold;
+    border: 3px solid gold;
+    animation: pulse-gold 1.5s infinite ease-in-out;
+    border-radius: 10px;
+    /* si tu veux un effet plus doux */
 }

@@ -2,95 +2,104 @@
 <html lang="fr">
 
 <head>
-    <!-- Encodage du document -->
+    <!-- Encodage du document en UTF-8 pour prise en charge des caractères spéciaux -->
     <meta charset="UTF-8">
 
-    <!-- Permet le responsive sur tous les appareils -->
+    <!-- Permet un affichage responsive sur tous les appareils (mobiles, tablettes, desktops) -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Titre de l'onglet -->
+    <!-- Titre affiché dans l’onglet du navigateur -->
     <title>Gojo's Shiny Showcase</title>
 
-    <!-- Informations meta -->
+    <!-- Meta description pour SEO -->
     <meta name="description" content="Gojo's Shiny Showcase">
+    <!-- Auteur du site -->
     <meta name="author" content="Chily">
+    <!-- Mots-clés pour SEO -->
     <meta name="keywords" content="HTML, CSS, JavaScript, Web, Exemple">
 
-    <!-- Feuilles de style -->
-    <link rel="stylesheet" href="css/bootstrap.css"> <!-- Bootstrap -->
-    <link rel="stylesheet" href="index.css"> <!-- Styles personnalisés -->
-    <link rel="icon" href="Images/pokeball.png"> <!-- Icône du site -->
+    <!-- Importation des feuilles de style -->
+    <link rel="stylesheet" href="css/bootstrap.css"> <!-- Framework Bootstrap pour la mise en page et composants -->
+    <link rel="stylesheet" href="index.css"> <!-- Styles personnalisés du site -->
+    <link rel="icon" href="Images/pokeball.png"> <!-- Icône affichée dans l’onglet -->
 
+    <!-- Son de survol, préchargé ici -->
     <audio id="hover-sound" src="sounds/hover.mp3"></audio>
 </head>
 
 <body id="container">
 
-
-
-    <!-- Élément de fond utilisé pour les effets de flou et de parallaxe -->
+    <!-- Élément de fond utilisé pour appliquer des effets visuels (flou, parallaxe) -->
     <div id="background-blur"></div>
 
-    <!-- EN-TÊTE -->
-    <header class="Shadow block">
-        <div class="text-center">
-            <!-- Logo de l’en-tête avec des classes d’effet -->
-            <img src="Images/logo.png" alt="Logo" class="img-fluid header-img rounded image-blur"
-                style="max-width: 15%;">
+    <!-- EN-TÊTE PRINCIPAL DU SITE -->
+    <header class="shadow d-flex justify-content-between align-items-center px-4 py-2">
+        
+        <!-- Partie gauche contenant le logo et les boutons de navigation -->
+        <div class="d-flex align-items-center gap-3">
+            <!-- Logo du site avec une taille maximale et un effet flou (CSS) -->
+            <img src="Images/logo.png" alt="Logo" class="img-fluid rounded image-blur" style="max-width: 100px;">
+
+            <!-- Liens de navigation vers les différentes pages du site -->
+            <a href="index.html" class="btn btn-primary">Shiny Showcase</a>
+            <a href="grerun.html" class="btn btn-primary">Gym Rerun</a>
         </div>
+
+        <!-- Partie droite avec un bouton pour activer/désactiver les sons -->
+        <button id="activate-sound-btn" class="btn btn-outline-secondary">Turn on sounds</button>
     </header>
 
-    <main class="container slideInFromLeft">
-
-        <!-- Bouton pour activer les sons -->
-        <div class="text-center my-3 image-blur">
-            <button id="activate-sound-btn" class="btn-activate-sound">Turn on sounds   </button>
+    <!-- SECTION PRINCIPALE POUR GRAND ÉCRAN (masquée sur petits écrans) -->
+    <section class="row justify-content-center py-5 d-none d-lg-flex text-white Shadow text-center"
+        style="background-color: rgba(0, 0, 0, 0); border-radius: 10px;">
+        
+        <!-- Compteur de Pokémon shiny affiché dans une liste -->
+        <div class="mb-4 image-blur">
+            <ul>
+                <li id="shiny-count"></li> <!-- Contenu dynamique mis à jour via JavaScript -->
+            </ul>
         </div>
 
-        <hr>
+        <!-- Conteneur où les Pokémon shiny sont générés et affichés dynamiquement -->
+        <div id="shiny-showcase" class="row justify-content-center"></div>
+    </section>
 
-        <section class="row justify-content-center py-5 d-none d-lg-flex text-white Shadow text-center"
-            style="background-color: rgba(0, 0, 0, 0); border-radius: 10px;">
-            <div class="mb-4 image-blur">
-                <ul>
-                    <li id="shiny-count"></li>
-                </ul>
-            </div>
+    <!-- SECTION POUR PETITS ÉCRANS (mobile, tablette) -->
+    <section class="row text-center py-4 d-lg-none">
+        <div class="col-12">
+            <!-- Message "Work In Progress" affiché uniquement sur petits écrans -->
+            <h4 class="text-white mb-4"><strong>WIP 🚧</strong></h4>
+        </div>
+    </section>
 
-            <!-- Conteneur pour les Pokémons générés en JavaScript -->
-            <div id="shiny-showcase" class="row justify-content-center"></div>
-        </section>
+    <hr> <!-- Ligne de séparation visuelle -->
 
-        <!-- SECTION POUR PETIT ÉCRAN -->
-        <section class="row text-center py-4 d-lg-none">
-            <div class="col-12">
-                <h4 class="text-white mb-4"><strong>WIP 🚧</strong></h4>
-            </div>
-        </section>
+    <!-- AUTRE SECTION POUR GRAND ÉCRAN, affichant les "Current hunts" -->
+    <section class="row justify-content-center py-5 d-none d-lg-flex text-white Shadow text-center"
+        style="background-color: rgba(0, 0, 0, 0); border-radius: 10px;">
+        
+        <!-- Titre de la section -->
+        <div class="mb-4 image-blur">
+            <ul>
+                <li><strong>Current hunts :</strong></li>
+            </ul>
+        </div>
 
-        <hr>
+        <!-- Conteneur pour les éléments de chasse (générés dynamiquement via JS) -->
+        <div id="current-hunts" class="row justify-content-center"></div>
+    </section>
 
-        <section class="row justify-content-center py-5 d-none d-lg-flex text-white Shadow text-center"
-            style="background-color: rgba(0, 0, 0, 0); border-radius: 10px;">
-            <div class="mb-4 image-blur">
-                <ul>
-                    <li><strong>Current hunts :</strong></li>
-                </ul>
-            </div>
-
-            <!-- Conteneur généré dynamiquement -->
-            <div id="current-hunts" class="row justify-content-center"></div>
-        </section>
-
-    </main>
+    <!-- NOTE : La balise </main> ici semble erronée (pas d’ouverture de <main>) -->
 
     <!-- PIED DE PAGE -->
     <footer class="text-center p-5 text-white block ShadowStrong">
         <p>Website made by <strong>Chily</strong></p>
     </footer>
 
-    <!-- Fichiers JavaScript -->
+    <!-- Scripts JavaScript -->
+    <!-- Bootstrap bundle pour fonctionnalités JS de Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Script personnalisé -->
     <script src="index.js"></script>
 
 </body>
