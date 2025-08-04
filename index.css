@@ -614,3 +614,163 @@ body.blur-active .stats-panel {
     border-radius: 10px;
     /* si tu veux un effet plus doux */
 }
+
+/* === Pokémon Summary Layout === */
+.pokemon-summary {
+    display: flex;
+    flex-direction: row;
+    /* Aligne les blocs horizontalement */
+    align-items: center;
+    /* Centre verticalement */
+    justify-content: center;
+    gap: 1.5rem;
+    /* Espace entre les blocs */
+    padding: 1rem;
+    border-radius: 12px;
+    transition: transform 0.3s ease;
+    flex-wrap: wrap;
+    /* Permet le retour à la ligne si nécessaire */
+}
+
+.pokemon-summary:hover {
+    transform: scale(1.02);
+}
+
+/* === Pokémon Sprite === */
+.pokemon-img {
+    width: 130px;
+    image-rendering: pixelated;
+    transition: filter 0.3s ease;
+}
+
+/* Effet lumineux autour du sprite */
+.shadow-glow {
+    filter: drop-shadow(0 0 10px rgba(0, 255, 255, 0.7));
+}
+
+/* === Stat Blocks (EVs, IVs, Items) === */
+.stat-block,
+.skill-block,
+.trainer-block,
+.strat-block {
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 0.7rem 1.2rem;
+    border-radius: 10px;
+    box-shadow: 0 0 12px rgba(0, 255, 255, 0.1);
+    min-width: 130px;
+}
+
+/* Bloc de stratégie : version plus large */
+.strat-block {
+    max-width: 400px;
+}
+
+/* === Grille pour stats === */
+.iv-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 4px;
+    font-size: 0.95rem;
+}
+
+/* === IV parfaits === */
+.perfect-iv {
+    color: #00ff9d;
+    font-weight: bold;
+    animation: perfect-glow 2s ease-in-out infinite;
+}
+
+@keyframes perfect-glow {
+
+    0%,
+    100% {
+        text-shadow: 0 0 6px #00ff9d, 0 0 12px #00c3ff;
+    }
+
+    50% {
+        text-shadow: 0 0 12px #00ff9d, 0 0 24px #00c3ff;
+    }
+}
+
+/* === Skills (capacités Pokémon) === */
+.skill-block div {
+    font-weight: bold;
+    margin-bottom: 0.4rem;
+    cursor: default;
+    transition: color 0.3s ease;
+}
+
+/* === Type Colors (ajoute d'autres au besoin) === */
+.type-grass {
+    color: #78C850;
+}
+
+.type-water {
+    color: #68bef0;
+}
+
+.type-fire {
+    color: #F08030;
+}
+
+.type-flying {
+    color: #a0a0a0;
+}
+
+.type-electric {
+    color: #F8D030;
+}
+
+.type-normal {
+    color: #ffffff;
+}
+
+.type-psychic {
+    color: #ff00bf;
+}
+
+.type-ice {
+    color: #b0efff;
+}
+
+.type-ground {
+    color: #644100;
+}
+
+/* === Section par tour === */
+.turn {
+    margin-bottom: 1rem;
+}
+
+.turn h2 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.turn ul {
+    margin: 0;
+    padding-left: 1.2rem;
+}
+
+.attack {
+    color: #74c2e1;
+}
+
+.glow {
+    color: #ff1414;
+    /* Bright green */
+    text-shadow:
+        0 0 5px #ff1414,
+        0 0 10px #ff1414,
+        0 0 20px #ff1414,
+        0 0 40px #ffe600,
+        0 0 80px #ffe600;
+    font-weight: bold;
+}
+
+.trainers {
+    filter: drop-shadow(10px 10px 6px rgba(0, 0, 0, 0.8));
+    border-radius: 12px;
+    /* keeps rounded corners if your image has them */
+    transition: filter 0.3s ease;
+}
