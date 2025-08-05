@@ -761,10 +761,7 @@ body.blur-active .stats-panel {
     /* Bright green */
     text-shadow:
         0 0 5px #ff1414,
-        0 0 10px #ff1414,
-        0 0 20px #ff1414,
-        0 0 40px #ffe600,
-        0 0 80px #ffe600;
+        0 0 10px #ffe60062;
     font-weight: bold;
 }
 
