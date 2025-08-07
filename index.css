@@ -86,13 +86,6 @@ input:focus {
     content: url('images/Preview Hover.png');
 }
 
-hr {
-    border: none;
-    height: 4px;
-    background: linear-gradient(to right, transparent, #ccc, transparent);
-    margin: 20px 0;
-}
-
 ul {
     list-style-type: none;
     padding-left: 0;
@@ -653,7 +646,7 @@ body.blur-active .stats-panel {
 .skill-block,
 .trainer-block,
 .strat-block {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.8);
     padding: 0.7rem 1.2rem;
     border-radius: 10px;
     box-shadow: 0 0 12px rgba(0, 255, 255, 0.1);
@@ -760,8 +753,8 @@ body.blur-active .stats-panel {
     color: #ff1414;
     /* Bright green */
     text-shadow:
-        0 0 5px #ff1414,
-        0 0 10px #ffe60062;
+        0 0 5px #790000,
+        0 0 10px #ffffff62;
     font-weight: bold;
 }
 
@@ -770,4 +763,27 @@ body.blur-active .stats-panel {
     border-radius: 12px;
     /* keeps rounded corners if your image has them */
     transition: filter 0.3s ease;
+}
+
+hr {
+    border: 0;
+    height: 4px;
+    background: linear-gradient(90deg, transparent, #ff00cc, #3333ff, #ff00cc, transparent);
+    background-size: 200% auto;
+    animation: sparkle 2s linear infinite;
+    margin: 2em 0;
+}
+
+@keyframes sparkle {
+    0% {
+        background-position: 200% center;
+    }
+
+    100% {
+        background-position: -200% center;
+    }
+}
+
+a {
+    text-decoration: none;
 }

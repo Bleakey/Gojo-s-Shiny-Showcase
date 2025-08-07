@@ -154,35 +154,35 @@ class CurrentHuntCard {
 
 // Données Pokémon
 const pokemonList = [
-  { name: "Poliwag", img: "ptitard.png", dex: "060", method: "5x hordes", sold: "✔" },
-  { name: "Druddigon", img: "druddigon.gif", dex: "621", method: "5x hordes", sold: "✔" },
-  { name: "Lopunny", img: "lopunny.gif", dex: "428", method: "3x hordes", sold: "✘" },
-  { name: "Duskull", img: "duskull.gif", dex: "355", method: "5x hordes", sold: "✘" },
-  { name: "Sableye", img: "sableye.gif", dex: "302", method: "5x hordes", sold: "✔" },
-  { name: "Roserade", img: "roserade.gif", dex: "407", method: "3x hordes", sold: "✘" },
+  { name: "Poliwag", img: "Ptitard.gif", dex: "060", method: "5x hordes", sold: "✔" },
+  { name: "Druddigon", img: "Druddigon.gif", dex: "621", method: "5x hordes", sold: "✔" },
+  { name: "Lopunny", img: "Lopunny.gif", dex: "428", method: "3x hordes", sold: "✘" },
+  { name: "Duskull", img: "Duskull.gif", dex: "355", method: "5x hordes", sold: "✘" },
+  { name: "Sableye", img: "Sableye.gif", dex: "302", method: "5x hordes", sold: "✔" },
+  { name: "Roserade", img: "Roserade.gif", dex: "407", method: "3x hordes", sold: "✘" },
   { name: "Duskull", img: "Meowth.gif", dex: "052", method: "5x hordes", sold: "✘" },
   { name: "Magikarp", img: "Magikarp.gif", dex: "129", method: "5x hordes", sold: "✔" },
-  { name: "Gothitelle", img: "Gothitelle.png", dex: "576", method: "5x hordes", sold: "✘" },
-  ...Array(9).fill({ name: "Bibarel", img: "Bibarel.png", dex: "400", method: "3x hordes", sold: "✔" }),
-  { name: "Bibarel", img: "Bibarel.png", dex: "400", method: "3x hordes", sold: "✘" },
-  { name: "Bibarel", img: "Bibarel.png", dex: "400", method: "3x hordes", sold: "✘" },
-  { name: "Bibarel", img: "Bibarel.png", dex: "400", method: "3x hordes", sold: "✘" },
+  { name: "Gothitelle", img: "Gothitelle.gif", dex: "576", method: "5x hordes", sold: "✘" },
+  ...Array(9).fill({ name: "Bibarel", img: "Bibarel.gif", dex: "400", method: "3x hordes", sold: "✔" }),
+  { name: "Bibarel", img: "Bibarel.gif", dex: "400", method: "3x hordes", sold: "✘" },
+  { name: "Bibarel", img: "Bibarel.gif", dex: "400", method: "3x hordes", sold: "✘" },
+  { name: "Bibarel", img: "Bibarel.gif", dex: "400", method: "3x hordes", sold: "✘" },
   { name: "Gardevoir", img: "Gardevoir.gif", dex: "282", method: "3x hordes", sold: "✘" },
-  { name: "Gallade", img: "Sgallade.gif", dex: "475", method: "3x hordes", sold: "✘" },
+  { name: "Gallade", img: "Gallade.gif", dex: "475", method: "3x hordes", sold: "✘" },
   { name: "Smeargle", img: "Smeargle.gif", dex: "235", method: "5x hordes", sold: "✘" },
   { name: "Cofagrigus", img: "Cofagrigus.gif", dex: "563", method: "5x hordes", sold: "✘" },
-  { name: "Golem", img: "Graveler.png", dex: "076", method: "5x hordes", sold: "✘", encounters: 3214 },
-  { name: "Graveler", img: "gravalanche.png", dex: "075", method: "5x hordes", sold: "✘", encounters: 38064 },
-  { name: "Graveler", img: "gravalanche.png", dex: "075", method: "5x hordes", sold: "✘", encounters: 5652 },
-  { name: "Graveler", img: "gravalanche.png", dex: "075", method: "5x hordes", sold: "✘", encounters: 35420 },
+  { name: "Golem", img: "Golem.gif", dex: "076", method: "5x hordes", sold: "✘", encounters: 3214 },
+  { name: "Graveler", img: "Graveler.gif", dex: "075", method: "5x hordes", sold: "✘", encounters: 38064 },
+  { name: "Graveler", img: "Graveler.gif", dex: "075", method: "5x hordes", sold: "✘", encounters: 5652 },
+  { name: "Graveler", img: "Graveler.gif", dex: "075", method: "5x hordes", sold: "✘", encounters: 35420 },
   { name: "Walrein", img: "Walrein.gif", dex: "365", method: "5x hordes", sold: "✘", encounters: 31139 },
-  { name: "Sealeo", img: "Sealeo.png", dex: "364", method: "5x hordes", sold: "✘", encounters: 42202 },
-  { name: "Lairon", img: "Lairon.png", dex: "305", method: "5x hordes", sold: "✘", encounters: 46914 },
+  { name: "Sealeo", img: "Sealeo.gif", dex: "364", method: "5x hordes", sold: "✘", encounters: 42202 },
+  { name: "Lairon", img: "Lairon.gif", dex: "305", method: "5x hordes", sold: "✘", encounters: 46914 },
   { name: "Wooper", img: "Wooper.gif", dex: "194", method: "5x hordes", sold: "✘", encounters: 25228 },
   { name: "Krookodile", img: "Krokorok.gif", dex: "552", method: "5x hordes", sold: "✘", encounters: 5461 },
   { name: "Butterfree", img: "Butterfree.gif", dex: "012", method: "Singles", sold: "✘", encounters: 2064 },
 ];
-
+/*
 const currentHunts = [
   { name: "Snorunt", img: "Snorunt.png", encounters: 27920, method: "5x hordes" },
   { name: "Deino", img: "Deino.png", encounters: 3578, method: "5x hordes" },
@@ -190,12 +190,12 @@ const currentHunts = [
   { name: "Pinsir", img: "Pinsir.png", encounters: 0, method: "Singles" },
   { name: "Heracross", img: "Heracross.png", encounters: 0, method: "Singles" },
   { name: "Beedrill", img: "Beedrill.png", encounters: 0, method: "Singles" },
-];
+];*/
 
 // Mise à jour compteur shiny
 const shinyCount = document.getElementById("shiny-count");
 if (shinyCount) {
-  shinyCount.innerHTML = `<li><strong>Shiny count :</strong> ${pokemonList.length}</li>`;
+  shinyCount.innerHTML = `<h2><strong>Shiny count :</strong> ${pokemonList.length}</h2>`;
 }
 
 // Affiche cartes shiny
