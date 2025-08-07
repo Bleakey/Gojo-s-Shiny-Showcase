@@ -154,7 +154,7 @@ class CurrentHuntCard {
 
 // Données Pokémon
 const pokemonList = [
-  { name: "Poliwag", img: "Ptitard.gif", dex: "060", method: "5x hordes", sold: "✔" },
+  { name: "Ptitard", img: "Ptitard.gif", dex: "060", method: "5x hordes", sold: "✔" },
   { name: "Druddigon", img: "Druddigon.gif", dex: "621", method: "5x hordes", sold: "✔" },
   { name: "Lopunny", img: "Lopunny.gif", dex: "428", method: "3x hordes", sold: "✘" },
   { name: "Duskull", img: "Duskull.gif", dex: "355", method: "5x hordes", sold: "✘" },
