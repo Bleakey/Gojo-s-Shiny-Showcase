@@ -178,9 +178,9 @@ const pokemonList = [
   { name: "Walrein", img: "Walrein.gif", dex: "365", method: "5x hordes", sold: "✘", encounters: 31139 },
   { name: "Sealeo", img: "Sealeo.png", dex: "364", method: "5x hordes", sold: "✘", encounters: 42202 },
   { name: "Lairon", img: "Lairon.png", dex: "305", method: "5x hordes", sold: "✘", encounters: 46914 },
-  { name: "Wooper", img: "Wooper.png", dex: "194", method: "5x hordes", sold: "✘", encounters: 25228 },
-  { name: "Krookodile", img: "Krokorok.png", dex: "552", method: "5x hordes", sold: "✘", encounters: 5461 },
-  { name: "Butterfree", img: "Butterfree.png", dex: "012", method: "Singles", sold: "✘", encounters: 2064 },
+  { name: "Wooper", img: "Wooper.gif", dex: "194", method: "5x hordes", sold: "✘", encounters: 25228 },
+  { name: "Krookodile", img: "Krokorok.gif", dex: "552", method: "5x hordes", sold: "✘", encounters: 5461 },
+  { name: "Butterfree", img: "Butterfree.gif", dex: "012", method: "Singles", sold: "✘", encounters: 2064 },
 ];
 
 const currentHunts = [
