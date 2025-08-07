@@ -160,7 +160,7 @@ const pokemonList = [
   { name: "Duskull", img: "Duskull.gif", dex: "355", method: "5x hordes", sold: "✘" },
   { name: "Sableye", img: "Sableye.gif", dex: "302", method: "5x hordes", sold: "✔" },
   { name: "Roserade", img: "Roserade.gif", dex: "407", method: "3x hordes", sold: "✘" },
-  { name: "Duskull", img: "Meowth.gif", dex: "052", method: "5x hordes", sold: "✘" },
+  { name: "Meowth", img: "Meowth.gif", dex: "052", method: "5x hordes", sold: "✘" },
   { name: "Magikarp", img: "Magikarp.gif", dex: "129", method: "5x hordes", sold: "✔" },
   { name: "Gothitelle", img: "Gothitelle.gif", dex: "576", method: "5x hordes", sold: "✘" },
   ...Array(9).fill({ name: "Bibarel", img: "Bibarel.gif", dex: "400", method: "3x hordes", sold: "✔" }),
