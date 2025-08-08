@@ -2,104 +2,59 @@
 <html lang="fr">
 
 <head>
-    <!-- Encodage du document en UTF-8 pour prise en charge des caractères spéciaux -->
     <meta charset="UTF-8">
-
-    <!-- Permet un affichage responsive sur tous les appareils (mobiles, tablettes, desktops) -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- Titre affiché dans l’onglet du navigateur -->
     <title>Gojo's Shiny Showcase</title>
-
-    <!-- Meta description pour SEO -->
     <meta name="description" content="Gojo's Shiny Showcase">
-    <!-- Auteur du site -->
     <meta name="author" content="Chily">
-    <!-- Mots-clés pour SEO -->
     <meta name="keywords" content="HTML, CSS, JavaScript, Web, Exemple">
 
-    <!-- Importation des feuilles de style -->
-    <link rel="stylesheet" href="css/bootstrap.css"> <!-- Framework Bootstrap pour la mise en page et composants -->
-    <link rel="stylesheet" href="index.css"> <!-- Styles personnalisés du site -->
-    <link rel="icon" href="Images/pokeball.png"> <!-- Icône affichée dans l’onglet -->
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="index.css">
+    <link rel="icon" href="Images/pokeball.png">
 
-    <!-- Son de survol, préchargé ici -->
     <audio id="hover-sound" src="sounds/hover.mp3"></audio>
 </head>
 
 <body id="container">
 
-    <!-- Élément de fond utilisé pour appliquer des effets visuels (flou, parallaxe) -->
     <div id="background-blur"></div>
 
-    <!-- EN-TÊTE PRINCIPAL DU SITE -->
-    <header class="shadow d-flex justify-content-between align-items-center px-4 py-2 bn" style="background-color: rgba(0, 0, 0, 0.8);">
+    <!-- HEADER -->
+<header class="shadow d-flex flex-wrap justify-content-between align-items-center px-3 py-2 bn"
+        style="background-color: rgba(0, 0, 0, 0.8);">
 
-        <!-- Partie gauche contenant le logo et les boutons de navigation -->
-        <div class="d-flex align-items-center gap-3">
-            <!-- Logo du site avec une taille maximale et un effet flou (CSS) -->
-            <img src="Images/logo.png" alt="Logo" class="img-fluid rounded image-blur" style="max-width: 100px;">
+  <div class="d-flex align-items-center gap-2 flex-wrap">
+    <img src="Images/logo.png" alt="Logo" class="img-fluid rounded image-blur" style="max-width: 80px;">
+    <a href="index.html" class="btn btn-primary btn-sm">Shiny Showcase</a>
+    <a href="grerun.html" class="btn btn-primary btn-sm d-none d-lg-inline-block">Gym Rerun</a>
+  </div>
 
-            <!-- Liens de navigation vers les différentes pages du site -->
-            <a href="index.html" class="btn btn-primary">Shiny Showcase</a>
-            <a href="grerun.html" class="btn btn-primary">Gym Rerun</a>
-        </div>
+  <!-- Bouton son à droite, caché en petit écran -->
+  <button id="activate-sound-btn" class="btn btn-outline-secondary btn-sm mt-2 mt-lg-0 d-none d-lg-inline-block">
+    Turn on sounds
+  </button>
+</header>
 
-        <!-- Partie droite avec un bouton pour activer/désactiver les sons -->
-        <button id="activate-sound-btn" class="btn btn-outline-secondary">Turn on sounds</button>
-    </header>
-
-    <!-- SECTION PRINCIPALE POUR GRAND ÉCRAN (masquée sur petits écrans) -->
-    <section class="row justify-content-center py-5 d-none d-lg-flex text-white Shadow text-center"
+    <!-- SHOWCASE UNIQUE POUR TOUS LES ÉCRANS -->
+    <section class="row justify-content-center py-4 text-white Shadow text-center"
         style="background-color: rgba(0, 0, 0, 0); border-radius: 10px;">
-
-        <!-- Compteur de Pokémon shiny affiché dans une liste -->
-        <div class="mb-4 image-blur">
+        <div class="mb-3 image-blur">
             <ul>
-                <li id="shiny-count"></li> <!-- Contenu dynamique mis à jour via JavaScript -->
+                <li id="shiny-count"></li>
             </ul>
         </div>
-
-        <!-- Conteneur où les Pokémon shiny sont générés et affichés dynamiquement -->
         <div id="shiny-showcase" class="row justify-content-center"></div>
     </section>
 
-    <!-- SECTION POUR PETITS ÉCRANS (mobile, tablette) -->
-    <section class="row text-center py-4 d-lg-none">
-        <div class="col-12">
-            <!-- Message "Work In Progress" affiché uniquement sur petits écrans -->
-            <h4 class="text-white mb-4"><strong>WIP 🚧</strong></h4>
-        </div>
-    </section>
-
-    <!--
-<hr>
-
-<section class="row justify-content-center py-5 d-none d-lg-flex text-white Shadow text-center"
-    style="background-color: rgba(0, 0, 0, 0); border-radius: 10px;">
-
-    <div class="mb-4 image-blur">
-        <ul>
-            <li><strong>Current hunts :</strong></li>
-        </ul>
-    </div>
-
-    <div id="current-hunts" class="row justify-content-center"></div>
-</section>
--->
-
-    <!-- PIED DE PAGE -->
+    <!-- FOOTER -->
     <footer class="text-center p-5 text-white block ShadowStrong">
         <h2>Website made by <strong>Chily</strong></h2>
-        <h5>Bg Image by <a href="https://x.com/michspich?lang=fr"><strong>@MichSpich</strong></a><h5>
+        <h5>Bg Image by <a href="https://x.com/michspich?lang=fr"><strong>@MichSpich</strong></a></h5>
     </footer>
 
-    <!-- Scripts JavaScript -->
-    <!-- Bootstrap bundle pour fonctionnalités JS de Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Script personnalisé -->
     <script src="index.js"></script>
 
 </body>
-
-</html>
+</html>sd

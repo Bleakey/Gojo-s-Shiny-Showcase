@@ -107,7 +107,7 @@ class PokemonCard {
 
   render() {
     return `
-      <div class="pokemon-card col-6 col-md-4 col-lg-2 mb-4">
+      <div class="pokemon-card col-3 col-md-4 col-lg-2 mb-4">
         <div class="image-wrapper">
           <img src="Images/Shinys/${this.img}" alt="${this.name}" class="img-fluid main-img animate-on-load">
           <img src="Images/shiny-effect.gif" alt="" class="shiny-effect">

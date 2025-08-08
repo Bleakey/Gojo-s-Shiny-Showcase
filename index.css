@@ -787,3 +787,18 @@ hr {
 a {
     text-decoration: none;
 }
+
+/* Cache le panneau stats par défaut sur mobile */
+@media (max-width: 991px) {
+  .stats-panel {
+    display: none;
+    transition: all 0.3s ease;
+  }
+  .pokemon-card.show-stats .stats-panel {
+    display: block;
+    background-color: rgba(0, 0, 0, 0.85);
+    padding: 0.5rem;
+    border-radius: 8px;
+    margin-top: 0.5rem;
+  }
+}
