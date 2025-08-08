@@ -73,10 +73,6 @@
                 transform: translateY(-15px);
             }
         }
-
-        body {
-            background-color: #000;
-        }
     </style>
 </head>
 
@@ -85,7 +81,7 @@
     <div id="background-blur"></div>
 
     <!-- HEADER -->
-    <header class="shadow d-flex justify-content-between align-items-center px-4 py-2"
+    <header id="main-header" class="shadow d-none d-lg-flex justify-content-between align-items-center px-4 py-2"
         style="background-color: rgba(0, 0, 0, 0.8);">
         <div class="d-flex align-items-center gap-3">
             <img src="Images/logo.png" alt="Logo" class="img-fluid rounded image-blur" style="max-width: 100px;">
@@ -94,6 +90,11 @@
         </div>
         <button id="activate-sound-btn" class="btn btn-outline-secondary">Turn on sounds</button>
     </header>
+
+    <section id="mobile-message" class="text-center py-5 text-white d-none" style="font-size: 1.2rem;">
+        <p>⚠️ <strong>La page Gym Rerun est uniquement disponible sur ordinateur.</strong></p>
+        <p>Veuillez utiliser un écran plus large pour accéder à cette fonctionnalité.</p>
+    </section>
 
     <section class="row justify-content-center py-5 d-none d-lg-flex text-white text-center Shadow"
         style="background-color: rgba(0, 0, 0, 0); border-radius: 10px;">
@@ -320,7 +321,7 @@
 
     </section>
 
-    <hr>
+    <hr class="d-none d-lg-block">
 
     <section class="city-section text-white text-center py-5 d-none d-lg-flex">
         <div class="container">
@@ -355,7 +356,7 @@
             </div>
         </div>
     </section>
-    <hr>
+    <hr class="d-none d-lg-block">
     <section class="city-section text-white text-center py-5 d-none d-lg-flex">
         <div class="container">
             <!-- Titre -->
@@ -386,7 +387,7 @@
             </div>
         </div>
     </section>
-    <hr>
+    <hr class="d-none d-lg-block">
     <section class="city-section text-white text-center py-5 d-none d-lg-flex">
         <div class="container">
             <!-- Titre -->
@@ -415,7 +416,7 @@
             </div>
         </div>
     </section>
-    <hr>
+    <hr class="d-none d-lg-block">
     <section class="city-section text-white text-center py-5 d-none d-lg-flex">
         <div class="container">
             <!-- Titre -->
@@ -454,7 +455,7 @@
 
         </div>
     </section>
-    <hr>
+    <hr class="d-none d-lg-block">
     <section class="city-section text-white text-center py-5 d-none d-lg-flex">
         <div class="container">
             <!-- Titre -->
@@ -484,7 +485,7 @@
             </div>
         </div>
     </section>
-    <hr>
+    <hr class="d-none d-lg-block">
     <section class="city-section text-white text-center py-5 d-none d-lg-flex">
         <div class="container">
             <!-- Titre -->
@@ -523,7 +524,7 @@
 
         </div>
     </section>
-    <hr>
+    <hr class="d-none d-lg-block">
     <section class="city-section text-white text-center py-5 d-none d-lg-flex">
         <div class="container">
             <!-- Titre -->
@@ -552,7 +553,7 @@
             </div>
         </div>
     </section>
-    <hr>
+    <hr class="d-none d-lg-block">
     <section class="city-section text-white text-center py-5 d-none d-lg-flex">
         <div class="container">
             <!-- Titre -->
@@ -590,7 +591,7 @@
         </div>
         </div>
     </section>
-    <hr>
+    <hr class="d-none d-lg-block">
     <section class="city-section text-white text-center py-5 d-none d-lg-flex">
         <div class="container">
             <!-- Titre -->
@@ -633,7 +634,7 @@
         </div>
         </div>
     </section>
-    <hr>
+    <hr class="d-none d-lg-block">
     <section class="city-section text-white text-center py-5 d-none d-lg-flex">
         <div class="container">
             <!-- Titre -->
@@ -665,7 +666,7 @@
         </div>
         </div>
     </section>
-    <hr>
+    <hr class="d-none d-lg-block">
     <section class="city-section text-white text-center py-5 d-none d-lg-flex">
         <div class="container">
             <!-- Titre -->
@@ -696,7 +697,7 @@
         </div>
         </div>
     </section>
-    <hr>
+    <hr class="d-none d-lg-block">
     <section class="city-section text-white text-center py-5 d-none d-lg-flex">
         <div class="container">
             <!-- Titre -->
@@ -728,7 +729,7 @@
         </div>
         </div>
     </section>
-    <hr>
+    <hr class="d-none d-lg-block">
     <section class="city-section text-white text-center py-5 d-none d-lg-flex">
         <div class="container">
             <!-- Titre -->
@@ -759,7 +760,7 @@
         </div>
         </div>
     </section>
-    <hr>
+    <hr class="d-none d-lg-block">
     <section class="city-section text-white text-center py-5 d-none d-lg-flex">
         <div class="container">
             <!-- Titre -->
@@ -791,7 +792,7 @@
         </div>
         </div>
     </section>
-    <hr>
+    <hr class="d-none d-lg-block">
     <section class="city-section text-white text-center py-5 d-none d-lg-flex">
         <div class="container">
             <!-- Titre -->
@@ -822,7 +823,7 @@
         </div>
         </div>
     </section>
-    <hr>
+    <hr class="d-none d-lg-block">
     <section class="city-section text-white text-center py-5 d-none d-lg-flex">
         <div class="container">
             <!-- Titre -->
@@ -854,7 +855,7 @@
         </div>
         </div>
     </section>
-    <hr>
+    <hr class="d-none d-lg-block">
     <section class="city-section text-white text-center py-5 d-none d-lg-flex">
         <div class="container">
             <!-- Titre -->
@@ -885,7 +886,7 @@
         </div>
         </div>
     </section>
-    <hr>
+    <hr class="d-none d-lg-block">
     <section class="city-section text-white text-center py-5 d-none d-lg-flex">
         <div class="container">
             <!-- Titre -->
@@ -916,7 +917,7 @@
         </div>
         </div>
     </section>
-    <hr>
+    <hr class="d-none d-lg-block">
     <section class="city-section text-white text-center py-5 d-none d-lg-flex">
         <div class="container">
             <!-- Titre -->
@@ -964,7 +965,7 @@
         </div>
     </section>
 
-    <hr>
+    <hr class="d-none d-lg-block">
 
     <section class="city-section text-white text-center py-5 d-none d-lg-flex">
         <div class="container">
@@ -995,7 +996,7 @@
         </div>
     </section>
 
-    <hr>
+    <hr class="d-none d-lg-block">
 
     <section class="city-section text-white text-center py-5 d-none d-lg-flex">
         <div class="container">
@@ -1026,7 +1027,7 @@
             </div>
         </div>
     </section>
-    <hr>
+    <hr class="d-none d-lg-block">
     <section class="city-section text-white text-center py-5 d-none d-lg-flex">
         <div class="container">
             <!-- Titre -->
@@ -1055,7 +1056,7 @@
             </div>
         </div>
     </section>
-    <hr>
+    <hr class="d-none d-lg-block">
     <section class="city-section text-white text-center py-5 d-none d-lg-flex">
         <div class="container">
             <!-- Titre -->
@@ -1082,7 +1083,7 @@
             </div>
         </div>
     </section>
-    <hr>
+    <hr class="d-none d-lg-block">
     <section class="city-section text-white text-center py-5 d-none d-lg-flex">
         <div class="container">
             <!-- Titre -->
@@ -1112,7 +1113,7 @@
             </div>
         </div>
     </section>
-    <hr>
+    <hr class="d-none d-lg-block">
     <section class="city-section text-white text-center py-5 d-none d-lg-flex">
         <div class="container">
             <!-- Titre -->
@@ -1141,7 +1142,7 @@
             </div>
         </div>
     </section>
-    <hr>
+    <hr class="d-none d-lg-block">
     <section class="city-section text-white text-center py-5 d-none d-lg-flex">
         <div class="container">
             <!-- Titre -->
@@ -1177,12 +1178,36 @@
     </section>
 
     <!-- PIED DE PAGE -->
-    <footer class="text-center p-5 text-white block ShadowStrong">
+    <footer class="text-center p-5 text-white block ShadowStrong d-none d-lg-block">
         <h2>Website made by <strong>Chily</strong></h2>
-        <h5>Bg Image by <a href="https://x.com/michspich?lang=fr"><strong>@MichSpich</strong></a><h5>
+        <h5>Bg Image by <a href="https://x.com/michspich?lang=fr"><strong>@MichSpich</strong></a></h5>
     </footer>
 
+    <script>
+        function handleResponsiveDisplay() {
+            const isMobile = window.innerWidth < 992; // Bootstrap lg breakpoint
+            const header = document.getElementById('main-header');
+            const errorMsg = document.getElementById('mobile-message');
+            const footer = document.querySelector('footer');
+            const bgBlur = document.getElementById('background-blur');
 
+            if (isMobile) {
+                if (header) header.classList.add('d-none');
+                if (errorMsg) errorMsg.classList.remove('d-none');
+                if (footer) footer.classList.add('d-none');
+                if (bgBlur) bgBlur.style.display = 'none';
+            } else {
+                if (header) header.classList.remove('d-none');
+                if (errorMsg) errorMsg.classList.add('d-none');
+                if (footer) footer.classList.remove('d-none');
+                if (bgBlur) bgBlur.style.display = '';
+            }
+        }
+
+        window.addEventListener('resize', handleResponsiveDisplay);
+        window.addEventListener('load', handleResponsiveDisplay);
+    </script>
+    
 </body>
 
 <!-- Scripts JavaScript -->
