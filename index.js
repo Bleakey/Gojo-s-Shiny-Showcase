@@ -160,7 +160,7 @@ const pokemonList = [
   { name: "Duskull", img: "duskull.png", dex: "355", method: "5x hordes", sold: "✘" },
   { name: "Sableye", img: "sableye.png", dex: "302", method: "5x hordes", sold: "✔" },
   { name: "Roserade", img: "roserade.png", dex: "407", method: "3x hordes", sold: "✘" },
-  { name: "Meowth", img: "meowth.png", dex: "052", method: "5x hordes", sold: "✘" },
+  { name: "Meowth", img: "meowth  .png", dex: "052", method: "5x hordes", sold: "✘" },
   { name: "Magikarp", img: "magikarp.png", dex: "129", method: "5x hordes", sold: "✔" },
   { name: "Gothitelle", img: "gothitelle.png", dex: "576", method: "5x hordes", sold: "✘" },
   ...Array(9).fill({ name: "Bibarel", img: "bibarel.png", dex: "400", method: "3x hordes", sold: "✔" }),
@@ -182,6 +182,7 @@ const pokemonList = [
   { name: "Krookodile", img: "krokorok.png", dex: "552", method: "5x hordes", sold: "✘", encounters: 5461 },
   { name: "Butterfree", img: "butterfree.png", dex: "012", method: "Singles", sold: "✘", encounters: 2064 },
   { name: "Krabby", img: "krabby.png", dex: "098", method: "Singles", sold: "✘", encounters: 12089 },
+  { name: "Cinccino", img: "cinccino.png", dex: "573", method: "3x hordes", sold: "✘", encounters: 1336 },
 ];
 /*
 const currentHunts = [
