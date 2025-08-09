@@ -181,6 +181,7 @@ const pokemonList = [
   { name: "Wooper", img: "wooper.png", dex: "194", method: "5x hordes", sold: "✘", encounters: 25228 },
   { name: "Krookodile", img: "krokorok.png", dex: "552", method: "5x hordes", sold: "✘", encounters: 5461 },
   { name: "Butterfree", img: "butterfree.png", dex: "012", method: "Singles", sold: "✘", encounters: 2064 },
+  { name: "Krabby", img: "krabby.png", dex: "098", method: "Singles", sold: "✘", encounters: 12089 },
 ];
 /*
 const currentHunts = [
