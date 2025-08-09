@@ -262,7 +262,7 @@ img {
     border-radius: 10px;
     transition: transform 0.4s ease-in-out;
     display: block;
-    width: 100%;
+    width: 120%;
     height: auto;
     position: relative;
     z-index: 1;
