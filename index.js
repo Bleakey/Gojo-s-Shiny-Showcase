@@ -112,9 +112,10 @@ class PokemonCard {
     <div class="pokemon-card col-3 col-md-4 col-lg-2 mb-4">
       <div class="image-wrapper">
         <img src="Images/Shinys/${this.img}" 
-             alt="${this.name}" 
-             class="img-fluid main-img animate-on-load" 
-             ${videoAttr}>
+     alt="${this.name}" 
+     class="img-fluid main-img animate-on-load" 
+     style="width: 120px; height: 120px; object-fit: contain;" 
+     ${videoAttr}>
         <img src="Images/shiny-effect.gif" alt="" class="shiny-effect">
       </div>
       <div class="stats-panel">
@@ -202,7 +203,7 @@ const currentHunts = [
 // Mise à jour compteur shiny
 const shinyCount = document.getElementById("shiny-count");
 if (shinyCount) {
-  shinyCount.innerHTML = `<h2><strong>Shiny count :</strong> ${pokemonList.length}</h2>`;
+  shinyCount.innerHTML = `<h2 class="wavy-text-y"><span>Shiny count :${pokemonList.length}</span> </h2>`;
 }
 
 // Affiche cartes shiny
