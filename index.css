@@ -787,3 +787,82 @@ hr {
 a {
     text-decoration: none;
 }
+
+.modal .modal-header {
+  border-bottom: none !important;
+}
+
+#modalClose {
+  font-size: 18px;  /* bigger cross */
+  line-height: 1;
+  padding: 8px 12px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2100;
+}
+
+        .wip-container {
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .wavy-text span {
+            display: inline-block;
+            font-size: 2rem;
+            color: white;
+            text-shadow: 0 0 10px rgb(255, 255, 255);
+            animation: wave 1.5s infinite ease-in-out;
+        }
+
+        .wavy-text-y span {
+            display: inline-block;
+            font-size: 2rem;
+            color: #fcc11c;
+            text-shadow: 0 0 10px rgb(0, 132, 255);
+            animation: wave 1.5s infinite ease-in-out;
+        }
+
+        /* Each span gets a delay to make the wave effect */
+        .wavy-text span:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .wavy-text span:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .wavy-text span:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+
+        .wavy-text span:nth-child(4) {
+            animation-delay: 0.3s;
+        }
+
+        .wavy-text span:nth-child(5) {
+            animation-delay: 0.4s;
+        }
+
+        .wavy-text span:nth-child(6) {
+            animation-delay: 0.5s;
+        }
+
+        .wavy-text span:nth-child(7) {
+            animation-delay: 0.6s;
+        }
+
+        @keyframes wave {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-15px);
+            }
+        }

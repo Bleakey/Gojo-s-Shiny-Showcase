@@ -96,20 +96,24 @@ function addImageHoverListeners() {
 
 // Classes Pokémon
 class PokemonCard {
-  constructor({ name, img, dex, method, sold, encounters }) {
+  constructor({ name, img, dex, method, sold, encounters, video }) {
     this.name = name;
     this.img = img;
     this.dex = dex;
     this.method = method;
     this.sold = sold;
     this.encounters = encounters ?? "?";
+    this.video = video; // can be YouTube embed link
   }
 
   render() {
     return `
       <div class="pokemon-card col-3 col-md-4 col-lg-2 mb-4">
         <div class="image-wrapper">
-          <img src="Images/Shinys/${this.img}" alt="${this.name}" class="img-fluid main-img animate-on-load">
+          <img src="Images/Shinys/${this.img}" 
+               alt="${this.name}" 
+               class="img-fluid main-img animate-on-load" 
+               data-video="${this.video}">
           <img src="Images/shiny-effect.gif" alt="" class="shiny-effect">
         </div>
         <div class="stats-panel">
@@ -160,7 +164,7 @@ const pokemonList = [
   { name: "Duskull", img: "duskull.png", dex: "355", method: "5x hordes", sold: "✘" },
   { name: "Sableye", img: "sableye.png", dex: "302", method: "5x hordes", sold: "✔" },
   { name: "Roserade", img: "roserade.png", dex: "407", method: "3x hordes", sold: "✘" },
-  { name: "Meowth", img: "meowth  .png", dex: "052", method: "5x hordes", sold: "✘" },
+  { name: "Meowth", img: "meowth.png", dex: "052", method: "5x hordes", sold: "✘" },
   { name: "Magikarp", img: "magikarp.png", dex: "129", method: "5x hordes", sold: "✔" },
   { name: "Gothitelle", img: "gothitelle.png", dex: "576", method: "5x hordes", sold: "✘" },
   ...Array(9).fill({ name: "Bibarel", img: "bibarel.png", dex: "400", method: "3x hordes", sold: "✔" }),
@@ -182,7 +186,7 @@ const pokemonList = [
   { name: "Krookodile", img: "krokorok.png", dex: "552", method: "5x hordes", sold: "✘", encounters: 5461 },
   { name: "Butterfree", img: "butterfree.png", dex: "012", method: "Singles", sold: "✘", encounters: 2064 },
   { name: "Krabby", img: "krabby.png", dex: "098", method: "Singles", sold: "✘", encounters: 12089 },
-  { name: "Cinccino", img: "cinccino.png", dex: "573", method: "3x hordes", sold: "✘", encounters: 1336 },
+  { name: "Cinccino", img: "cinccino.png", dex: "573", method: "3x hordes", sold: "✘", encounters: 1336, video: "https://www.youtube.com/watch?v=Rb_cz_zZ0yU" },
 ];
 /*
 const currentHunts = [
@@ -219,3 +223,34 @@ if (currentHuntContainer) {
   });
   addImageHoverListeners();
 }
+
+document.addEventListener("click", function (e) {
+  if (e.target.matches(".main-img")) {
+    const videoSrc = e.target.getAttribute("data-video");
+    if (!videoSrc) {
+      // Bloquer l'ouverture du modal s'il n'y a pas de data-video
+      return; // arrête ici l'exécution du handler
+    }
+
+    const iframe = document.getElementById("shinyVideoIframe");
+    iframe.src = videoSrc + "?autoplay=1"; // autoplay when opened
+
+    const modalEl = document.getElementById("shinyReactionModal");
+    const modal = new bootstrap.Modal(modalEl);
+    modal.show();
+
+    // Clear the video when modal closes to stop audio
+    modalEl.addEventListener("hidden.bs.modal", () => {
+      iframe.src = "";
+    }, { once: true });
+  }
+
+  // Close modal if the custom close button is clicked
+  if (e.target.closest("#modalClose")) {
+    const modalEl = document.getElementById("shinyReactionModal");
+    const modal = bootstrap.Modal.getInstance(modalEl);
+    if (modal) {
+      modal.hide();
+    }
+  }
+});
