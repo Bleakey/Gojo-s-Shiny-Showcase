@@ -578,17 +578,12 @@ body.blur-active .stats-panel {
 
 ::-webkit-scrollbar {
     width: 8px;
-    background: #fc1c1c;
+    background: #fcc11c;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #dba800;
+    background: #2a78a5;
     border-radius: 4px;
-}
-
-/* Masquer la scrollbar horizontale */
-body {
-  overflow-x: hidden;
 }
 
 @keyframes pulse-gold {
@@ -827,30 +822,10 @@ a {
 .wavy-text-y span {
     display: inline-block;
     font-size: 2rem;
-    /* Corps vert pâle, rappel du corps de Breloom shiny */
-    color: #e7c501;
-    /* Éclat brillant, pour imiter un effet lumineux/moussant */
-    text-shadow:
-        0 0 8px #c77700,
-        /* halo lumineux jaune pâle */
-        0 0 16px #f28217;
-
-    animation: wave 1.5s infinite ease-in-out, glow 3s infinite ease-in-out;
+    color: #fcc11c;
+    text-shadow: 0 0 10px rgb(0, 132, 255);
+    animation: wave 1.5s infinite ease-in-out;
 }
-
-@keyframes glow {
-
-    0%,
-    100% {
-        text-shadow: 0 0 8px #fffacd, 0 0 16px #f28217;
-    }
-
-    50% {
-        text-shadow: 0 0 12px #fffacd, 0 0 24px #f28217;
-    }
-}
-
-.wavy-text-y span {}
 
 /* Each span gets a delay to make the wave effect */
 .wavy-text span:nth-child(1) {
@@ -891,22 +866,4 @@ a {
     50% {
         transform: translateY(-15px);
     }
-}
-
-.sprite-title {
-    display: flex;
-    align-items: center; /* aligne les sprites et le texte verticalement */
-    justify-content: center; /* centre le tout horizontalement */
-    gap: 10px; /* espace entre sprite et texte */
-}
-
-.sprite {
-    width: 120px;
-    height: auto;
-    image-rendering: pixelated; /* garde l'effet pixel art */
-    filter: drop-shadow(0px 0px 20px #000);
-}
-
-.wavy-text-y {
-    margin: 0; /* enlève marges par défaut du h2 */
 }
