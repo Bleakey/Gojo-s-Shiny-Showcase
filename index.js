@@ -189,6 +189,7 @@ const pokemonList = [
   { name: "Butterfree", img: "butterfree.png", dex: "012", method: "Singles", sold: "✘", encounters: 2064, video: "https://www.youtube.com/embed/fiu50H10m0M" },
   { name: "Krabby", img: "krabby.png", dex: "098", method: "Singles", sold: "✘", encounters: 12089, video: "https://www.youtube.com/embed/3FFZ3KnMypM" },
   { name: "Cinccino", img: "cinccino.png", dex: "573", method: "3x hordes", sold: "✘", encounters: 1336, video: "https://www.youtube.com/embed/Rb_cz_zZ0yU" },
+  { name: "Tentacruel", img: "tentacruel.png", dex: "073", method: "5x hordes", sold: "✘", encounters: 2439, video: "https://www.youtube.com/embed/dZiGaAMx9hI" },
 ];
 /*
 const currentHunts = [
