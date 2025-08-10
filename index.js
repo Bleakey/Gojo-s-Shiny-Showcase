@@ -107,26 +107,27 @@ class PokemonCard {
   }
 
   render() {
+    const videoAttr = this.video ? `data-video="${this.video}"` : `data-video=""`;
     return `
-      <div class="pokemon-card col-3 col-md-4 col-lg-2 mb-4">
-        <div class="image-wrapper">
-          <img src="Images/Shinys/${this.img}" 
-               alt="${this.name}" 
-               class="img-fluid main-img animate-on-load" 
-               data-video="${this.video}">
-          <img src="Images/shiny-effect.gif" alt="" class="shiny-effect">
-        </div>
-        <div class="stats-panel">
-          <ul>
-            <li><strong>Encounters :</strong> ${this.encounters}</li>
-            <li><strong>Encounter type :</strong> ${this.method}</li>
-            <li><strong>Pokédex :</strong> ${this.dex}</li>
-            <li><strong>Name :</strong> ${this.name}</li>
-            <li><strong>Sold :</strong> ${this.sold}</li>
-          </ul>
-        </div>
+    <div class="pokemon-card col-3 col-md-4 col-lg-2 mb-4">
+      <div class="image-wrapper">
+        <img src="Images/Shinys/${this.img}" 
+             alt="${this.name}" 
+             class="img-fluid main-img animate-on-load" 
+             ${videoAttr}>
+        <img src="Images/shiny-effect.gif" alt="" class="shiny-effect">
       </div>
-    `;
+      <div class="stats-panel">
+        <ul>
+          <li><strong>Encounters :</strong> ${this.encounters}</li>
+          <li><strong>Encounter type :</strong> ${this.method}</li>
+          <li><strong>Pokédex :</strong> ${this.dex}</li>
+          <li><strong>Name :</strong> ${this.name}</li>
+          <li><strong>Sold :</strong> ${this.sold}</li>
+        </ul>
+      </div>
+    </div>
+  `;
   }
 }
 
@@ -181,12 +182,12 @@ const pokemonList = [
   { name: "Graveler", img: "graveler.png", dex: "075", method: "5x hordes", sold: "✘", encounters: 35420 },
   { name: "Walrein", img: "walrein.png", dex: "365", method: "5x hordes", sold: "✘", encounters: 31139 },
   { name: "Sealeo", img: "sealeo.png", dex: "364", method: "5x hordes", sold: "✘", encounters: 42202 },
-  { name: "Lairon", img: "lairon.png", dex: "305", method: "5x hordes", sold: "✘", encounters: 46914 },
-  { name: "Wooper", img: "wooper.png", dex: "194", method: "5x hordes", sold: "✘", encounters: 25228 },
+  { name: "Lairon", img: "lairon.png", dex: "305", method: "5x hordes", sold: "✘", encounters: 46914, video: "https://www.youtube.com/embed/s4cN9MFE-nw" },
+  { name: "Wooper", img: "wooper.png", dex: "194", method: "5x hordes", sold: "✘", encounters: 25228, video: "https://www.youtube.com/embed/cSPhx7i79tE" },
   { name: "Krookodile", img: "krokorok.png", dex: "552", method: "5x hordes", sold: "✘", encounters: 5461 },
-  { name: "Butterfree", img: "butterfree.png", dex: "012", method: "Singles", sold: "✘", encounters: 2064 },
-  { name: "Krabby", img: "krabby.png", dex: "098", method: "Singles", sold: "✘", encounters: 12089 },
-  { name: "Cinccino", img: "cinccino.png", dex: "573", method: "3x hordes", sold: "✘", encounters: 1336, video: "https://www.youtube.com/watch?v=Rb_cz_zZ0yU" },
+  { name: "Butterfree", img: "butterfree.png", dex: "012", method: "Singles", sold: "✘", encounters: 2064, video: "https://www.youtube.com/embed/fiu50H10m0M" },
+  { name: "Krabby", img: "krabby.png", dex: "098", method: "Singles", sold: "✘", encounters: 12089, video: "https://www.youtube.com/embed/3FFZ3KnMypM" },
+  { name: "Cinccino", img: "cinccino.png", dex: "573", method: "3x hordes", sold: "✘", encounters: 1336, video: "https://www.youtube.com/embed/Rb_cz_zZ0yU" },
 ];
 /*
 const currentHunts = [
@@ -214,39 +215,57 @@ if (showcaseContainer) {
   addImageHoverListeners();
 }
 
-// Affiche cartes current hunt
-const currentHuntContainer = document.getElementById("current-hunts");
-if (currentHuntContainer) {
-  currentHunts.forEach(hunt => {
-    const card = new CurrentHuntCard(hunt);
-    currentHuntContainer.innerHTML += card.render();
+// Affichage des cartes dans la page
+const cardsContainer = document.getElementById('cardsContainer');
+if (cardsContainer) {
+  pokemonList.forEach(pokemon => {
+    const card = new PokemonCard(pokemon);
+    cardsContainer.innerHTML += card.render();
   });
   addImageHoverListeners();
 }
 
+// Ouverture modal vidéo ou message no video
 document.addEventListener("click", function (e) {
   if (e.target.matches(".main-img")) {
     const videoSrc = e.target.getAttribute("data-video");
-    if (!videoSrc) {
-      // Bloquer l'ouverture du modal s'il n'y a pas de data-video
-      return; // arrête ici l'exécution du handler
-    }
-
     const iframe = document.getElementById("shinyVideoIframe");
-    iframe.src = videoSrc + "?autoplay=1"; // autoplay when opened
-
+    const noVideoMsg = document.getElementById("noVideoMessage");
     const modalEl = document.getElementById("shinyReactionModal");
     const modal = new bootstrap.Modal(modalEl);
-    modal.show();
+    const ratioDiv = iframe.parentElement; // div.ratio
 
-    // Clear the video when modal closes to stop audio
+    if (!videoSrc) {
+      ratioDiv.style.display = "none";
+      iframe.style.display = "none";
+      noVideoMsg.style.display = "block";
+      modal.show();
+      return;
+    } else {
+      ratioDiv.style.display = "block";
+      iframe.style.display = "block";
+      noVideoMsg.style.display = "none";
+      iframe.src = videoSrc + "?autoplay=1";
+      modal.show();
+    }
+
     modalEl.addEventListener("hidden.bs.modal", () => {
       iframe.src = "";
+      ratioDiv.style.display = "block";
+      iframe.style.display = "block";
+      noVideoMsg.style.display = "none";
     }, { once: true });
   }
 
-  // Close modal if the custom close button is clicked
   if (e.target.closest("#modalClose")) {
+    const modalEl = document.getElementById("shinyReactionModal");
+    const modal = bootstrap.Modal.getInstance(modalEl);
+    if (modal) modal.hide();
+  }
+});
+
+window.addEventListener('resize', () => {
+  if (window.innerWidth < 992) {
     const modalEl = document.getElementById("shinyReactionModal");
     const modal = bootstrap.Modal.getInstance(modalEl);
     if (modal) {
