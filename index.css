@@ -872,3 +872,8 @@ a {
 .wavy-text span:nth-child(7) {
     animation-delay: 0.6s;
 }
+
+/* Masquer la scrollbar horizontale */
+body {
+  overflow-x: hidden;
+}
