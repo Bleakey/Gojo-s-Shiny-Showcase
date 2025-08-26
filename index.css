@@ -1,4 +1,4 @@
-@import url('https://fonts.cdnfonts.com/css/public-pixel');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
 
 @keyframes animation {
     0% {
@@ -21,7 +21,7 @@
 }
 
 body {
-    font-family: 'Press Start 2P';
+    font-family: 'Orbitron', sans-serif;
     background-color: rgb(80, 80, 80);
     background-repeat: no-repeat;
     background-size: cover;
@@ -314,7 +314,7 @@ img {
     border: 2px solid #ffffff;
     box-shadow: 0 0 5px #fff2, 0 0 10px #000a;
     color: #f0f0f0;
-    font-family: 'Press Start 2P';
+    font-family: 'Orbitron', sans-serif;
     font-size: 15px;
     line-height: 1.8;
     opacity: 0;
@@ -421,7 +421,7 @@ img {
 }
 
 .btn {
-    font-family: 'Press Start 2P';
+    font-family: 'Orbitron', sans-serif;
     font-size: 12px;
     color: #ffffff;
     background-color: #2a78a5;
@@ -1132,3 +1132,21 @@ body {
 #screen-warning .warning-content {
     max-width: 500px;
 }
+
+.city-image {
+  display: flex;           /* Permet de centrer l’image */
+  justify-content: center; /* Centre horizontalement */
+  align-items: center;     /* Centre verticalement si hauteur fixée */
+  margin-bottom: 1rem;     /* Espacement en bas */
+}
+
+.city-image img {
+  height: auto;            /* Conserve les proportions */
+  border-radius: 8px;      /* Coins arrondis */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Petite ombre */
+  transition: transform 0.3s ease; /* Animation au survol */
+}
+
+.city-image img:hover {
+  transform: scale(1.05); /* Zoom léger au survol */
+}   
