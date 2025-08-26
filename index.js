@@ -398,7 +398,7 @@ document.querySelectorAll(".city-section .trainer-img").forEach(trainerImg => {
 
   trainerImg.addEventListener("click", (e) => {
     if (!globalTimerInterval) {
-      alert("Commence le run avant de cliquer sur une ville !");
+      alert("You need to start the timer first!");
       e.preventDefault();
       e.stopPropagation();
       return false;

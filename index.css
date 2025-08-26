@@ -315,7 +315,7 @@ img {
     box-shadow: 0 0 5px #fff2, 0 0 10px #000a;
     color: #f0f0f0;
     font-family: 'Orbitron', sans-serif;
-    font-size: 15px;
+    font-size: 0.85rem;
     line-height: 1.8;
     opacity: 0;
     pointer-events: none;
@@ -715,7 +715,7 @@ body.blur-active .stats-panel {
     display: grid;
     grid-template-columns: 1fr;
     gap: 4px;
-    font-size: 0.95rem;
+    font-size: 0.85rem;
 }
 
 /* === IV parfaits === */
