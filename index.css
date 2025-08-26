@@ -30,6 +30,7 @@ body {
     padding: 0;
     height: 100%;
     overflow-y: auto;
+    background-image: url('Images/bg.svg');
 }
 
 input::placeholder {
@@ -1109,4 +1110,31 @@ body {
   image-rendering: pixelated;
   flex: 0 0 auto;                  /* évite que Flex rétrécisse l'image */
   transition: transform .2s ease;
+}
+
+/* --- Optimisation mobile --- */
+@media (max-width: 768px) {
+  .pokemon-summary {
+    flex-direction: column; /* stack verticalement */
+    gap: 1rem;
+  }
+
+  .pokemon-img {
+    width: 120px; /* réduire la taille */
+    transform: scale(1.2); /* moins agressif */
+  }
+
+  .trainer-img {
+    width: 180px; /* plus petit sur mobile */
+  }
+
+  .stat-block, .skill-block, .trainer-block, .strat-block {
+    width: 100%;
+    max-width: 300px;
+    margin: auto;
+  }
+
+  h1, h2 {
+    font-size: 1rem;
+  }
 }
