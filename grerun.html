@@ -19,18 +19,21 @@
 </head>
 
 <body id="container">
+
     <!-- Fond flouté si utilisé -->
     <div id="background-blur"></div>
 
     <!-- HEADER -->
-    <header id="main-header" class="shadow d-none d-lg-flex justify-content-between align-items-center px-4 py-2">
-        <div class="d-flex align-items-center gap-3">
-            <img src="Images/logo.png" alt="Logo" class="img-fluid rounded image-blur" style="max-width: 100px;">
-            <a href="index.html" class="btn btn-primary">Shiny Showcase</a>
-            <a href="grerun.html" class="btn btn-primary">Gym Rerun</a>
-        </div>
-        <button id="activate-sound-btn" class="btn btn-outline-secondary">Turn on sounds</button>
-    </header>
+    <div class="d-flex justify-content-center">
+        <img src="Images/logo.png" alt="Logo" class="img-fluid rounded image-blur m-3 pulse" style="max-width: 300px;">
+    </div>
+
+    <nav class="text-center mb-4">
+        <a href="index.html" class="btn btn-primary m-2">⭐ Shiny Showcase</a>
+        <a href="grerun.html" class="btn btn-primary m-2">🏋️ Gym Rerun</a>
+        <a href="heartScale.html" class="btn btn-danger m-2">❤️ Heart Scale Tracker</a>
+    </nav>
+
 
     <section id="mobile-message" class="text-center py-5 text-white d-none" style="font-size: 1.2rem;">
         <p>⚠️ <strong>The Gym Rerun page is only available on desktop.</strong></p>
@@ -42,6 +45,38 @@
         <div class="container">
             <div class="row gx-4 gy-4 justify-content-center">
 
+                <h1 class="wavy-text"><span style="color:rgb(222, 138, 255);">gym rerun team / route</span></h1>
+
+                <style>
+                    /* Animation wavy */
+                    @keyframes wavy {
+                        0% {
+                            transform: translateY(0) rotate(0deg);
+                        }
+
+                        25% {
+                            transform: translateY(-3px) rotate(-2deg);
+                        }
+
+                        50% {
+                            transform: translateY(0) rotate(0deg);
+                        }
+
+                        75% {
+                            transform: translateY(3px) rotate(2deg);
+                        }
+
+                        100% {
+                            transform: translateY(0) rotate(0deg);
+                        }
+                    }
+
+                    .wavy {
+                        display: inline-block;
+                        animation: wavy 1.5s ease-in-out infinite;
+                    }
+                </style>
+
                 <!-- Gardevoir -->
                 <div class="pokemon-card col-6 col-lg-5">
                     <div class="pokemon-summary text-white">
@@ -51,9 +86,10 @@
                                 <div><strong>Speed EV:</strong> <span class="perfect-iv">255</span></div>
                                 <div><strong>Item:</strong></div>
                                 <div><img src="Images/nevermeltice.png" style="max-width: 30%;"></div>
+                                <div><img src="Images/ChoiceSpecs.png" style="max-width: 30%;"></div>
                             </div>
                         </div>
-                        <img src="Images/Shinys/Gardevoir.gif" alt="Gardevoir" class="pokemon-img shadow-glow">
+                        <img src="Images/Shinys/gardevoir.png" alt="Gardevoir" class="pokemon-img shadow-glow">
                         <div class="stat-block">
                             <div class="iv-grid">
                                 <div><strong>HP IV:</strong> <span>-</span></div>
@@ -84,7 +120,7 @@
                                 <div><img src="Images/choiceband.png" style="max-width: 30%;"></div>
                             </div>
                         </div>
-                        <img src="Images/Shinys/Krokorok.gif" alt="Krokorok" class="pokemon-img shadow-glow">
+                        <img src="Images/Shinys/krokorok.png" alt="Krokorok" class="pokemon-img shadow-glow">
                         <div class="stat-block">
                             <div class="iv-grid">
                                 <div><strong>HP IV:</strong> <span>-</span></div>
@@ -96,7 +132,10 @@
                             </div>
                         </div>
                         <div class="skill-block ">
-                            <div class="type-ground mb-0">Earthquake</div>
+                            <div class="type-ground">Earthquake</div>
+                            <div class="type-normal">-</div>
+                            <div class="type-normal">-</div>
+                            <div class="type-normal">-</div>
                         </div>
                     </div>
                 </div>
@@ -156,6 +195,7 @@
                             <div class="type-flying">tailwind</div>
                             <div class="type-fire">sunny day</div>
                             <div class="type-normal">helping hand</div>
+                            <div class="type-normal">-</div>
                         </div>
                     </div>
                 </div>
@@ -215,9 +255,11 @@
                             <div class="type-flying">tailwind</div>
                             <div class="type-fire">sunny day</div>
                             <div class="type-normal">helping hand</div>
+                            <div class="type-normal">-</div>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
 
@@ -258,28 +300,69 @@
     </section>
 
     <hr class="d-none d-lg-block">
+    <!-- Conteneur total unique -->
+    <section class="city-total text-center text-warning py-3">
+        <h2>Total 💵: <span id="route-total">$0</span></h2>
+    </section>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let total = 0;
+            document.querySelectorAll('.wavy-text span').forEach(span => {
+                // Vérifie la couleur verte approximative
+                const color = span.style.color.replace(/\s+/g, '');
+                if (color === 'rgb(88,255,66)' || color === '#58ff42') {
+                    const matches = span.textContent.match(/\$(\d+)/g);
+                    if (matches) {
+                        matches.forEach(m => total += parseInt(m.replace('$', ''), 10));
+                    }
+                }
+            });
+
+            document.getElementById('route-total').textContent = `${total.toLocaleString()} $`;
+        });
+    </script>
+
+    <!-- Timer global -->
+    <section class="text-center my-4">
+        <h2 class="glow">⏱ Global Timer : <span id="global-timer">00:00:00</span></h2>
+        <div class="mt-3">
+            <button id="start-global" class="btn">Start</button>
+            <button id="stop-global" class="btn">Stop</button>
+        </div>
+        <button id="screenshot-btn" class="btn btn-primary m-3">
+            📸 Exports timestamps
+        </button>
+    </section>
+
+    <!-- Progress bar fixe -->
+    <div class="progress-container-fixed text-center p-2">
+        <span>Progression:</span>
+        <div class="progress" style="height: 25px; max-width: 500px; margin: auto;">
+            <div id="run-progress" class="progress-bar bg-success" role="progressbar" style="width: 0%;">
+                0%
+            </div>
+        </div>
+    </div>
+
+    <!-- Ville 1 -->
     <section class="city-section text-white text-center py-5 d-none d-lg-flex">
         <div class="container">
-            <!-- Titre -->
-            <h1 class="wavy-text mb-5"><span>1.Lavaridge Town</span></h1>
+            <h1 class="wavy-text mb-5"><span>1:Lavaridge Town <span
+                        style="color:rgb(88, 255, 66);">+50%[$13416]</span></span></h1>
 
-            <!-- Image de la ville -->
             <div class="city-image mb-4">
                 <img src="Images/citys/Lavaridge.png" alt="Lavaridge City" class="img-fluid" style="max-width: 15%;">
-
             </div>
             <div class="city-image mb-4">
                 <img src="Images/citys/Lavaridge_Puzzle.png" alt="Lavaridge Puzzle" class="img-fluid"
                     style="max-width: 40%;">
             </div>
 
-            <!-- Dresseurs -->
             <div class="trainers d-flex justify-content-center align-items-center gap-4 flex-wrap mb-3">
-                <img src="Images/trainers/flannery.png" alt="Flannery" class="pokemon-img rounded">
+                <img src="Images/trainers/flannery.png" alt="Flannery" class="trainer-img rounded">
             </div>
 
-            <!-- Info combat -->
             <div class="trainer-block">
                 <div class="flex items-center space-x-2 text-sm">
                     <span class="font-semibold text-info">Flannery:</span>
@@ -290,124 +373,27 @@
                     <span class="attack">Heartquake</span>
                 </div>
             </div>
+
+            <!-- Conteneur timestamps -->
+            <div class="city-timestamps"></div>
         </div>
     </section>
     <hr class="d-none d-lg-block">
+
+    <!-- Ville 2 -->
     <section class="city-section text-white text-center py-5 d-none d-lg-flex">
         <div class="container">
-            <!-- Titre -->
-            <h1 class="wavy-text mb-5"><span>2.Dewford Town (Focus sash cottonee)</span></h1>
+            <h1 class="wavy-text mb-5"><span>2:Rustboro City <span
+                        style="color:rgb(88, 255, 66);">+50%[$12948]</span></span></h1>
 
-            <!-- Image de la ville -->
-            <div class="city-image mb-4">
-                <img src="Images/citys/Dewford.png" alt="Dewford City" class="img-fluid" style="max-width: 15%;">
-
-            </div>
-
-            <!-- Dresseurs -->
-            <div class="trainers d-flex justify-content-center align-items-center gap-4 flex-wrap mb-3">
-                <img src="Images/trainers/brawly.png" alt="Brawly" class="pokemon-img rounded">
-            </div>
-
-            <!-- Info combat -->
-            <div class="trainer-block">
-                <div class="flex items-center space-x-2 text-sm">
-                    <span class="font-semibold text-info">Brawly:</span>
-                    <span>Setup</span>
-                    <span>&gt;</span>
-                    <span class="attack">Hyper Voice</span>
-                    <span>/</span>
-                    <span class="attack">Heartquake</span>
-                </div>
-                <h1 class="glow">Heal</h1>
-            </div>
-        </div>
-    </section>
-    <hr class="d-none d-lg-block">
-    <section class="city-section text-white text-center py-5 d-none d-lg-flex">
-        <div class="container">
-            <!-- Titre -->
-            <h1 class="wavy-text mb-5"><span>3.Fortree City</span></h1>
-
-            <!-- Image de la ville -->
-            <div class="city-image mb-4">
-                <img src="Images/citys/Fortree.png" alt="Fortree City" class="img-fluid" style="max-width: 15%;">
-            </div>
-
-            <!-- Dresseurs -->
-            <div class="trainers d-flex justify-content-center align-items-center gap-4 flex-wrap mb-3">
-                <img src="Images/trainers/winona.png" alt="Winona" class="pokemon-img rounded">
-            </div>
-
-            <!-- Info combat -->
-            <div class="trainer-block">
-                <div class="flex items-center space-x-2 text-sm">
-                    <span class="font-semibold text-info">Winona:</span>
-                    <span>Setup</span>
-                    <span>&gt;</span>
-                    <span class="attack">Icy Wind</span>
-                    <span>/</span>
-                    <span class="attack">Heartquake</span>
-                </div>
-            </div>
-        </div>
-    </section>
-    <hr class="d-none d-lg-block">
-    <section class="city-section text-white text-center py-5 d-none d-lg-flex">
-        <div class="container">
-            <!-- Titre -->
-            <h1 class="wavy-text mb-5"><span>4.Mauville City</span></h1>
-
-            <!-- Image de la ville -->
-            <div class="city-image mb-4">
-                <img src="Images/citys/Mauville.png" alt="Mauville City" class="img-fluid" style="max-width: 15%;">
-            </div>
-
-            <!-- Dresseurs -->
-            <div class="trainers d-flex justify-content-center align-items-center gap-4 flex-wrap mb-3">
-                <img src="Images/trainers/wattson.png" alt="Wattson" class="pokemon-img rounded">
-            </div>
-
-            <!-- Info combat -->
-            <div class="trainer-block">
-                <div class="flex items-center space-x-2 text-sm">
-                    <span class="font-semibold text-info">Wattson:</span>
-                    <span>Setup</span>
-                    <span>&gt;</span>
-                    <span class="attack">Hyper Voice</span>
-                    <span>/</span>
-                    <span class="attack">Heartquake</span>
-                </div>
-                <div class="flex items-center space-x-2 text-sm">
-                    <span class="glow">if vs. <img src="Images/pokemons/Electrode.png" alt="Electrode"
-                            class="pokemon-img">/<img src="Images/pokemons/Magnezone.png" alt="Magnezone"
-                            class="pokemon-img">:</span>
-                    <span class="attack">Icy Wind</span>
-                    <span>/</span>
-                    <span class="attack">Heartquake</span>
-                </div>
-                <h1 class="glow">Heal</h1>
-            </div>
-
-        </div>
-    </section>
-    <hr class="d-none d-lg-block">
-    <section class="city-section text-white text-center py-5 d-none d-lg-flex">
-        <div class="container">
-            <!-- Titre -->
-            <h1 class="wavy-text mb-5"><span>5.Rustboro City (No setup)</span></h1>
-
-            <!-- Image de la ville -->
             <div class="city-image mb-4">
                 <img src="Images/citys/Rustboro.png" alt="Rustboro City" class="img-fluid" style="max-width: 15%;">
             </div>
 
-            <!-- Dresseurs -->
             <div class="trainers d-flex justify-content-center align-items-center gap-4 flex-wrap mb-3">
-                <img src="Images/trainers/roxanne.png" alt="Roxanne" class="pokemon-img rounded">
+                <img src="Images/trainers/roxanne.png" alt="Roxanne" class="trainer-img rounded">
             </div>
 
-            <!-- Info combat -->
             <div class="trainer-block">
                 <div class="flex items-center space-x-2 text-sm">
                     <span class="font-semibold text-info">Roxanne:</span>
@@ -417,27 +403,58 @@
                     <span>/</span>
                     <span class="attack">Heartquake</span>
                 </div>
-                <h1 class="glow">Fly to Kanto</h1>
             </div>
+
+            <!-- Conteneur timestamps -->
+            <div class="city-timestamps"></div>
         </div>
     </section>
     <hr class="d-none d-lg-block">
+    <!-- Ville 3 -->
     <section class="city-section text-white text-center py-5 d-none d-lg-flex">
         <div class="container">
-            <!-- Titre -->
-            <h1 class="wavy-text mb-5"><span>6.Vermillion City (No setup)</span></h1>
+            <h1 class="wavy-text mb-5"><span>3:Fortree City <span
+                        style="color:rgb(88, 255, 66);">+50%[$13728]</span></span></h1>
 
-            <!-- Image de la ville -->
+            <div class="city-image mb-4">
+                <img src="Images/citys/Fortree.png" alt="Fortree City" class="img-fluid" style="max-width: 15%;">
+            </div>
+
+            <div class="trainers d-flex justify-content-center align-items-center gap-4 flex-wrap mb-3">
+                <img src="Images/trainers/winona.png" alt="Winona" class="trainer-img rounded">
+            </div>
+
+            <div class="trainer-block">
+                <div class="flex items-center space-x-2 text-sm">
+                    <span class="font-semibold text-info">Winona:</span>
+                    <span>Setup</span>
+                    <span>&gt;</span>
+                    <span class="attack">Icy Wind</span>
+                    <span>/</span>
+                    <span class="attack">Heartquake</span>
+                </div>
+                <h1 class="glow">Fly to Kanto</h1>
+            </div>
+
+            <!-- Conteneur timestamps -->
+            <div class="city-timestamps"></div>
+        </div>
+    </section>
+    <hr class="d-none d-lg-block">
+    <!-- Ville 4 -->
+    <section class="city-section text-white text-center py-5 d-none d-lg-flex">
+        <div class="container">
+            <h1 class="wavy-text mb-5"><span>4:Vermilion City <span
+                        style="color:rgb(88, 255, 66);">+50%[$13260]</span></span></h1>
+
             <div class="city-image mb-4">
                 <img src="Images/citys/Vermillion.png" alt="Vermillion City" class="img-fluid" style="max-width: 15%;">
             </div>
 
-            <!-- Dresseurs -->
             <div class="trainers d-flex justify-content-center align-items-center gap-4 flex-wrap mb-3">
-                <img src="Images/trainers/ltsurge.png" alt="Lt. Surge" class="pokemon-img rounded">
+                <img src="Images/trainers/surge.png" alt="surge" class="trainer-img rounded">
             </div>
 
-            <!-- Info combat -->
             <div class="trainer-block">
                 <div class="flex items-center space-x-2 text-sm">
                     <span class="font-semibold text-info">Lt. Surge:</span>
@@ -447,36 +464,27 @@
                     <span>/</span>
                     <span class="attack">Heartquake</span>
                 </div>
-                <div class="flex items-center space-x-2 text-sm">
-                    <span class="glow">if vs. <img src="Images/pokemons/Electrode.png" alt="Electrode"
-                            class="pokemon-img">/<img src="Images/pokemons/Magnezone.png" alt="Magnezone"
-                            class="pokemon-img">:</span>
-                    <span class="attack">Icy Wind</span>
-                    <span>/</span>
-                    <span class="attack">Heartquake</span>
-                </div>
-                <h1 class="glow">Heal</h1>
             </div>
 
+            <!-- Conteneur timestamps -->
+            <div class="city-timestamps"></div>
         </div>
     </section>
     <hr class="d-none d-lg-block">
+    <!-- Ville 5 -->
     <section class="city-section text-white text-center py-5 d-none d-lg-flex">
         <div class="container">
-            <!-- Titre -->
-            <h1 class="wavy-text mb-5"><span>7.Cinnabar Island</span></h1>
+            <h1 class="wavy-text mb-5"><span>5:Cinnabar Island<span
+                        style="color:rgb(88, 255, 66);">+50%[$13884]</span></span></h1>
 
-            <!-- Image de la ville -->
             <div class="city-image mb-4">
                 <img src="Images/citys/Cinnabar.png" alt="Cinnabar Island" class="img-fluid" style="max-width: 15%;">
             </div>
 
-            <!-- Dresseurs -->
             <div class="trainers d-flex justify-content-center align-items-center gap-4 flex-wrap mb-3">
-                <img src="Images/trainers/blaine.png" alt="Blaine" class="pokemon-img rounded">
+                <img src="Images/trainers/Blaine.png" alt="Blaine" class="trainer-img rounded">
             </div>
 
-            <!-- Info combat -->
             <div class="trainer-block">
                 <div class="flex items-center space-x-2 text-sm">
                     <span class="font-semibold text-info">Blaine:</span>
@@ -487,13 +495,48 @@
                     <span class="attack">Heartquake</span>
                 </div>
             </div>
+
+            <!-- Conteneur timestamps -->
+            <div class="city-timestamps"></div>
         </div>
     </section>
     <hr class="d-none d-lg-block">
+    <!-- Ville 6 -->
+    <section class="city-section text-white text-center py-5 d-none d-lg-flex">
+        <div class="container">
+            <h1 class="wavy-text mb-5"><span>6:Cerulean City <span
+                        style="color:rgb(88, 255, 66);">+50%[$13104]</span></span></h1>
+
+            <div class="city-image mb-4">
+                <img src="Images/citys/Cereluan.png" alt="Cerulean City" class="img-fluid" style="max-width: 15%;">
+            </div>
+
+            <div class="trainers d-flex justify-content-center align-items-center gap-4 flex-wrap mb-3">
+                <img src="Images/trainers/Misty.png" alt="Misty" class="trainer-img rounded">
+            </div>
+
+            <div class="trainer-block">
+                <div class="flex items-center space-x-2 text-sm">
+                    <span class="font-semibold text-info">Misty:</span>
+                    <span>Setup</span>
+                    <span>&gt;</span>
+                    <span class="attack">Hyper Voice</span>
+                    <span>/</span>
+                    <span class="attack">Heartquake</span>
+                </div>
+            </div>
+
+            <!-- Conteneur timestamps -->
+            <div class="city-timestamps"></div>
+        </div>
+    </section>
+    <hr class="d-none d-lg-block">
+    <!-- Ville 7 -->
     <section class="city-section text-white text-center py-5 d-none d-lg-flex">
         <div class="container">
             <!-- Titre -->
-            <h1 class="wavy-text mb-5"><span>8.Celadon City</span></h1>
+            <h1 class="wavy-text mb-5"><span>7:Celadon City <span
+                        style="color:rgb(88, 255, 66);">+50%[$13416]</span></span></h1>
 
             <!-- Image de la ville -->
             <div class="city-image mb-4">
@@ -502,7 +545,7 @@
 
             <!-- Dresseurs -->
             <div class="trainers d-flex justify-content-center align-items-center gap-4 flex-wrap mb-3">
-                <img src="Images/trainers/erika.png" alt="Erika" class="pokemon-img rounded">
+                <img src="Images/trainers/erika.png" alt="Erika" class="trainer-img rounded">
             </div>
 
             <!-- Info combat -->
@@ -515,23 +558,20 @@
                     <span>/</span>
                     <span class="attack">Heartquake</span>
                 </div>
-                <div class="flex items-center space-x-2 text-sm">
-                    <span class="glow">if vs. <img src="Images/pokemons/Ninetale.png" alt="Ninetale"
-                            class="pokemon-img">:</span>
-                    <span class="attack">Hyper Voice</span>
-                    <span>/</span>
-                    <span class="attack">Heartquake</span>
-                </div>
-                <h1 class="glow">Heal</h1>
             </div>
+
+            <!-- Conteneur timestamps -->
+            <div class="city-timestamps"></div>
         </div>
         </div>
     </section>
     <hr class="d-none d-lg-block">
+    <!-- Ville 8 -->
     <section class="city-section text-white text-center py-5 d-none d-lg-flex">
         <div class="container">
             <!-- Titre -->
-            <h1 class="wavy-text mb-5"><span>9.Saffron City</span></h1>
+            <h1 class="wavy-text mb-5"><span>8:Saffron City <span
+                        style="color:rgb(88, 255, 66);">+50%[$13728]</span></span></h1>
 
             <!-- Image de la ville -->
             <div class="city-image mb-4">
@@ -544,7 +584,7 @@
 
             <!-- Dresseurs -->
             <div class="trainers d-flex justify-content-center align-items-center gap-4 flex-wrap mb-3">
-                <img src="Images/trainers/sabrina.png" alt="Sabrina" class="pokemon-img rounded">
+                <img src="Images/trainers/sabrina.png" alt="Sabrina" class="trainer-img rounded">
             </div>
 
             <!-- Info combat -->
@@ -566,47 +606,50 @@
                     <span class="attack">Heartquake</span>
                 </div>
             </div>
+            <!-- Conteneur timestamps -->
+            <div class="city-timestamps"></div>
         </div>
         </div>
         </div>
     </section>
     <hr class="d-none d-lg-block">
+    <!-- Ville 9 -->
     <section class="city-section text-white text-center py-5 d-none d-lg-flex">
         <div class="container">
-            <!-- Titre -->
-            <h1 class="wavy-text mb-5"><span>10.Pewter City</span></h1>
+            <h1 class="wavy-text mb-5"><span>9:Pewter City<span
+                        style="color:rgb(88, 255, 66);">+50%[$12948]</span></span></h1>
 
-            <!-- Image de la ville -->
             <div class="city-image mb-4">
                 <img src="Images/citys/Pewter.png" alt="Pewter City" class="img-fluid" style="max-width: 15%;">
             </div>
 
-            <!-- Dresseurs -->
             <div class="trainers d-flex justify-content-center align-items-center gap-4 flex-wrap mb-3">
-                <img src="Images/trainers/brock.png" alt="Brock" class="pokemon-img rounded">
+                <img src="Images/trainers/Brock.png" alt="Brock" class="trainer-img rounded">
             </div>
 
-            <!-- Info combat -->
             <div class="trainer-block">
                 <div class="flex items-center space-x-2 text-sm">
                     <span class="font-semibold text-info">Brock:</span>
                     <span>Setup</span>
                     <span>&gt;</span>
-                    <span class="attack">Icy Wind</span>
+                    <span class="attack">Hyper Voice</span>
                     <span>/</span>
                     <span class="attack">Heartquake</span>
                 </div>
-                <h1 class="glow">Fly to Sinnoh / Heal</h1>
+                <h1 class="glow">Fly to Sinnoh</h1>
             </div>
-        </div>
-        </div>
+
+            <!-- Conteneur timestamps -->
+            <div class="city-timestamps"></div>
         </div>
     </section>
     <hr class="d-none d-lg-block">
+    <!-- Ville 10 -->
     <section class="city-section text-white text-center py-5 d-none d-lg-flex">
         <div class="container">
             <!-- Titre -->
-            <h1 class="wavy-text mb-5"><span>11.Eterna City</span></h1>
+            <h1 class="wavy-text mb-5"><span>10:Eterna City <span
+                        style="color:rgb(88, 255, 66);">+50%[$13104]</span></span></h1>
 
             <!-- Image de la ville -->
             <div class="city-image mb-4">
@@ -615,13 +658,16 @@
 
             <!-- Dresseurs -->
             <div class="trainers d-flex justify-content-center align-items-center gap-4 flex-wrap mb-3">
-                <img src="Images/trainers/gardenia.png" alt="Gardenia" class="pokemon-img rounded">
+                <img src="Images/trainers/gardenia.png" alt="Gardenia" class="trainer-img rounded">
             </div>
 
             <!-- Info combat -->
             <div class="trainer-block">
                 <div class="flex items-center space-x-2 text-sm">
                     <span class="font-semibold text-info">Gardenia:</span>
+                    <span>Gardevoir:<img src="Images/ChoiceSpecs.png"
+                            style="width: 30px; height: auto; display:inline-block;"></span>
+                    <span>&gt;</span>
                     <span>Setup</span>
                     <span>&gt;</span>
                     <span class="attack">Icy Wind</span>
@@ -629,15 +675,19 @@
                     <span class="attack">Heartquake</span>
                 </div>
             </div>
+            <!-- Conteneur timestamps -->
+            <div class="city-timestamps"></div>
         </div>
         </div>
         </div>
     </section>
     <hr class="d-none d-lg-block">
+    <!-- Ville 11 -->
     <section class="city-section text-white text-center py-5 d-none d-lg-flex">
         <div class="container">
             <!-- Titre -->
-            <h1 class="wavy-text mb-5"><span>12.Oreburgh City</span></h1>
+            <h1 class="wavy-text mb-5"><span>11:Oreburgh City <span
+                        style="color:rgb(88, 255, 66);">+50%[$12948]</span></span></h1>
 
             <!-- Image de la ville -->
             <div class="city-image mb-4">
@@ -646,7 +696,7 @@
 
             <!-- Dresseurs -->
             <div class="trainers d-flex justify-content-center align-items-center gap-4 flex-wrap mb-3">
-                <img src="Images/trainers/roark.png" alt="Roark" class="pokemon-img rounded">
+                <img src="Images/trainers/Roark.png" alt="Roark" class="trainer-img rounded">
             </div>
 
             <!-- Info combat -->
@@ -655,21 +705,24 @@
                     <span class="font-semibold text-info">Roark:</span>
                     <span>Setup</span>
                     <span>&gt;</span>
-                    <span class="attack">Icy Wind</span>
+                    <span class="attack">Hyper Voice</span>
                     <span>/</span>
                     <span class="attack">Heartquake</span>
                 </div>
-                <h1 class="glow">Heal</h1>
             </div>
+            <!-- Conteneur timestamps -->
+            <div class="city-timestamps"></div>
         </div>
         </div>
         </div>
     </section>
     <hr class="d-none d-lg-block">
+    <!-- Ville 12 -->
     <section class="city-section text-white text-center py-5 d-none d-lg-flex">
         <div class="container">
             <!-- Titre -->
-            <h1 class="wavy-text mb-5"><span>13.Veilstone City</span></h1>
+            <h1 class="wavy-text mb-5"><span>12:Veilstone City <span
+                        style="color:rgb(88, 255, 66);">+50%[$13416]</span></span></h1>
 
             <!-- Image de la ville -->
             <div class="city-image mb-4">
@@ -678,7 +731,7 @@
 
             <!-- Dresseurs -->
             <div class="trainers d-flex justify-content-center align-items-center gap-4 flex-wrap mb-3">
-                <img src="Images/trainers/maylene.png" alt="Maylene" class="pokemon-img rounded">
+                <img src="Images/trainers/maylene.png" alt="Maylene" class="trainer-img rounded">
             </div>
 
             <!-- Info combat -->
@@ -691,79 +744,21 @@
                     <span>/</span>
                     <span class="attack">Heartquake</span>
                 </div>
+                <h1 class="glow">Fly to Johto</h1>
             </div>
+            <!-- Conteneur timestamps -->
+            <div class="city-timestamps"></div>
         </div>
         </div>
         </div>
     </section>
     <hr class="d-none d-lg-block">
+    <!-- Ville 13 -->
     <section class="city-section text-white text-center py-5 d-none d-lg-flex">
         <div class="container">
             <!-- Titre -->
-            <h1 class="wavy-text mb-5"><span>14.Pastoria City</span></h1>
-
-            <!-- Image de la ville -->
-            <div class="city-image mb-4">
-                <img src="Images/citys/Pastoria.png" alt="Pastoria City" class="img-fluid" style="max-width: 15%;">
-            </div>
-
-            <!-- Dresseurs -->
-            <div class="trainers d-flex justify-content-center align-items-center gap-4 flex-wrap mb-3">
-                <img src="Images/trainers/Crasher Wake.png" alt="Crasher Wake" class="pokemon-img rounded">
-            </div>
-
-            <!-- Info combat -->
-            <div class="trainer-block">
-                <div class="flex items-center space-x-2 text-sm">
-                    <span class="font-semibold text-info">Crasher Wake:</span>
-                    <span>Setup</span>
-                    <span>&gt;</span>
-                    <span class="attack">Hyper Voice</span>
-                    <span>/</span>
-                    <span class="attack">Heartquake</span>
-                </div>
-                <h1 class="glow">Fly to Johto / Heal</h1>
-            </div>
-        </div>
-        </div>
-        </div>
-    </section>
-    <hr class="d-none d-lg-block">
-    <section class="city-section text-white text-center py-5 d-none d-lg-flex">
-        <div class="container">
-            <!-- Titre -->
-            <h1 class="wavy-text mb-5"><span>15.Cianwood City</span></h1>
-
-            <!-- Image de la ville -->
-            <div class="city-image mb-4">
-                <img src="Images/citys/Cianwood.png" alt="Cianwood City" class="img-fluid" style="max-width: 15%;">
-            </div>
-
-            <!-- Dresseurs -->
-            <div class="trainers d-flex justify-content-center align-items-center gap-4 flex-wrap mb-3">
-                <img src="Images/trainers/chuck.png" alt="Chuck" class="pokemon-img rounded">
-            </div>
-
-            <!-- Info combat -->
-            <div class="trainer-block">
-                <div class="flex items-center space-x-2 text-sm">
-                    <span class="font-semibold text-info">Chuck:</span>
-                    <span>Setup</span>
-                    <span>&gt;</span>
-                    <span class="attack">Hyper Voice</span>
-                    <span>/</span>
-                    <span class="attack">Heartquake</span>
-                </div>
-            </div>
-        </div>
-        </div>
-        </div>
-    </section>
-    <hr class="d-none d-lg-block">
-    <section class="city-section text-white text-center py-5 d-none d-lg-flex">
-        <div class="container">
-            <!-- Titre -->
-            <h1 class="wavy-text mb-5"><span>16.Goldenrod City</span></h1>
+            <h1 class="wavy-text mb-5"><span>13:Goldenrod City <span
+                        style="color:rgb(88, 255, 66);">+50%[$13260]</span></span></h1>
 
             <!-- Image de la ville -->
             <div class="city-image mb-4">
@@ -772,7 +767,7 @@
 
             <!-- Dresseurs -->
             <div class="trainers d-flex justify-content-center align-items-center gap-4 flex-wrap mb-3">
-                <img src="Images/trainers/whitney.png" alt="whitney" class="pokemon-img rounded">
+                <img src="Images/trainers/whitney.png" alt="whitney" class="trainer-img rounded">
             </div>
 
             <!-- Info combat -->
@@ -785,17 +780,20 @@
                     <span>/</span>
                     <span class="attack">Heartquake</span>
                 </div>
-                <h1 class="glow">Heal</h1>
             </div>
+            <!-- Conteneur timestamps -->
+            <div class="city-timestamps"></div>
         </div>
         </div>
         </div>
     </section>
     <hr class="d-none d-lg-block">
+    <!-- Ville 14 -->
     <section class="city-section text-white text-center py-5 d-none d-lg-flex">
         <div class="container">
             <!-- Titre -->
-            <h1 class="wavy-text mb-5"><span>17.Olivine City</span></h1>
+            <h1 class="wavy-text mb-5"><span>14:Olivine City <span
+                        style="color:rgb(88, 255, 66);">+50%[$13728]</span></span></h1>
 
             <!-- Image de la ville -->
             <div class="city-image mb-4">
@@ -804,7 +802,7 @@
 
             <!-- Dresseurs -->
             <div class="trainers d-flex justify-content-center align-items-center gap-4 flex-wrap mb-3">
-                <img src="Images/trainers/jasmine.png" alt="Jasmine" class="pokemon-img rounded">
+                <img src="Images/trainers/jasmine.png" alt="Jasmine" class="trainer-img rounded">
             </div>
 
             <!-- Info combat -->
@@ -818,15 +816,19 @@
                     <span class="attack">Heartquake</span>
                 </div>
             </div>
+            <!-- Conteneur timestamps -->
+            <div class="city-timestamps"></div>
         </div>
         </div>
         </div>
     </section>
     <hr class="d-none d-lg-block">
+    <!-- Ville 15 -->
     <section class="city-section text-white text-center py-5 d-none d-lg-flex">
         <div class="container">
             <!-- Titre -->
-            <h1 class="wavy-text mb-5"><span>19.Blackthorn City</span></h1>
+            <h1 class="wavy-text mb-5"><span>15:Blackthorn City <span
+                        style="color:rgb(88, 255, 66);">+50%[$14040]</span></span></h1>
 
             <!-- Image de la ville -->
             <div class="city-image mb-4">
@@ -835,7 +837,7 @@
 
             <!-- Dresseurs -->
             <div class="trainers d-flex justify-content-center align-items-center gap-4 flex-wrap mb-3">
-                <img src="Images/trainers/clair.png" alt="Clair" class="pokemon-img rounded">
+                <img src="Images/trainers/clair.png" alt="Clair" class="trainer-img rounded">
             </div>
 
             <!-- Info combat -->
@@ -844,20 +846,25 @@
                     <span class="font-semibold text-info">Clair:</span>
                     <span>Setup</span>
                     <span>&gt;</span>
-                    <span class="attack">Hyper Voice</span>
+                    <span class="attack">Icy Wind</span>
                     <span>/</span>
                     <span class="attack">Heartquake</span>
                 </div>
+                <h1 class="glow">Fly to Unova</h1>
             </div>
+            <!-- Conteneur timestamps -->
+            <div class="city-timestamps"></div>
         </div>
         </div>
         </div>
     </section>
     <hr class="d-none d-lg-block">
+    <!-- Ville 16,17,18 -->
     <section class="city-section text-white text-center py-5 d-none d-lg-flex">
         <div class="container">
             <!-- Titre -->
-            <h1 class="wavy-text mb-5"><span>20.Striaton City</span></h1>
+            <h1 class="wavy-text mb-5"><span>16,17,18:Striaton City <span
+                        style="color:rgb(88, 255, 66);">+50%[$38844]</span></span></h1>
 
             <!-- Image de la ville -->
             <div class="city-image mb-4">
@@ -866,47 +873,46 @@
 
             <!-- Dresseurs -->
             <div class="trainers d-flex justify-content-center align-items-center gap-4 flex-wrap mb-3">
-                <img src="Images/trainers/Chili.png" alt="Chili" class="pokemon-img rounded">
-                <img src="Images/trainers/Cilan.png" alt="Cilan" class="pokemon-img rounded">
-                <img src="Images/trainers/Cress.png" alt="Cress" class="pokemon-img rounded">
+                <div class="trainer-img d-flex justify-content-center">
+                    <img src="Images/trainers/Chili.png" alt="Chili" class="rounded">
+                    <img src="Images/trainers/Cilan.png" alt="Cilan" class="rounded">
+                    <img src="Images/trainers/Cress.png" alt="Cress" class="rounded">
+                </div>
             </div>
+
 
             <!-- Info combat -->
             <div class="trainer-block">
                 <div class="flex items-center space-x-2 text-sm">
-                    <span class="font-semibold text-danger">Chili:</span>
+                    <span class="font-semibold text-info">Chili and Cress:</span>
                     <span>Setup</span>
                     <span>&gt;</span>
                     <span class="attack">Hyper Voice</span>
                     <span>/</span>
                     <span class="attack">Heartquake</span>
-                </div>
-                <div class="flex items-center space-x-2 text-sm">
-                    <span class="font-semibold text-success">Cilan:</span>
+                    <br>
+                    <span class="font-semibold text-info">Cilan:</span>
+                    <span>Gardevoir:<img src="Images/ChoiceSpecs.png"
+                            style="width: 30px; height: auto; display:inline-block;"></span>
+                    <span>&gt;</span>
                     <span>Setup</span>
                     <span>&gt;</span>
                     <span class="attack">Icy Wind</span>
                     <span>/</span>
                     <span class="attack">Heartquake</span>
                 </div>
-                <div class="flex items-center space-x-2 text-sm">
-                    <span class="font-semibold text-info">Cress:</span>
-                    <span>Setup</span>
-                    <span>&gt;</span>
-                    <span class="attack">Hyper Voice</span>
-                    <span>/</span>
-                    <span class="attack">Heartquake</span>
-                </div>
             </div>
+            <!-- Conteneur timestamps -->
+            <div class="city-timestamps"></div>
         </div>
     </section>
-
     <hr class="d-none d-lg-block">
-
+    <!-- Ville 19 -->
     <section class="city-section text-white text-center py-5 d-none d-lg-flex">
         <div class="container">
             <!-- Titre -->
-            <h1 class="wavy-text mb-5"><span>21.Nacrene City</span></h1>
+            <h1 class="wavy-text mb-5"><span>19:Nacrene City <span
+                        style="color:rgb(88, 255, 66);">+50%[$13104]</span></span></h1>
 
             <!-- Image de la ville -->
             <div class="city-image mb-4">
@@ -915,7 +921,7 @@
 
             <!-- Dresseurs -->
             <div class="trainers d-flex justify-content-center align-items-center gap-4 flex-wrap mb-3">
-                <img src="Images/trainers/Lenora.png" alt="Lenora" class="pokemon-img rounded">
+                <img src="Images/trainers/Lenora.png" alt="Lenora" class="trainer-img rounded">
             </div>
 
             <!-- Info combat -->
@@ -929,45 +935,17 @@
                     <span class="attack">Heartquake</span>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <hr class="d-none d-lg-block">
-
-    <section class="city-section text-white text-center py-5 d-none d-lg-flex">
-        <div class="container">
-            <!-- Titre -->
-            <h1 class="wavy-text mb-5"><span>22.Castelia City</span></h1>
-
-            <!-- Image de la ville -->
-            <div class="city-image mb-4">
-                <img src="Images/citys/Castelia.png" alt="Castelia City" class="img-fluid" style="max-width: 15%;">
-            </div>
-
-            <!-- Dresseurs -->
-            <div class="trainers d-flex justify-content-center align-items-center gap-4 flex-wrap mb-3">
-                <img src="Images/trainers/Burgh.png" alt="Burgh" class="pokemon-img rounded">
-            </div>
-
-            <!-- Info combat -->
-            <div class="trainer-block">
-                <div class="flex items-center space-x-2 text-sm">
-                    <span class="font-semibold text-info">Burgh:</span>
-                    <span>Setup</span>
-                    <span>&gt;</span>
-                    <span class="attack">Hyper Voice</span>
-                    <span>/</span>
-                    <span class="attack">Heartquake</span>
-                </div>
-                <h1 class="glow">Heal</h1>
-            </div>
+            <!-- Conteneur timestamps -->
+            <div class="city-timestamps"></div>
         </div>
     </section>
     <hr class="d-none d-lg-block">
+    <!-- Ville 20 -->
     <section class="city-section text-white text-center py-5 d-none d-lg-flex">
         <div class="container">
             <!-- Titre -->
-            <h1 class="wavy-text mb-5"><span>23.Nimbasa City</span></h1>
+            <h1 class="wavy-text mb-5"><span>20:Nimbasa City <span
+                        style="color:rgb(88, 255, 66);">+50%[$13416]</span></span></h1>
 
             <!-- Image de la ville -->
             <div class="city-image mb-4">
@@ -976,7 +954,7 @@
 
             <!-- Dresseurs -->
             <div class="trainers d-flex justify-content-center align-items-center gap-4 flex-wrap mb-3">
-                <img src="Images/trainers/Elesa.png" alt="Elesa" class="pokemon-img rounded">
+                <img src="Images/trainers/Elesa.png" alt="Elesa" class="trainer-img rounded">
             </div>
 
             <!-- Info combat -->
@@ -990,40 +968,17 @@
                     <span class="attack">Heartquake</span>
                 </div>
             </div>
+            <!-- Conteneur timestamps -->
+            <div class="city-timestamps"></div>
         </div>
     </section>
     <hr class="d-none d-lg-block">
+    <!-- Ville 21 -->
     <section class="city-section text-white text-center py-5 d-none d-lg-flex">
         <div class="container">
             <!-- Titre -->
-            <h1 class="wavy-text mb-5"><span>24.Driftveil City</span></h1>
-
-            <!-- Image de la ville -->
-            <div class="city-image mb-4">
-                <img src="Images/citys/Driftveil.png" alt="Driftveil City" class="img-fluid" style="max-width: 15%;">
-            </div>
-
-            <!-- Dresseurs -->
-            <div class="trainers d-flex justify-content-center align-items-center gap-4 flex-wrap mb-3">
-                <img src="Images/trainers/Clay.png" alt="Clay" class="pokemon-img rounded">
-            </div>
-
-            <!-- Info combat -->
-            <div class="trainer-block">
-                <div class="flex items-center space-x-2 text-sm">
-                    <span class="font-semibold text-info">Clay:</span>
-                    <span class="attack">Icy Wind</span>
-                    <span>/</span>
-                    <span class="attack">Heartquake</span>
-                </div>
-            </div>
-        </div>
-    </section>
-    <hr class="d-none d-lg-block">
-    <section class="city-section text-white text-center py-5 d-none d-lg-flex">
-        <div class="container">
-            <!-- Titre -->
-            <h1 class="wavy-text mb-5"><span>25.Mistralton City</span></h1>
+            <h1 class="wavy-text mb-5"><span>21:Mistralton City <span
+                        style="color:rgb(88, 255, 66);">+50%[$13728]</span></span></h1>
 
             <!-- Image de la ville -->
             <div class="city-image mb-4">
@@ -1032,7 +987,7 @@
 
             <!-- Dresseurs -->
             <div class="trainers d-flex justify-content-center align-items-center gap-4 flex-wrap mb-3">
-                <img src="Images/trainers/Skyla.png" alt="Skyla" class="pokemon-img rounded">
+                <img src="Images/trainers/Skyla.png" alt="Skyla" class="trainer-img rounded">
             </div>
 
             <!-- Info combat -->
@@ -1045,44 +1000,18 @@
                     <span>/</span>
                     <span class="attack">Heartquake</span>
                 </div>
-                <h1 class="glow">Heal</h1>
             </div>
+            <!-- Conteneur timestamps -->
+            <div class="city-timestamps"></div>
         </div>
     </section>
     <hr class="d-none d-lg-block">
+    <!-- Ville 22 -->
     <section class="city-section text-white text-center py-5 d-none d-lg-flex">
         <div class="container">
             <!-- Titre -->
-            <h1 class="wavy-text mb-5"><span>26.Icirrus City</span></h1>
-
-            <!-- Image de la ville -->
-            <div class="city-image mb-4">
-                <img src="Images/citys/Mistralton.png" alt="Mistralton City" class="img-fluid" style="max-width: 15%;">
-            </div>
-
-            <!-- Dresseurs -->
-            <div class="trainers d-flex justify-content-center align-items-center gap-4 flex-wrap mb-3">
-                <img src="Images/trainers/Brycen.png" alt="Brycen" class="pokemon-img rounded">
-            </div>
-
-            <!-- Info combat -->
-            <div class="trainer-block">
-                <div class="flex items-center space-x-2 text-sm">
-                    <span class="font-semibold text-info">Brycen:</span>
-                    <span>Setup</span>
-                    <span>&gt;</span>
-                    <span class="attack">Hyper Voice</span>
-                    <span>/</span>
-                    <span class="attack">Heartquake</span>
-                </div>
-            </div>
-        </div>
-    </section>
-    <hr class="d-none d-lg-block">
-    <section class="city-section text-white text-center py-5 d-none d-lg-flex">
-        <div class="container">
-            <!-- Titre -->
-            <h1 class="wavy-text mb-5"><span>27.Opelucid City</span></h1>
+            <h1 class="wavy-text mb-5"><span>22:Opelucid City <span
+                        style="color:rgb(88, 255, 66);">+50%[$14040]</span></span></h1>
 
             <!-- Image de la ville -->
             <div class="city-image mb-4">
@@ -1091,7 +1020,7 @@
 
             <!-- Dresseurs -->
             <div class="trainers d-flex justify-content-center align-items-center gap-4 flex-wrap mb-3">
-                <img src="Images/trainers/Iris.png" alt="Iris" class="pokemon-img rounded ">
+                <img src="Images/trainers/Iris.png" alt="Iris" class="trainer-img rounded ">
             </div>
 
             <!-- Info combat -->
@@ -1104,14 +1033,73 @@
                     <span>/</span>
                     <span class="attack">Heartquake</span>
                 </div>
-                <div class="flex items-center space-x-2 text-sm">
-                    <span class="attack">Hyper Voice</span>
-                    <span>/</span>
-                    <span class="attack">Heartquake</span>
-                </div>
             </div>
+            <!-- Conteneur timestamps -->
+            <div class="city-timestamps"></div>
         </div>
     </section>
+    <hr class="d-none d-lg-block">
+    <!-- Ville Bonus -->
+    <section class="city-section text-white text-center py-5 d-none d-lg-flex">
+        <div class="container">
+            <!-- Titre -->
+            <h1 class="wavy-text mb-5"><span>Bonus:Undella Town <span
+                        style="color:rgb(88, 255, 66);">+50%[$24840]</span><span
+                        style="color:rgb(255, 207, 50);">[Spring/Autumn Only]</span></span></h1>
+
+            <!-- Image de la ville -->
+            <div class="city-image mb-4">
+                <img src="Images/citys/Undella.png" alt="Undella Town" class="img-fluid" style="max-width: 15%;">
+            </div>
+
+            <!-- Dresseurs -->
+            <div class="trainers d-flex justify-content-center align-items-center gap-4 flex-wrap mb-3">
+                <div class="trainer-img-wrapper">
+                    <img src="Images/trainers/Cynthia.png" alt="Cynthia" class="trainer-img rounded">
+                </div>
+            </div>
+
+            <!-- Info combat -->
+            <div class="trainer-block">
+                <div class="flex items-center space-x-2 text-sm">
+                    <span class="font-semibold text-info">Cynthia:</span>
+                    <span>Hyper Voice</span>
+                </div>
+            </div>
+            <!-- Conteneur timestamps -->
+            <div class="city-timestamps"></div>
+        </div>
+    </section>
+    <hr class="d-none d-lg-block">
+    <!-- Ville Bonus" -->
+    <section class="city-section text-white text-center py-5 d-none d-lg-flex">
+        <div class="container">
+            <!-- Titre -->
+            <h1 class="wavy-text mb-5"><span>Bonus:Undella Town <span
+                        style="color:rgb(88, 255, 66);">+50%[$8100]</span></span></h1>
+
+            <!-- Image de la ville -->
+            <div class="city-image mb-4">
+                <img src="Images/citys/Undella.png" alt="Undella Town" class="img-fluid" style="max-width: 15%;">
+            </div>
+
+            <!-- Dresseurs -->
+            <div class="trainers d-flex justify-content-center align-items-center gap-4 flex-wrap mb-3">
+                <img src="Images/trainers/Socialite.png" alt="Socialite Marian" class="trainer-img rounded ">
+            </div>
+
+            <!-- Info combat -->
+            <div class="trainer-block">
+                <div class="flex items-center space-x-2 text-sm">
+                    <span class="font-semibold text-info">Socialite Marian:</span>
+                    <span>Hyper Voice</span>
+                </div>
+            </div>
+            <!-- Conteneur timestamps -->
+            <div class="city-timestamps"></div>
+        </div>
+    </section>
+
 
     <script>
         function handleResponsiveDisplay() {

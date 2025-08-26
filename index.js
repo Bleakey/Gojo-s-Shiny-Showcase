@@ -275,3 +275,306 @@ window.addEventListener('resize', () => {
     }
   }
 });
+
+// Tous les types d'images qui peuvent s'agrandir
+const clickableImages = document.querySelectorAll('.trainer-img');
+
+clickableImages.forEach(img => {
+  img.addEventListener('click', () => {
+    img.classList.toggle('enlarged');
+  });
+});
+
+// Timer général
+let startTime = null;
+let timerInterval = null;
+
+function startRun() {
+  startTime = Date.now();
+  if (timerInterval) clearInterval(timerInterval);
+
+  timerInterval = setInterval(() => {
+    const elapsed = Date.now() - startTime;
+    document.querySelectorAll('.city-timer').forEach((span, index) => {
+      span.textContent = formatTime(elapsed);
+    });
+  }, 1000);
+}
+
+// Formater le temps en hh:mm:ss
+function formatTime(ms) {
+  const totalSeconds = Math.floor(ms / 1000);
+  const hours = String(Math.floor(totalSeconds / 3600)).padStart(2, '0');
+  const minutes = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, '0');
+  const seconds = String(totalSeconds % 60).padStart(2, '0');
+  return `${hours}:${minutes}:${seconds}`;
+}
+
+// Ajouter le timestamp à chaque ville via la trainer-img
+document.querySelectorAll('.trainer-img').forEach((img) => {
+  img.style.cursor = 'pointer';
+  img.addEventListener('click', () => {
+
+    const cityTimer = img.closest('.city-section').querySelector('.city-timer');
+    const elapsed = Date.now() - startTime;
+    cityTimer.textContent = formatTime(elapsed);
+    console.log(`Ville terminée à : ${formatTime(elapsed)}`);
+  });
+});
+
+// --- Timer général ---
+let globalStartTime = null;
+let globalTimerInterval = null;
+let pausedTime = 0; // temps déjà écoulé quand on stoppe
+
+function formatTime(ms) {
+  let totalSeconds = Math.floor(ms / 1000);
+  let h = String(Math.floor(totalSeconds / 3600)).padStart(2, '0');
+  let m = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, '0');
+  let s = String(totalSeconds % 60).padStart(2, '0');
+  return `${h}:${m}:${s}`;
+}
+
+const startBtn = document.getElementById("start-global");
+const stopBtn = document.getElementById("stop-global");
+
+// --- Helpers ---
+function updateTrainerAvailability() {
+  document.querySelectorAll(".city-section .trainer-img").forEach(trainerImg => {
+    if (!globalTimerInterval) {
+      // Griser uniquement si ce n'est pas bloqué par la saison
+      if (!trainerImg.classList.contains("season-unavailable")) {
+        trainerImg.classList.add("unavailable");
+        trainerImg.style.opacity = 0.6;
+        trainerImg.style.cursor = 'not-allowed';
+      }
+    } else {
+      // Rendre disponible si ce n'est pas bloqué par la saison
+      if (!trainerImg.classList.contains("season-unavailable")) {
+        trainerImg.classList.remove("unavailable");
+        trainerImg.style.opacity = 1;
+        trainerImg.style.cursor = 'pointer';
+      }
+    }
+  });
+}
+
+// --- Démarrer / Reprendre le run ---
+if (startBtn) {
+  startBtn.addEventListener("click", () => {
+    if (!globalTimerInterval) {
+      globalStartTime = Date.now() - pausedTime;
+      globalTimerInterval = setInterval(() => {
+        pausedTime = Date.now() - globalStartTime;
+        document.getElementById("global-timer").textContent = formatTime(pausedTime);
+      }, 1000);
+
+      updateTrainerAvailability(); // rendre les trainers disponibles
+    }
+  });
+}
+
+// --- Stopper (pause) le run ---
+if (stopBtn) {
+  stopBtn.addEventListener("click", () => {
+    if (globalTimerInterval) {
+      clearInterval(globalTimerInterval);
+      globalTimerInterval = null;
+      updateTrainerAvailability(); // re-griser si run stoppé
+    }
+  });
+}
+
+// --- Timestamp par ville ---
+document.querySelectorAll(".city-section .trainer-img").forEach(trainerImg => {
+  // Au départ, griser si le run n'a pas commencé (sauf saison)
+  if (pausedTime === 0 && !globalTimerInterval) {
+    if (!trainerImg.classList.contains("season-unavailable")) {
+      trainerImg.classList.add("unavailable");
+      trainerImg.style.opacity = 0.6;
+      trainerImg.style.cursor = 'not-allowed';
+    }
+  }
+
+  trainerImg.addEventListener("click", (e) => {
+    if (!globalTimerInterval) {
+      alert("Commence le run avant de cliquer sur une ville !");
+      e.preventDefault();
+      e.stopPropagation();
+      return false;
+    }
+
+    if (trainerImg.classList.contains("locked")) return;
+
+    // Ajouter le timestamp
+    const formatted = formatTime(pausedTime);
+    const citySection = trainerImg.closest(".city-section");
+    const tsContainer = citySection.querySelector(".city-timestamps");
+    if (tsContainer) {
+      const entry = document.createElement("p");
+      entry.textContent = `⏱ Ended at ${formatted}`;
+      tsContainer.appendChild(entry);
+    }
+
+    trainerImg.classList.add("locked");
+    trainerImg.style.cursor = "not-allowed";
+    trainerImg.style.opacity = 0.6;
+  });
+});
+
+// --- Quand le DOM est prêt ---
+document.addEventListener("DOMContentLoaded", () => {
+  const monthToSeason = [
+    "Spring", "Summer", "Autumn", "Winter",
+    "Spring", "Summer", "Autumn", "Winter",
+    "Spring", "Summer", "Autumn", "Winter"
+  ];
+  const currentSeason = monthToSeason[new Date().getMonth()];
+
+  function getAllowedSeasonsFromSection(section) {
+    const labelSpan = Array.from(section.querySelectorAll("h1 span span"))
+      .find(s => /\[.+Only\]/i.test(s.textContent));
+    if (!labelSpan) return [];
+    const m = labelSpan.textContent.match(/\[(.*?)\s*Only\]/i);
+    const list = (m && m[1]) ? m[1] : "";
+    return list.split("/").map(s => s.trim());
+  }
+
+  function recalcRouteTotal() {
+    let total = 0;
+    document.querySelectorAll("section.city-section").forEach(section => {
+      if (section.dataset.unavailable === "true") return;
+      const greenSpan = section.querySelector('h1 span span[style*="rgb(88, 255, 66)"]');
+      if (!greenSpan) return;
+      const moneyMatches = greenSpan.textContent.match(/\$([\d,]+)/g);
+      if (moneyMatches) {
+        moneyMatches.forEach(m => {
+          const n = parseInt(m.replace(/[^0-9]/g, ""), 10);
+          if (!isNaN(n)) total += n;
+        });
+      }
+    });
+    const totalEl = document.getElementById("route-total");
+    if (totalEl) totalEl.textContent = `$${total.toLocaleString()}`;
+  }
+
+  // --- Gestion Cynthia ---
+  const cynthiaImg = document.querySelector('.city-section .trainers img[alt="Cynthia"]');
+  if (cynthiaImg) {
+    const section = cynthiaImg.closest(".city-section");
+    const allowed = getAllowedSeasonsFromSection(section);
+    const isAvailable = (allowed.length === 0) || allowed.includes(currentSeason);
+
+    if (!isAvailable) {
+      cynthiaImg.classList.add("unavailable", "season-unavailable");
+      section.dataset.unavailable = "true";
+      const wrapper = cynthiaImg.closest(".trainer-img-wrapper");
+      if (wrapper) {
+        const label = document.createElement("div");
+        label.className = "unavailable-label";
+        label.textContent = `Unavailable : ${currentSeason}`;
+        wrapper.appendChild(label);
+      }
+    }
+  }
+
+  recalcRouteTotal();
+});
+
+const dingSound = new Audio('sounds/ding.wav');
+
+document.addEventListener("DOMContentLoaded", () => {
+  const progressBar = document.getElementById("run-progress");
+  const trainers = Array.from(document.querySelectorAll(".trainer-img"));
+  const totalTrainers = trainers.length;
+
+  trainers.forEach(trainer => {
+    // Marquer les trainers indisponibles comme déjà cliqués
+    if (trainer.classList.contains("season-unavailable")) {
+      trainer.dataset.clicked = "true";
+    }
+
+    trainer.addEventListener("click", () => {
+      if (trainer.dataset.clicked === "true") return;
+      trainer.dataset.clicked = "true";
+
+      // Jouer le son
+      dingSound.play();
+
+      // Calcul du pourcentage
+      const clickedCount = trainers.filter(t => t.dataset.clicked === "true").length;
+      const newWidth = (clickedCount / totalTrainers) * 100;
+
+      progressBar.style.width = newWidth + "%";
+      progressBar.textContent = Math.round(newWidth) + "%";
+
+      // --- STOPPER LE TIMER SI 100% ---
+      if (Math.round(newWidth) >= 100 && globalTimerInterval) {
+        clearInterval(globalTimerInterval);
+        globalTimerInterval = null;
+        // Optionnel : mettre à jour l’affichage de tous les trainers
+        document.querySelectorAll(".city-section .trainer-img").forEach(t => {
+          t.style.cursor = 'not-allowed';
+        });
+        console.log("Run terminé, timer stoppé !");
+      }
+    });
+  });
+
+  // Calcul initial si certains trainers sont déjà cliqués
+  const clickedCountInit = trainers.filter(t => t.dataset.clicked === "true").length;
+  const newWidthInit = (clickedCountInit / totalTrainers) * 100;
+  progressBar.style.width = newWidthInit + "%";
+  progressBar.textContent = Math.round(newWidthInit) + "%";
+
+  // Si déjà à 100% au chargement
+  if (Math.round(newWidthInit) >= 100 && globalTimerInterval) {
+    clearInterval(globalTimerInterval);
+    globalTimerInterval = null;
+  }
+});
+
+const screenshotBtn = document.getElementById("screenshot-btn");
+
+if (screenshotBtn) {
+  screenshotBtn.addEventListener("click", () => {
+    const globalTime = document.getElementById("global-timer")?.textContent || "00:00:00";
+    const cities = document.querySelectorAll(".city-section");
+    const cityData = [];
+
+    cities.forEach(city => {
+      const h1 = city.querySelector("h1.wavy-text");
+      let cityName = "Unknown City";
+      if (h1) {
+        const span = h1.querySelector("span");
+        if (span) {
+          // Récupère le texte sans celui du span imbriqué
+          const cloned = span.cloneNode(true);
+          const innerSpan = cloned.querySelector("span");
+          if (innerSpan) innerSpan.remove();
+          cityName = cloned.textContent.trim();
+        }
+      }
+
+      const timestamps = Array.from(city.querySelectorAll(".city-timestamps p"))
+        .map(p => p.textContent);
+
+      cityData.push({ city: cityName, timestamps });
+    });
+
+    const output = {
+      globalTime,
+      cities: cityData
+    };
+
+    const blob = new Blob([JSON.stringify(output, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "shiny_run_timestamps.json";
+    a.click();
+
+    URL.revokeObjectURL(url);
+  });
+}

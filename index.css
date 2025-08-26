@@ -406,7 +406,7 @@ img {
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: url('Images/background.gif');
+    background-image: url('Images/bg.svg');
     background-size: cover;
     background-repeat: no-repeat;
     filter: blur(0px);
@@ -422,9 +422,9 @@ img {
 .btn {
     font-family: 'Press Start 2P', cursive;
     font-size: 12px;
-    color: #fcc11c;
+    color: #ffffff;
     background-color: #2a78a5;
-    border: 2px solid #fcc11c;
+    border: 2px solid #ffffff;
     padding: 10px 18px;
     border-radius: 8px;
     cursor: pointer;
@@ -629,11 +629,62 @@ body.blur-active .stats-panel {
     transform: scale(1.02);
 }
 
-/* === Pokémon Sprite === */
 .pokemon-img {
-    width: 130px;
+    width: 200px;
     image-rendering: pixelated;
-    transition: filter 0.3s ease;
+    transition: transform 0.3s ease, filter 0.3s ease;
+    cursor: pointer;
+
+    /* Appliquer directement l'état enlarged par défaut */
+    transform: scale(1.5);
+    z-index: 1000;
+    position: relative;
+    animation: neonGlow 2s linear infinite, pulse 1.5s ease-in-out infinite;
+    filter: brightness(1.2) drop-shadow(0 0 10px #ff00ff) drop-shadow(0 0 20px #00ffff);
+}
+
+/* === Trainer Sprite === */
+.trainer-img {
+    width: 300px;
+    image-rendering: pixelated;
+    transition: transform 0.3s ease, filter 0.3s ease;
+    cursor: pointer;
+}
+
+.trainer-img.enlarged {
+    transform: scale(1.5);
+    z-index: 1000;
+    position: relative;
+    animation: neonGlow 2s linear infinite, pulse 1.5s ease-in-out infinite;
+}
+
+.trainer-ico {
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+    image-rendering: pixelated;
+    transform: scale(3);
+    z-index: 1000;
+    position: relative;
+    animation: neonGlow 2s linear infinite, pulse 1.5s ease-in-out infinite;
+    cursor: default;
+    /* Pour forcer le glow sur PNG */
+    filter: brightness(1.05) drop-shadow(0 0 10px #ff00ff) drop-shadow(0 0 20px #00ffff);
+}
+
+/* Keyframes néon + pulsation du glow */
+@keyframes neonGlow {
+    0% {
+        filter: drop-shadow(0 0 10px #ff00ff) drop-shadow(0 0 20px #00ffff) drop-shadow(0 0 30px #ff00ff);
+    }
+
+    50% {
+        filter: drop-shadow(0 0 30px #ff00ff) drop-shadow(0 0 60px #00ffff) drop-shadow(0 0 90px #ff00ff);
+    }
+
+    100% {
+        filter: drop-shadow(0 0 10px #ff00ff) drop-shadow(0 0 20px #00ffff) drop-shadow(0 0 30px #ff00ff);
+    }
 }
 
 /* Effet lumineux autour du sprite */
@@ -828,22 +879,29 @@ a {
 }
 
 @keyframes wave {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translateY(0);
     }
+
     50% {
         transform: translateY(-15px);
     }
 }
 
 @keyframes glow {
-    0%, 100% {
+
+    0%,
+    100% {
         text-shadow: 0 0 10px #ffffff, 0 0 20px #fcc11c, 0 0 30px #fcc11c;
     }
+
     50% {
         text-shadow: 0 0 20px #ffffff, 0 0 40px #fcc11c, 0 0 60px #fcc11c;
     }
 }
+
 /* Each span gets a delay to make the wave effect */
 .wavy-text span:nth-child(1) {
     animation-delay: 0s;
@@ -875,5 +933,180 @@ a {
 
 /* Masquer la scrollbar horizontale */
 body {
-  overflow-x: hidden;
+    overflow-x: hidden;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.pulse {
+    animation: pulse 1.5s infinite;
+}
+
+/* Animation wavy */
+@keyframes wavyImg {
+    0% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    25% {
+        transform: translateY(-3px) rotate(-2deg);
+    }
+
+    50% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    75% {
+        transform: translateY(3px) rotate(2deg);
+    }
+
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+}
+
+.wavyImg {
+    display: inline-block;
+    animation: wavy 1.5s ease-in-out infinite;
+}
+
+.map {
+    display: flex;
+    gap: 10px;
+    /* espace entre les sprites */
+    justify-content: center;
+    /* les centre sous l'image principale */
+    margin-top: 10px;
+}
+
+.trainer-img.unavailable {
+    filter: grayscale(100%) brightness(0.5);
+    opacity: 0.5;
+    pointer-events: none;
+    /* rend l’image non cliquable */
+    cursor: not-allowed;
+}
+
+.trainer-img-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+@keyframes waving {
+    0% {
+        transform: translate(-50%, -50%) scale(1) rotate(0deg);
+    }
+
+    25% {
+        transform: translate(-50%, -50%) scale(1.05) rotate(-2deg);
+    }
+
+    50% {
+        transform: translate(-50%, -50%) scale(1) rotate(0deg);
+    }
+
+    75% {
+        transform: translate(-50%, -50%) scale(1.05) rotate(2deg);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) scale(1) rotate(0deg);
+    }
+}
+
+@keyframes glowRed {
+
+    0%,
+    100% {
+        text-shadow: 0 0 5px #ff0000, 0 0 10px #ff0000, 0 0 20px #ff4d4d;
+    }
+
+    50% {
+        text-shadow: 0 0 10px #ff4d4d, 0 0 20px #ff1a1a, 0 0 40px #ff0000;
+    }
+}
+
+.trainer-img-wrapper .unavailable-label {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* centrage fixe */
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 4px 8px;
+    border-radius: 4px;
+    text-align: center;
+    pointer-events: none;
+
+    /* les animations ne touchent plus le translate */
+    animation: waving 1.5s infinite ease-in-out, glowRed 2s infinite ease-in-out;
+    display: inline-block;
+    /* permet de scaler sans casser le centrage */
+}
+
+.city-completed {
+    position: relative;
+}
+
+.city-completed::after {
+    content: "✔";
+    color: #00ff00;
+    font-size: 2rem;
+    position: absolute;
+    top: 0;
+    right: 10px;
+}
+
+.progress-container {
+    color: white;
+    font-weight: bold;
+}
+
+.progress-bar {
+    transition: width 0.5s ease;
+}
+
+.progress-container-fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    color: rgb(42, 182, 29);
+    z-index: 9999;
+    font-weight: bold;
+}
+
+.progress-container-fixed .progress {
+    margin: 0 auto;
+}
+
+body {
+    padding-top: 70px;
+    /* pour ne pas que le contenu soit caché sous la barre */
+}
+
+.flip-horizontal img {
+    transform: scaleX(-1);
+}
+
+.trainers .trainer-img img {
+  width: 250px !important;         /* ajuste la taille souhaitée */
+  height: auto !important;         /* rétablit les proportions */
+  image-rendering: pixelated;
+  flex: 0 0 auto;                  /* évite que Flex rétrécisse l'image */
+  transition: transform .2s ease;
 }

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PokeMMO Heart Scale Tracker</title>
+    <meta name="description" content="PokeMMO Heart Scale Tracker">
+    <meta name="author" content="Gojo">
+    <meta name="keywords" content="HTML, CSS, JavaScript, PokeMMO">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="index.css">
+    <link rel="icon" href="Images/MilkBucket.webp">
+
+    <style>
+        .tracker-card {
+            background-color: rgba(0, 0, 0, 0.6);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 500px;
+            color: #fff;
+            box-shadow: 0px 0px 15px rgba(255, 77, 109, 0.5);
+        }
+
+        .tracker-card h2 {
+            color: rgb(255, 150, 180);
+            margin-bottom: 20px;
+        }
+
+        .tracker-btn {
+            margin: 10px;
+            padding: 12px 24px;
+            font-size: 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            background: #ff4d6d;
+            color: white;
+            transition: 0.2s;
+        }
+
+        .tracker-btn:hover {
+            background: #ff3355;
+        }
+
+        .stat {
+            font-size: 22px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+
+<body id="container">
+
+    <!-- Fond flouté si utilisé -->
+    <div id="background-blur"></div>
+
+    <!-- HEADER avec navigation -->
+    <div class="d-flex justify-content-center">
+        <img src="Images/logo.png" alt="Logo" class="img-fluid rounded image-blur m-3 pulse" style="max-width: 300px;">
+    </div>
+
+    <nav class="text-center mb-4">
+        <a href="index.html" class="btn btn-primary m-2">⭐ Shiny Showcase</a>
+        <a href="grerun.html" class="btn btn-primary m-2">🏋️ Gym Rerun</a>
+        <a href="heartScale.html" class="btn btn-danger m-2">❤️ Heart Scale Tracker</a>
+    </nav>
+
+<h1 class="wavy-text d-flex align-items-center justify-content-center">
+    <img src="Images/Shinys/meowth.png" alt="Meowth"
+         class="img-fluid rounded image-blur m-3 wavy trainer-ico">
+    <span style="color:rgb(222, 138, 255);">Heart Scale / hour</span>
+    <img src="Images/Shinys/meowthFlipped.png" alt="Meowth"
+         class="img-fluid rounded image-blur m-3 wavy trainer-ico">
+</h1>
+    <!-- Contenu principal -->  
+    <section class="text-center py-5 text-white">
+    <div class="tracker-card">
+        <h2>
+            <img src="Images/heart_scale.png" alt="Heart Scale" style="width:90px; height:90px; vertical-align:middle; margin-right:8px;">
+            Heart Scale Tracker
+        </h2>
+        <div class="stat">Collected: <span id="count">0</span></div>
+        <div class="stat">Time: <span id="time">00:00:00</span></div>
+        <div class="stat">Rate: <span id="rate">0</span> / hour</div>
+        <div>
+            <button class="tracker-btn" onclick="startTracking()">▶️ Start Timer</button>
+            <button class="tracker-btn" onclick="stopTracking()">⏸ Stop</button>
+        </div>
+        <div>
+            <button class="tracker-btn" onclick="addHeartScale()">+1 Heart Scale</button>
+            <button class="tracker-btn" onclick="resetTracker()">Reset</button>
+        </div>
+    </div>
+</section>
+
+    <script>
+        let heartScales = 0;
+        let startTime = null;
+        let timerInterval = null;
+
+        function startTracking() {
+            if (!startTime) {
+                startTime = new Date();
+                timerInterval = setInterval(updateStats, 1000);
+            }
+        }
+
+        function stopTracking() {
+            clearInterval(timerInterval);
+            timerInterval = null;
+        }
+
+        function addHeartScale() {
+            if (!startTime) startTracking();
+            heartScales++;
+            document.getElementById("count").textContent = heartScales;
+            updateStats();
+        }
+
+        function updateStats() {
+            if (!startTime) return;
+            const now = new Date();
+            const elapsedHours = (now - startTime) / (1000 * 60 * 60);
+            const rate = elapsedHours > 0 ? (heartScales / elapsedHours).toFixed(2) : 0;
+            document.getElementById("rate").textContent = rate;
+            document.getElementById("time").textContent = formatTime(now - startTime);
+        }
+
+        function resetTracker() {
+            heartScales = 0;
+            startTime = null;
+            clearInterval(timerInterval);
+            document.getElementById("count").textContent = 0;
+            document.getElementById("rate").textContent = "0";
+            document.getElementById("time").textContent = "00:00:00";
+        }
+
+        function formatTime(ms) {
+            const totalSeconds = Math.floor(ms / 1000);
+            const hours = String(Math.floor(totalSeconds / 3600)).padStart(2, '0');
+            const minutes = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, '0');
+            const seconds = String(totalSeconds % 60).padStart(2, '0');
+            return `${hours}:${minutes}:${seconds}`;
+        }
+    </script>
+</body>
+
+</html>
