@@ -2,7 +2,7 @@
 <html lang="fr">
 
 <head>
-        <meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gojo's Shiny Showcase</title>
     <meta name="description" content="Gojo's Shiny Showcase">
@@ -70,33 +70,33 @@
         <a href="heartScale.html" class="btn btn-danger m-2">❤️ Heart Scale Tracker</a>
     </nav>
 
-<h1 class="wavy-text d-flex align-items-center justify-content-center">
-    <img src="Images/Shinys/meowth.png" alt="Meowth"
-         class="img-fluid rounded image-blur m-3 wavy trainer-ico">
-    <span style="color:rgb(222, 138, 255);">Heart Scale / hour</span>
-    <img src="Images/Shinys/meowthFlipped.png" alt="Meowth"
-         class="img-fluid rounded image-blur m-3 wavy trainer-ico">
-</h1>
-    <!-- Contenu principal -->  
+    <h1 class="wavy-text d-flex align-items-center justify-content-center">
+        <img src="Images/Shinys/meowth.png" alt="Meowth" class="img-fluid rounded image-blur m-3 wavy trainer-ico">
+        <span style="color:rgb(222, 138, 255);">Heart Scale / hour</span>
+        <img src="Images/Shinys/meowthFlipped.png" alt="Meowth"
+            class="img-fluid rounded image-blur m-3 wavy trainer-ico">
+    </h1>
+    <!-- Contenu principal -->
     <section class="text-center py-5 text-white">
-    <div class="tracker-card">
-        <h2>
-            <img src="Images/heart_scale.png" alt="Heart Scale" style="width:90px; height:90px; vertical-align:middle; margin-right:8px;">
-            Heart Scale Tracker
-        </h2>
-        <div class="stat">Collected: <span id="count">0</span></div>
-        <div class="stat">Time: <span id="time">00:00:00</span></div>
-        <div class="stat">Rate: <span id="rate">0</span> / hour</div>
-        <div>
-            <button class="tracker-btn" onclick="startTracking()">▶️ Start Timer</button>
-            <button class="tracker-btn" onclick="stopTracking()">⏸ Stop</button>
+        <div class="tracker-card">
+            <h2>
+                <img src="Images/heart_scale.png" alt="Heart Scale"
+                    style="width:90px; height:90px; vertical-align:middle; margin-right:8px;">
+                Heart Scale Tracker
+            </h2>
+            <div class="stat">Collected: <span id="count">0</span></div>
+            <div class="stat">Time: <span id="time">00:00:00</span></div>
+            <div class="stat">Rate: <span id="rate">0</span> / hour</div>
+            <div>
+                <button class="tracker-btn" onclick="startTracking()">▶️ Start Timer</button>
+                <button class="tracker-btn" onclick="stopTracking()">⏸ Stop</button>
+            </div>
+            <div>
+                <button class="tracker-btn" onclick="addHeartScale()">+1 Heart Scale</button>
+                <button class="tracker-btn" onclick="resetTracker()">Reset</button>
+            </div>
         </div>
-        <div>
-            <button class="tracker-btn" onclick="addHeartScale()">+1 Heart Scale</button>
-            <button class="tracker-btn" onclick="resetTracker()">Reset</button>
-        </div>
-    </div>
-</section>
+    </section>
 
     <script>
         let heartScales = 0;
@@ -147,7 +147,32 @@
             const seconds = String(totalSeconds % 60).padStart(2, '0');
             return `${hours}:${minutes}:${seconds}`;
         }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            function checkScreen() {
+                const warning = document.getElementById('screen-warning');
+                if (!warning) return;
+                if (window.innerWidth < 900) {
+                    warning.style.display = 'flex';
+                } else {
+                    warning.style.display = 'none';
+                }
+            }
+
+            // Vérifie au chargement
+            checkScreen();
+            // Vérifie au redimensionnement
+            window.addEventListener('resize', checkScreen);
+        });
     </script>
+
+    <div id="screen-warning">
+        <div class="warning-content">
+            ⚠️ Ce site n'est pas disponible sur un écran trop petit. Veuillez réduire le zoom ou utiliser un écran plus
+            grand.
+        </div>
+    </div>
+
 </body>
 
 </html>

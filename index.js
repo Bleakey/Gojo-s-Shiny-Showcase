@@ -578,3 +578,20 @@ if (screenshotBtn) {
     URL.revokeObjectURL(url);
   });
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    function checkScreen() {
+        const warning = document.getElementById('screen-warning');
+        if (!warning) return;
+        if (window.innerWidth < 900) {
+            warning.style.display = 'flex';
+        } else {
+            warning.style.display = 'none';
+        }
+    }
+
+    // Vérifie au chargement
+    checkScreen();
+    // Vérifie au redimensionnement
+    window.addEventListener('resize', checkScreen);
+});

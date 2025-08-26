@@ -1112,58 +1112,23 @@ body {
   transition: transform .2s ease;
 }
 
-/* --- Optimisation mobile --- */
-@media (max-width: 768px) {
-  /* Les résumés de Pokémon passent en colonne */
-  .pokemon-summary {
-    flex-direction: column;
-    gap: 1rem;
+#screen-warning {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-image: url(Images/bg.svg);
+    color: #fff;
+    display: none;
     justify-content: center;
-    text-align: center;
-  }
-
-  /* Images Pokémon plus petites */
-  .pokemon-img {
-    width: 120px;
-    transform: scale(1.2);
-    margin: 0 auto;
-    display: block;
-  }
-
-  /* Sprites de dresseurs réduits */
-  .trainer-img {
-    width: 180px;
-    margin: 0 auto;
-    display: block;
-  }
-
-  /* Blocs de stats et compétences centrés */
-  .stat-block,
-  .skill-block,
-  .trainer-block,
-  .strat-block {
-    width: 100%;
-    max-width: 300px;
-    margin: 10px auto; /* centre horizontalement */
-  }
-
-  /* Sections principales centrées */
-  .city-section {
-    flex-direction: column;
     align-items: center;
+    z-index: 9999;
     text-align: center;
-  }
+    padding: 20px;
+    font-size: 1.5rem;
+}
 
-  /* Réduction des titres */
-  h1,
-  h2 {
-    font-size: 1rem;
-    text-align: center;
-  }
-
-  /* Boutons plus compacts */
-  .btn {
-    font-size: 10px;
-    padding: 8px 14px;
-  }
+#screen-warning .warning-content {
+    max-width: 500px;
 }
