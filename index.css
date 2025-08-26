@@ -21,7 +21,7 @@
 }
 
 body {
-    font-family: 'Press Start 2P', cursive;
+    font-family: 'Press Start 2P';
     background-color: rgb(80, 80, 80);
     background-repeat: no-repeat;
     background-size: cover;
@@ -421,7 +421,7 @@ img {
 }
 
 .btn {
-    font-family: 'Press Start 2P', cursive;
+    font-family: 'Press Start 2P';
     font-size: 12px;
     color: #ffffff;
     background-color: #2a78a5;
@@ -1114,27 +1114,56 @@ body {
 
 /* --- Optimisation mobile --- */
 @media (max-width: 768px) {
+  /* Les résumés de Pokémon passent en colonne */
   .pokemon-summary {
-    flex-direction: column; /* stack verticalement */
+    flex-direction: column;
     gap: 1rem;
+    justify-content: center;
+    text-align: center;
   }
 
+  /* Images Pokémon plus petites */
   .pokemon-img {
-    width: 120px; /* réduire la taille */
-    transform: scale(1.2); /* moins agressif */
+    width: 120px;
+    transform: scale(1.2);
+    margin: 0 auto;
+    display: block;
   }
 
+  /* Sprites de dresseurs réduits */
   .trainer-img {
-    width: 180px; /* plus petit sur mobile */
+    width: 180px;
+    margin: 0 auto;
+    display: block;
   }
 
-  .stat-block, .skill-block, .trainer-block, .strat-block {
+  /* Blocs de stats et compétences centrés */
+  .stat-block,
+  .skill-block,
+  .trainer-block,
+  .strat-block {
     width: 100%;
     max-width: 300px;
-    margin: auto;
+    margin: 10px auto; /* centre horizontalement */
   }
 
-  h1, h2 {
+  /* Sections principales centrées */
+  .city-section {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  /* Réduction des titres */
+  h1,
+  h2 {
     font-size: 1rem;
+    text-align: center;
+  }
+
+  /* Boutons plus compacts */
+  .btn {
+    font-size: 10px;
+    padding: 8px 14px;
   }
 }
