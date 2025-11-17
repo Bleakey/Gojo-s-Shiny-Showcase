@@ -190,8 +190,8 @@ const pokemonList = [
   { name: "Krabby", img: "krabby.png", dex: "098", method: "Singles", sold: "✘", encounters: 12089, video: "https://www.youtube.com/embed/3FFZ3KnMypM" },
   { name: "Cinccino", img: "cinccino.png", dex: "573", method: "3x hordes", sold: "✘", encounters: 1336, video: "https://www.youtube.com/embed/Rb_cz_zZ0yU" },
   { name: "Tentacruel", img: "tentacruel.png", dex: "073", method: "5x hordes", sold: "✘", encounters: 2439, video: "https://www.youtube.com/embed/dZiGaAMx9hI" },
-  { name: "Bibarel", img: "bibarel.png", dex: "400", method: "Singles", sold: "✘", encounters: 19658, video: "https://youtu.be/5it7Bbp9Wd4"  },
-  { name: "Buizel", img: "buizel.png", dex: "418", method: "Singles", sold: "✘", encounters: 12763  },
+  { name: "Bibarel", img: "bibarel.png", dex: "400", method: "Singles", sold: "✘", encounters: 19658, video: "https://www.youtube.com/embed/5it7Bbp9Wd4"  },
+  { name: "Buizel", img: "Buizel.png", dex: "418", method: "Singles", sold: "✘", encounters: 12763  },
   { name: "Koffing", img: "smogo.png", dex: "109", method: "Singles", sold: "✘", encounters: 12763 },
   { name: "Machoke", img: "machoke.png", dex: "067", method: "Singles", sold: "✘", encounters: 12763  },
   
