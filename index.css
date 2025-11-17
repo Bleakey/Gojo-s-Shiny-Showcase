@@ -301,9 +301,13 @@ img {
     opacity: 0.75;
 }
 
-/* Atténuer l'effet shiny sur les non vendus */
+/* Effet shiny sur cartes grisées: uniquement au hover */
 .image-wrapper.not-sold .shiny-effect {
-    opacity: 0.25;
+    opacity: 0;
+}
+
+.image-wrapper.not-sold:hover .shiny-effect {
+    opacity: 1 !important;
 }
 
 /* Neutralise toute aura si présente (les auras utilisent filter) */
