@@ -192,7 +192,7 @@ const pokemonList = [
   { name: "Tentacruel", img: "tentacruel.png", dex: "073", method: "5x hordes", sold: "✘", encounters: 2439, video: "https://www.youtube.com/embed/dZiGaAMx9hI" },
   { name: "Bibarel", img: "bibarel.png", dex: "400", method: "Singles", sold: "✘", encounters: 19658, video: "https://youtu.be/5it7Bbp9Wd4"  },
   { name: "Buizel", img: "buizel.png", dex: "418", method: "Singles", sold: "✘", encounters: 12763  },
-  { name: "Koffing", img: "koffing.png", dex: "109", method: "Singles", sold: "✘", encounters: 12763 },
+  { name: "Koffing", img: "smogo.png", dex: "109", method: "Singles", sold: "✘", encounters: 12763 },
   { name: "Machoke", img: "machoke.png", dex: "067", method: "Singles", sold: "✘", encounters: 12763  },
   
 ];
