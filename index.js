@@ -57,21 +57,23 @@ function addImageHoverListeners() {
         hoverSound.play().catch(() => { });
       }
 
-      // Aura aléatoire
+      // Aura aléatoire (désactivée pour les non vendus)
       const mainImg = wrapper.querySelector('img.main-img');
       if (mainImg) {
         if (mainImg.dataset.aura) {
           mainImg.classList.remove(mainImg.dataset.aura);
           delete mainImg.dataset.aura;
         }
-        const auraOptions = [
-          'aura-gold', 'aura-purple', 'aura-blue', 'aura-red', 'aura-green',
-          'aura-pink', 'aura-cyan', 'aura-white', 'aura-orange',
-          'aura-turquoise', 'aura-rainbow'
-        ];
-        const auraClass = auraOptions[Math.floor(Math.random() * auraOptions.length)];
-        mainImg.classList.add(auraClass);
-        mainImg.dataset.aura = auraClass;
+        if (!wrapper.classList.contains('not-sold')) {
+          const auraOptions = [
+            'aura-gold', 'aura-purple', 'aura-blue', 'aura-red', 'aura-green',
+            'aura-pink', 'aura-cyan', 'aura-white', 'aura-orange',
+            'aura-turquoise', 'aura-rainbow'
+          ];
+          const auraClass = auraOptions[Math.floor(Math.random() * auraOptions.length)];
+          mainImg.classList.add(auraClass);
+          mainImg.dataset.aura = auraClass;
+        }
       }
 
       wrapper.classList.add('gold-border-animated');
@@ -110,7 +112,7 @@ class PokemonCard {
     const videoAttr = this.video ? `data-video="${this.video}"` : `data-video=""`;
     return `
     <div class="pokemon-card col-3 col-md-4 col-lg-2 mb-4">
-      <div class="image-wrapper">
+      <div class="image-wrapper ${this.sold === "✔" ? "not-sold" : ""}">
         <img src="Images/Shinys/${this.img}" 
      alt="${this.name}" 
      class="img-fluid main-img animate-on-load" 
