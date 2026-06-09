@@ -1,0 +1,525 @@
+/* ============================================
+   GRERUN - DEDICATED STYLES
+   ============================================ */
+
+body {
+    padding-top: 50px;
+}
+
+/* ============================================
+   TIMER SECTION
+   ============================================ */
+
+.timer-section {
+    text-align: center;
+    padding: 2rem 1rem 1rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.timer-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+    margin-bottom: 1rem;
+}
+
+.timer-label {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.25);
+}
+
+.timer-value {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 3rem;
+    font-weight: 900;
+    letter-spacing: 4px;
+    color: #ff4444;
+    text-shadow: 0 0 30px rgba(255, 68, 68, 0.3);
+}
+
+.timer-controls {
+    display: flex;
+    justify-content: center;
+    gap: 0.6rem;
+}
+
+.btn-start {
+    border-color: rgba(46, 204, 113, 0.3) !important;
+    color: #2ecc71 !important;
+}
+
+.btn-start:hover {
+    background: rgba(46, 204, 113, 0.12) !important;
+    border-color: rgba(46, 204, 113, 0.5) !important;
+    box-shadow: 0 4px 20px rgba(46, 204, 113, 0.2) !important;
+}
+
+.btn-stop {
+    border-color: rgba(255, 68, 68, 0.3) !important;
+    color: #ff4444 !important;
+}
+
+.btn-stop:hover {
+    background: rgba(255, 68, 68, 0.12) !important;
+    border-color: rgba(255, 68, 68, 0.5) !important;
+    box-shadow: 0 4px 20px rgba(255, 68, 68, 0.2) !important;
+}
+
+.btn-export {
+    border-color: rgba(252, 193, 28, 0.3) !important;
+    color: #fcc11c !important;
+}
+
+.btn-export:hover {
+    background: rgba(252, 193, 28, 0.12) !important;
+    border-color: rgba(252, 193, 28, 0.5) !important;
+    box-shadow: 0 4px 20px rgba(252, 193, 28, 0.2) !important;
+}
+
+/* ============================================
+   TOTAL SECTION
+   ============================================ */
+
+.total-section {
+    text-align: center;
+    padding: 1rem 1rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2rem;
+}
+
+.total-label {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.total-value {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2rem;
+    font-weight: 900;
+    color: #2ecc71;
+    text-shadow: 0 0 20px rgba(46, 204, 113, 0.25);
+}
+
+/* ============================================
+   SECTION HEADINGS
+   ============================================ */
+
+.section-heading {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.3);
+    text-align: center;
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.section-heading::after {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 2px;
+    background: rgba(252, 193, 28, 0.4);
+    margin: 0.8rem auto 0;
+    border-radius: 1px;
+}
+
+/* ============================================
+   TEAM SECTION
+   ============================================ */
+
+.team-section {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.team-card {
+    background: rgba(12, 12, 30, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    padding: 1.2rem;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.team-card:hover {
+    border-color: rgba(252, 193, 28, 0.15);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+}
+
+.team-card-support {
+    border-color: rgba(138, 43, 226, 0.1);
+}
+
+.team-card-support:hover {
+    border-color: rgba(138, 43, 226, 0.25);
+}
+
+.team-card-header {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #fcc11c;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+}
+
+.tag {
+    font-size: 0.55rem;
+    color: rgba(138, 43, 226, 0.8);
+    border: 1px solid rgba(138, 43, 226, 0.3);
+    padding: 2px 6px;
+    border-radius: 100px;
+    margin-left: 4px;
+    vertical-align: middle;
+}
+
+.team-sprite {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    image-rendering: pixelated;
+    margin: 0.5rem 0;
+    filter: drop-shadow(0 0 8px rgba(0, 255, 255, 0.2));
+}
+
+.team-card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+}
+
+.team-stats {
+    font-size: 0.8rem;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.team-items {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.item-icon {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.1));
+}
+
+.inline-item {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 2px;
+}
+
+.team-moves {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4px;
+}
+
+.move {
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* ============================================
+   STRATEGY SECTION
+   ============================================ */
+
+.strategy-section {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+.strategy-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.strat-turn {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.8rem 1.2rem;
+    background: rgba(12, 12, 30, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 12px;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.turn-num {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 900;
+    color: #fcc11c;
+    background: rgba(252, 193, 28, 0.08);
+    border: 1px solid rgba(252, 193, 28, 0.15);
+    padding: 4px 10px;
+    border-radius: 8px;
+    flex-shrink: 0;
+}
+
+/* ============================================
+   ROUTE DIVIDER
+   ============================================ */
+
+.route-divider {
+    width: 60%;
+    max-width: 400px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(252, 193, 28, 0.3), transparent);
+    margin: 2rem auto;
+}
+
+/* ============================================
+   CITY SECTIONS
+   ============================================ */
+
+.city-section {
+    position: relative;
+    margin: 0;
+    padding: 3rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    transition: background 0.3s ease;
+}
+
+.city-section:hover {
+    background: rgba(255, 255, 255, 0.01);
+}
+
+.city-section::before {
+    display: none;
+}
+
+.city-bonus {
+    border-left: 3px solid rgba(252, 193, 28, 0.2);
+    margin-left: 2rem;
+    margin-right: 2rem;
+    border-radius: 0 12px 12px 0;
+}
+
+.city-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.city-number {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 900;
+    color: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    flex-shrink: 0;
+}
+
+.city-number.bonus {
+    color: rgba(252, 193, 28, 0.5);
+    border-color: rgba(252, 193, 28, 0.15);
+    background: rgba(252, 193, 28, 0.05);
+}
+
+.city-header .wavy-text span {
+    font-size: 1.3rem;
+}
+
+.city-content {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+/* City images */
+.city-image img {
+    max-width: 300px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    transition: transform 0.3s ease;
+}
+
+.city-image img:hover {
+    transform: scale(1.02);
+}
+
+/* Trainer images in cities */
+.city-section .trainer-img {
+    width: 160px;
+    height: auto;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: rgba(12, 12, 30, 0.5);
+    padding: 8px;
+    transition: all 0.3s ease;
+}
+
+.city-section .trainer-img:hover {
+    border-color: rgba(252, 193, 28, 0.2);
+    transform: scale(1.05);
+}
+
+/* Striaton triple trainers */
+.city-section .trainer-img img,
+.city-section .trainer-img .rounded {
+    width: 120px !important;
+    height: auto !important;
+}
+
+/* Trainer block (strategy text) */
+.city-section .trainer-block {
+    background: rgba(12, 12, 30, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 12px;
+    padding: 0.8rem 1.2rem;
+    max-width: 450px;
+    margin: 1rem auto;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.55);
+    line-height: 2;
+}
+
+.leader-name {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #74c2e1;
+    letter-spacing: 1px;
+}
+
+.note {
+    font-size: 0.8rem;
+    color: rgba(255, 207, 50, 0.6);
+    font-style: italic;
+}
+
+/* Fly indicator */
+.region-fly {
+    display: inline-block;
+    margin-top: 1rem;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #ff4444;
+    background: rgba(255, 68, 68, 0.08);
+    border: 1px solid rgba(255, 68, 68, 0.2);
+    padding: 6px 16px;
+    border-radius: 100px;
+    animation: flyPulse 2s ease-in-out infinite;
+}
+
+@keyframes flyPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(255, 68, 68, 0.15); }
+    50% { box-shadow: 0 0 0 8px rgba(255, 68, 68, 0); }
+}
+
+/* Timestamps */
+.city-timestamps {
+    margin-top: 0.8rem;
+}
+
+.city-timestamps p {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.7rem;
+    color: rgba(46, 204, 113, 0.6);
+    margin: 0.2rem 0;
+}
+
+/* ============================================
+   PROGRESS BAR OVERRIDE
+   ============================================ */
+
+.progress-container-fixed {
+    background: rgba(6, 6, 15, 0.95);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    padding: 8px 16px !important;
+}
+
+.progress-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.progress-label {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.55rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.25);
+    white-space: nowrap;
+}
+
+.progress-container-fixed .progress {
+    background: rgba(255, 255, 255, 0.04) !important;
+    border-radius: 100px !important;
+    height: 16px !important;
+    flex: 1;
+}
+
+.progress-container-fixed .progress-bar {
+    background: linear-gradient(90deg, #fcc11c, #ff6b6b) !important;
+    border-radius: 100px !important;
+    font-size: 0.6rem !important;
+    font-weight: 700 !important;
+}
+
+/* ============================================
+   LOCKED TRAINER (clicked)
+   ============================================ */
+
+.trainer-img.locked {
+    filter: grayscale(60%) brightness(0.6);
+    opacity: 0.5;
+}

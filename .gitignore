@@ -1,0 +1,6 @@
+# Claude Code agent workspace
+.claude/
+
+# OS / editor cruft
+Thumbs.db
+.DS_Store

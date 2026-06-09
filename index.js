@@ -38,7 +38,7 @@ if (soundToggleBtn) {
 
 // Effets au hover sur les images Pokémon
 function addImageHoverListeners() {
-  const wrappers = document.querySelectorAll('.image-wrapper');
+  const wrappers = document.querySelectorAll('.image-wrapper:not(.pokedex-stage)');
   const otherImages = document.querySelectorAll('.image-blur');
   const backgroundBlur = document.getElementById('background-blur');
 
@@ -57,23 +57,10 @@ function addImageHoverListeners() {
         hoverSound.play().catch(() => { });
       }
 
-      // Aura aléatoire (désactivée pour les non vendus)
+      // Single themed gold aura (skip for unsold/grayed sprites)
       const mainImg = wrapper.querySelector('img.main-img');
-      if (mainImg) {
-        if (mainImg.dataset.aura) {
-          mainImg.classList.remove(mainImg.dataset.aura);
-          delete mainImg.dataset.aura;
-        }
-        if (!wrapper.classList.contains('not-sold')) {
-          const auraOptions = [
-            'aura-gold', 'aura-purple', 'aura-blue', 'aura-red', 'aura-green',
-            'aura-pink', 'aura-cyan', 'aura-white', 'aura-orange',
-            'aura-turquoise', 'aura-rainbow'
-          ];
-          const auraClass = auraOptions[Math.floor(Math.random() * auraOptions.length)];
-          mainImg.classList.add(auraClass);
-          mainImg.dataset.aura = auraClass;
-        }
+      if (mainImg && !wrapper.classList.contains('not-sold')) {
+        mainImg.classList.add('aura-glow');
       }
 
       wrapper.classList.add('gold-border-animated');
@@ -86,15 +73,44 @@ function addImageHoverListeners() {
       if (backgroundBlur) backgroundBlur.style.filter = 'blur(0px)';
 
       const mainImg = wrapper.querySelector('img.main-img');
-      if (mainImg && mainImg.dataset.aura) {
-        mainImg.classList.remove(mainImg.dataset.aura);
-        delete mainImg.dataset.aura;
-      }
+      if (mainImg) mainImg.classList.remove('aura-glow');
 
       wrapper.classList.remove('gold-border-animated');
     });
   });
 }
+
+// Reveal cards as they scroll into view (staggered per row)
+function addScrollReveal(container) {
+  const cards = container.querySelectorAll('.pokemon-card');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (reduceMotion || !('IntersectionObserver' in window)) {
+    cards.forEach(c => c.classList.add('in-view'));
+    return;
+  }
+
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const card = entry.target;
+      // small per-column wave so a row animates in like a ripple
+      const i = Number(card.dataset.revealIndex || 0);
+      card.style.animationDelay = `${(i % 6) * 0.06}s`;
+      card.classList.add('in-view');
+      obs.unobserve(card);
+    });
+  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.1 });
+
+  cards.forEach((card, i) => {
+    card.dataset.revealIndex = i;
+    observer.observe(card);
+  });
+}
+
+// Per-sprite bottom transparent-padding fraction (measured from the PNGs).
+// Used to seat each Pokémon's feet on the grass regardless of canvas whitespace.
+const SPRITE_TRIM = { "Beedrill.png": 0.177, "Buizel.png": 0.24, "Deino.png": 0.24, "Heracross.png": 0.167, "Ledian.png": 0.167, "Pinsir.png": 0.177, "Snorunt.png": 0.292, "Spr_5b_047_s.png": 0.198, "beedrill.gif": 0.054, "bibarel.png": 0.208, "butterfree.png": 0.26, "cinccino.png": 0.208, "cofagrigus.png": 0.09, "crobat.gif": 0.179, "druddigon.png": 0.115, "duskull.png": 0.271, "gallade.png": 0.146, "gardevoir.png": 0.125, "golem.png": 0.198, "gothitelle.png": 0.115, "graveler.png": 0.271, "krabby.png": 0.292, "krokorok.png": 0.125, "lairon.png": 0.104, "lopunny.png": 0.177, "lunatone.gif": 0.136, "machoke.png": 0.125, "magikarp.png": 0.167, "mawile.png": 0.229, "meowth.png": 0.167, "meowthFlipped.png": 0.167, "milotic.gif": 0.023, "miltank.gif": 0.067, "piloswine.gif": 0.036, "roserade.png": 0.198, "sableye.png": 0.25, "sealeo.png": 0.24, "slowbro.png": 0.188, "smeargle.png": 0.24, "smogo.png": 0.396, "tartard.png": 0.208, "tentacruel.png": 0.052, "vulpix.png": 0.24, "walrein.png": 0.135, "wooper.png": 0.333 };
 
 // Classes Pokémon
 class PokemonCard {
@@ -109,25 +125,22 @@ class PokemonCard {
   }
 
   render() {
-    const videoAttr = this.video ? `data-video="${this.video}"` : `data-video=""`;
+    const trim = SPRITE_TRIM[this.img] || 0;
+    const feetStyle = trim ? `--feet: calc(${trim} * var(--card-img));` : "";
     return `
     <div class="pokemon-card col-3 col-md-4 col-lg-2 mb-4">
       <div class="image-wrapper ${this.sold === "✔" ? "not-sold" : ""}">
-        <img src="Images/Shinys/${this.img}" 
-     alt="${this.name}" 
-     class="img-fluid main-img animate-on-load" 
-     style="width: 120px; height: 120px; object-fit: contain;" 
-     ${videoAttr}>
+        <i class="ground-shadow"></i>
+        <img src="Images/Shinys/${this.img}"
+     alt="${this.name}"
+     class="img-fluid main-img animate-on-load"
+     style="${feetStyle}"
+     data-name="${this.name}"
+     data-dex="${this.dex}"
+     data-method="${this.method}"
+     data-encounters="${this.encounters}"
+     data-sold="${this.sold}">
         <img src="Images/shiny-effect.gif" alt="" class="shiny-effect">
-      </div>
-      <div class="stats-panel">
-        <ul>
-          <li><strong>Encounters :</strong> ${this.encounters}</li>
-          <li><strong>Encounter type :</strong> ${this.method}</li>
-          <li><strong>Pokédex :</strong> ${this.dex}</li>
-          <li><strong>Name :</strong> ${this.name}</li>
-          <li><strong>Sold :</strong> ${this.sold}</li>
-        </ul>
       </div>
     </div>
   `;
@@ -143,17 +156,16 @@ class CurrentHuntCard {
   }
 
   render() {
+    const trim = SPRITE_TRIM[this.img] || 0;
+    const feetStyle = trim ? `--feet: calc(${trim} * var(--card-img));` : "";
     return `
       <div class="pokemon-card col-6 col-md-4 col-lg-2 mb-4">
         <div class="image-wrapper">
-          <img src="Images/Shinys/${this.img}" alt="${this.name}" class="img-fluid main-img animate-on-load">
+          <i class="ground-shadow"></i>
+          <img src="Images/Shinys/${this.img}" alt="${this.name}" class="img-fluid main-img animate-on-load"
+               style="${feetStyle}"
+               data-name="${this.name}" data-method="${this.method}" data-encounters="${this.encounters}">
           <img src="Images/shiny-effect.gif" alt="" class="shiny-effect">
-        </div>
-        <div class="stats-panel">
-          <ul>
-            <li><strong>Encounter type :</strong> ${this.method}</li>
-            <li><strong>Encounters :</strong> ${this.encounters}</li>
-          </ul>
         </div>
       </div>
     `;
@@ -196,7 +208,12 @@ const pokemonList = [
   { name: "Buizel", img: "Buizel.png", dex: "418", method: "Singles", sold: "✘", encounters: 12763  },
   { name: "Koffing", img: "smogo.png", dex: "109", method: "Singles", sold: "✘", encounters: 12763 },
   { name: "Machoke", img: "machoke.png", dex: "067", method: "Singles", sold: "✘", encounters: 12763  },
-  
+  { name: "Sableye", img: "sableye.png", dex: "302", method: "5x hordes", sold: "✘", encounters: 75595 },
+  { name: "Graveler", img: "graveler.png", dex: "075", method: "5x hordes", sold: "✘", encounters: 26345 },
+  { name: "Mawile", img: "mawile.png", dex: "303", method: "5x hordes", sold: "✘", encounters: 7259 },
+  { name: "Vulpix", img: "vulpix.png", dex: "037", method: "5x hordes", sold: "✘", encounters: 24784 },
+  { name: "Slowbro", img: "slowbro.png", dex: "080", method: "5x hordes", sold: "✘", encounters: 2368 },
+
 ];
 /*
 const currentHunts = [
@@ -217,11 +234,13 @@ if (shinyCount) {
 // Affiche cartes shiny
 const showcaseContainer = document.getElementById("shiny-showcase");
 if (showcaseContainer) {
-  pokemonList.forEach(pkm => {
+  pokemonList.forEach((pkm, index) => {
     const card = new PokemonCard(pkm);
     showcaseContainer.innerHTML += card.render();
   });
   addImageHoverListeners();
+  addScrollReveal(showcaseContainer);
+  showcaseContainer.addEventListener("click", handleCardClick);
 }
 
 // Affichage des cartes dans la page
@@ -232,56 +251,71 @@ if (cardsContainer) {
     cardsContainer.innerHTML += card.render();
   });
   addImageHoverListeners();
+  addScrollReveal(cardsContainer);
+  cardsContainer.addEventListener("click", handleCardClick);
 }
 
-// Ouverture modal vidéo ou message no video
-document.addEventListener("click", function (e) {
-  if (e.target.matches(".main-img")) {
-    const videoSrc = e.target.getAttribute("data-video");
-    const iframe = document.getElementById("shinyVideoIframe");
-    const noVideoMsg = document.getElementById("noVideoMessage");
-    const modalEl = document.getElementById("shinyReactionModal");
-    const modal = new bootstrap.Modal(modalEl);
-    const ratioDiv = iframe.parentElement; // div.ratio
+// --- Pokédex popup (click a Pokémon to see its entry) --------------------
+const pokedexModal = document.getElementById("pokedexModal");
 
-    if (!videoSrc) {
-      ratioDiv.style.display = "none";
-      iframe.style.display = "none";
-      noVideoMsg.style.display = "block";
-      modal.show();
-      return;
+function handleCardClick(e) {
+  const wrapper = e.target.closest(".image-wrapper");
+  if (!wrapper) return;
+  const img = wrapper.querySelector(".main-img");
+  if (img) openPokedex(img);
+}
+
+function openPokedex(img) {
+  if (!pokedexModal) return;
+  const d = img.dataset;
+  const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+
+  set("pdexNo", d.dex ? "No. " + d.dex : "");
+  set("pdexName", d.name || "Unknown");
+  set("pdexEnc", d.encounters || "—");
+  set("pdexMethod", d.method || "—");
+
+  const soldEl = document.getElementById("pdexSold");
+  if (soldEl) {
+    if (d.sold) {
+      const sold = d.sold === "✔";
+      soldEl.textContent = sold ? "Sold" : "Unsold";
+      soldEl.className = sold ? "is-sold" : "is-available";
     } else {
-      ratioDiv.style.display = "block";
-      iframe.style.display = "block";
-      noVideoMsg.style.display = "none";
-      iframe.src = videoSrc + "?autoplay=1";
-      modal.show();
-    }
-
-    modalEl.addEventListener("hidden.bs.modal", () => {
-      iframe.src = "";
-      ratioDiv.style.display = "block";
-      iframe.style.display = "block";
-      noVideoMsg.style.display = "none";
-    }, { once: true });
-  }
-
-  if (e.target.closest("#modalClose")) {
-    const modalEl = document.getElementById("shinyReactionModal");
-    const modal = bootstrap.Modal.getInstance(modalEl);
-    if (modal) modal.hide();
-  }
-});
-
-window.addEventListener('resize', () => {
-  if (window.innerWidth < 992) {
-    const modalEl = document.getElementById("shinyReactionModal");
-    const modal = bootstrap.Modal.getInstance(modalEl);
-    if (modal) {
-      modal.hide();
+      soldEl.textContent = "—";
+      soldEl.className = "";
     }
   }
-});
+
+  const stage = document.getElementById("pdexImg");
+  if (stage) {
+    stage.src = img.src;
+    stage.alt = d.name || "";
+    const file = img.src.split("/").pop();
+    const trim = SPRITE_TRIM[file] || 0;
+    stage.style.setProperty("--feet", trim ? `calc(${trim} * var(--card-img))` : "0px");
+  }
+
+  pokedexModal.classList.add("open");
+  pokedexModal.setAttribute("aria-hidden", "false");
+  document.body.style.overflow = "hidden";
+}
+
+function closePokedex() {
+  if (!pokedexModal) return;
+  pokedexModal.classList.remove("open");
+  pokedexModal.setAttribute("aria-hidden", "true");
+  document.body.style.overflow = "";
+}
+
+if (pokedexModal) {
+  pokedexModal.addEventListener("click", (e) => {
+    if (e.target.closest("[data-pokedex-close]")) closePokedex();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && pokedexModal.classList.contains("open")) closePokedex();
+  });
+}
 
 // Tous les types d'images qui peuvent s'agrandir
 const clickableImages = document.querySelectorAll('.trainer-img');
@@ -492,13 +526,15 @@ const dingSound = new Audio('sounds/ding.wav');
 
 document.addEventListener("DOMContentLoaded", () => {
   const progressBar = document.getElementById("run-progress");
-  const trainers = Array.from(document.querySelectorAll(".trainer-img"));
-  const totalTrainers = trainers.length;
+  const trainers = Array.from(document.querySelectorAll(".city-section img.trainer-img"));
+  const availableTrainers = trainers.filter(t => !t.classList.contains("season-unavailable"));
+  const totalTrainers = availableTrainers.length;
 
   trainers.forEach(trainer => {
-    // Marquer les trainers indisponibles comme déjà cliqués
+    // Marquer les trainers indisponibles comme déjà cliqués (exclus du calcul)
     if (trainer.classList.contains("season-unavailable")) {
       trainer.dataset.clicked = "true";
+      trainer.dataset.excluded = "true";
     }
 
     trainer.addEventListener("click", () => {
@@ -508,8 +544,8 @@ document.addEventListener("DOMContentLoaded", () => {
       // Jouer le son
       dingSound.play();
 
-      // Calcul du pourcentage
-      const clickedCount = trainers.filter(t => t.dataset.clicked === "true").length;
+      // Calcul du pourcentage (exclure les season-unavailable)
+      const clickedCount = trainers.filter(t => t.dataset.clicked === "true" && t.dataset.excluded !== "true").length;
       const newWidth = (clickedCount / totalTrainers) * 100;
 
       progressBar.style.width = newWidth + "%";
@@ -528,8 +564,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Calcul initial si certains trainers sont déjà cliqués
-  const clickedCountInit = trainers.filter(t => t.dataset.clicked === "true").length;
+  // Calcul initial (exclure les season-unavailable)
+  const clickedCountInit = trainers.filter(t => t.dataset.clicked === "true" && t.dataset.excluded !== "true").length;
   const newWidthInit = (clickedCountInit / totalTrainers) * 100;
   progressBar.style.width = newWidthInit + "%";
   progressBar.textContent = Math.round(newWidthInit) + "%";
@@ -587,18 +623,8 @@ if (screenshotBtn) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    function checkScreen() {
-        const warning = document.getElementById('screen-warning');
-        if (!warning) return;
-        if (window.innerWidth < 900) {
-            warning.style.display = 'flex';
-        } else {
-            warning.style.display = 'none';
-        }
-    }
-
-    // Vérifie au chargement
-    checkScreen();
-    // Vérifie au redimensionnement
-    window.addEventListener('resize', checkScreen);
+    // The showcase is now fully responsive, so the "larger screen" overlay
+    // is no longer needed. Keep it hidden in case the markup is still present.
+    const warning = document.getElementById('screen-warning');
+    if (warning) warning.style.display = 'none';
 });
